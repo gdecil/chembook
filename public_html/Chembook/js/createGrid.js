@@ -270,6 +270,42 @@ function cgMolecules(gridId, mydata) {
 
 };
 
+function cgMoleculesMar(gridId, mydata) {
+   var grid = $(gridId);
+   grid.jqGrid('GridUnload');
+        
+    jQuery(gridId).jqGrid({
+        datatype: "local",
+        data: mydata,
+        height: 'auto',
+        autowidth: true,
+        colNames: ['USERNAME', 'BATCH', 'CORPID', 'SUBMISSION_DATE', 'STRID'],
+        colModel: [
+            {name: 'username', index: 'username', width: 60},
+            {name: 'batch', index: 'batch', width: 60},
+            {name: 'corp_id', index: 'corp_id', width: 60},
+            { name: 'submission_date', index: 'submission_date', width: 60 },
+            {name: 'str_id', index: 'str_id', width: 60, hidden:true, key:true}
+        ],
+        caption: "STRID",
+        pager : gridId + 'pager',
+        rowNum: 5,
+        viewrecords : true,
+        onSelectRow: function(id){ 
+            if(event.ctrlKey)
+            {            
+                batch = getCellValueSelected(gridId, 'batch')
+                getReactions("batch=" + batch ,"", "","") 
+            }
+            currentStrid = id
+            appendMolecule( $('#containerReaction'), id);
+         },
+        gridview: true // !!! improve the performance
+    });
+        jQuery(gridId).jqGrid('navGrid', gridId + 'pager',{add: false, edit: false, del: false, search: false, view: true});
+
+};
+
 function cgReactions(gridId, mydata) {
    var grid = $(gridId);
    grid.jqGrid('GridUnload');

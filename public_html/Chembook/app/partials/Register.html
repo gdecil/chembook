@@ -1,4 +1,25 @@
-     <div class = "layout" ui-layout  >
+		<script type="text/ng-template" id="firstDialog">
+			<div class="ngdialog-message">
+
+            <div class="modal-header">
+              <h4 class="modal-title">Find All</h4>
+            </div>
+                <div>With ngDialog you don't need jQuery or Bootstrap to create dialogs for <code>ng-app:</code></div>
+				<ul class="mt">
+					<li>Use it in controllers, factories or directives</li>
+					<li>Create your own directives</li>
+					<li>Style all UI and templates</li>
+					<li>Configure themes</li>
+					<li>Add animations and effects</li>
+				</ul>
+				<div class="mt">Module is shipped with both <code>ngDialog</code> service and default directive.</div>
+			</div>
+			<div class="ngdialog-buttons mt">
+				<button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="next()">►</button>
+			</div>
+		</script>
+
+  <div class = "layout" ui-layout  >
       <div id="nord" ui-layout-container size="50px" class=" html-back" >
             <div class = "navbarfloat" >
                 <angled-navbar1 affixed='affixed' brand='brand' inverse='inverse' menus='menus' navfn='navfn(action)' searchfn='searchfn()'></angled-navbar1>
@@ -102,8 +123,8 @@
               </tr>
               <tr>
                 <td>
-                  <div style="height: 500px; width: 100%; margin: 0;">
-                      <ang-accordion>
+                  <div >
+                      <ang-accordion >
                             <collapsible-item title="Reaction Scheme">
                               <div id="containerReaction" style="min-width:800px;min-height:200px;width:100%;;border-style:none">
                                 
@@ -114,6 +135,82 @@
                                 </div>
                             </collapsible-item>
                             <collapsible-item title="Stoichiometry">
+                                <table>
+                                    <tr id='reagenti'>
+                                        <td>
+                                        <div id='gridR'>
+                                            <table id='myReactant'></table>
+                                            <div id='reactantspager'></div> 
+                                        </div>
+                                        </td>
+                                    </tr>
+                                    <tr id='prodotti'>
+                                        <td>
+                                        <div id='gridP'>
+                                            <table id='myProducts'></table>
+                                            <div id='Productspager'></div> 
+                                        </div>
+                                        </td>
+                                    </tr>
+                                </table>                                
+                            </collapsible-item>
+                            <collapsible-item title="Procedure">
+                                <div id="containerProcedure" style="min-width:800px;min-height:200px;width:100%;;border-style:none" disabled>                                
+                                </div>
+                              <div ng-controller="ckeCtrl">
+                                        <ng-ckeditor bind="htmlEditor" skin="moono" remove-buttons="Image" remove-plugins="iframe,flash,smiley" msn-count="
+                                  Number of typed characters:"></ng-ckeditor>
+                              </div>                            
+                            </collapsible-item>
+                            <collapsible-item title="Attachments">
+                                <div>
+                                    <table>
+                                        <tr id='reagenti'>
+                                            <td>
+                                                <div id='gridR'>
+                                                    <table id='myAttach'></table>
+                                                    <div id='attachPager'></div> 
+                                                </div>
+                                            </td>
+                                            <td>
+                                               <table class="table">>
+                                                   <tr >
+                                                       <td>
+                                                           <label class='viewLabel' >Name</label>
+                                                       </td>
+                                                       <td>
+                                                           <input id='txtDocName' class ='viewTxt' type='text'/>
+                                                       </td>
+                                                   </tr>
+                                                   <tr >
+                                                       <td>
+                                                           <label class='viewLabel' >Description</label>
+                                                       </td>
+                                                       <td>
+                                                           <input id='txtDocDesc' class ='viewTxt' type='text'/>
+                                                       </td>
+                                                   </tr>
+                                                   <tr >
+                                                       <td>
+                                                           <label class='viewLabel' >Original File</label>
+                                                       </td>
+                                                       <td>
+                                                           <input id='txtDocFile' class ='viewTxt' type='text'/>
+                                                       </td>
+                                                   </tr>
+                                                   <tr >
+                                                       <td>
+                                                           <label class='viewLabel' >Download</label>
+                                                       </td>
+                                                       <td>
+                                                           <div id='downFile'></div>
+                                                       </td>
+                                                   </tr>
+                                               </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </collapsible-item>
                         </ang-accordion>
                   </div>        

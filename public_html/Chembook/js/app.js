@@ -23,6 +23,9 @@ else if (server == "http://217.220.17.147"){	//produzione da esterno
 else if (server == "http://127.0.0.1"){			//sviluppo da casa
 	server = "http://10.0.2.15:8080"
 }
+else if (server == "http://10.206.89.79"){			//server test chemolinux mio uff
+	server = "http://10.206.89.79:8080"
+}
 else {
 	server = "http://indigo-gdecil.rhcloud.com"
 }
@@ -31,6 +34,7 @@ var exp ;
 var currentNB 
 var currentPage 
 var currentMolInfo
+var currentStrid
 currentMolInfo = []
 
 var xApp = angular.module(
@@ -46,7 +50,10 @@ var xApp = angular.module(
     'xRuns',
     'schemaForm',
     'ui.ace',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ng.ckeditor',
+    'ngCookies',
+    'ngDialog'
   ]
 );
 
@@ -56,6 +63,10 @@ xApp.config(['$routeProvider',
       when('/graph/:id', {
         templateUrl: 'app/partials/Graph.html',
         controller: 'graphCtrl'
+      }).
+      when('/login', {
+        templateUrl: 'app/partials/Login.html',
+        controller: 'loginCtrl'
       }).
       when('/search', {
         templateUrl: 'app/partials/Search.html',
@@ -70,7 +81,7 @@ xApp.config(['$routeProvider',
         controller: 'registerCtrl'
       }).
       otherwise({
-        redirectTo: '/search'
+        redirectTo: '/login'
       });
   }]);
 

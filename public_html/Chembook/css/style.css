@@ -1,3 +1,14 @@
+.collapsible-item {
+  margin-bottom: 0px;
+}
+.collapsible-item.open .body {
+  max-height: 2000px;
+}
+
+.form-horizontal {
+  max-width: 800px;
+}
+
 .html-back2{
   background : #eee url("http://placehold.it/400x300/eee/666&text=HTML") no-repeat center;
 
@@ -11,9 +22,20 @@
   padding: 10px;
 }
 
+.form-group, .form-actions{
+  width: 300px;
+    width: 50%;
+    margin: 0 auto;
+}
+
 .glyphicon-chevron-left,
 .glyphicon-chevron-right,
 .glyphicon-chevron-up,
 .glyphicon-chevron-down{
   color: blue;
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+  width: 700px;
+  height: 500px;
 }

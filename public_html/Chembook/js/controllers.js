@@ -2,6 +2,22 @@
 /* Controllers */
 
 var xControllers = angular.module('xControllers', ['ui.layout', 'ngSanitize', 'angularTreeview', 'angAccordion', 'highcharts-ng'])
+.controller('loginCtrl',['$scope','$routeParams','$http','$location', '$cookies', function($scope, $param ,$http, $location, $cookies) {
+        $scope = navBarLogin($scope,$param, $location)   
+        $scope.login = function () {
+            var ok = checkUserPwd($scope.username, $scope.password);
+            if(ok=="\"User or password error\""){
+                $cookies.userChembook = 'Please Login'
+                alert(ok)
+            }
+            else {
+                $cookies.userChembook = $scope.username;
+                alert($scope.username + " is logged in")
+                $location.path('/search');                
+            }
+        };
+      }
+    ])
 .controller('graphCtrl', ['$routeParams','$scope', '$http', '$window', '$location', function($param, $scope,$http, $window, $location) {        
   $scope = treeview($scope,$http,null,$location)  
 //        $scope = formView($scope,$http)  
@@ -18,30 +34,43 @@ var xControllers = angular.module('xControllers', ['ui.layout', 'ngSanitize', 'a
   });
   $scope = graphChart($scope, $param)
  }])
-.controller('searchCtrl', ['$scope', '$http', '$window', '$location', function($scope,$http, $window, $location) {        
+.controller('searchCtrl', ['$scope', '$http', '$window', '$location', '$cookies', function($scope,$http, $window, $location, $cookies) {  
+        var user = $cookies.userChembook
         $scope = treeview($scope,$http,null,$location)  
 //        $scope = formView($scope,$http)  
         $scope = tabsSearch($scope, $window)
-        $scope = navBarSearch($scope, $location)        
+        $scope = navBarSearch($scope, $location, user)        
         $scope.$on("editReactionEvent", function (event, args) {
 //          $('#containerReaction').hide()
 //          $('#ketcherFrame').show();
-          var ketcher = getKetcher();
-          ketcher.setMolecule(exp.Rxn);
-          if($scope.form.ctrl != undefined){
-            $scope.form.ctrl.$dirty= true;
-          }
+            if($('.ui-jqgrid-title')[0].textContent=="STRID"){
+                getMolecule(currentStrid).done(function(molfile) {
+                    var ketcher = getKetcher();
+                    ketcher.setMolecule(molfile);
+                })
+            }
+            else
+            {
+                var ketcher = getKetcher();
+                ketcher.setMolecule(exp.Rxn);
+                if($scope.form.ctrl != undefined){
+                    $scope.form.ctrl.$dirty= true;
+                }
+            }
         });
 
      }])
-.controller('viewCtrl',['$scope','$routeParams','$http','$location', function($scope, $param ,$http, $location) {
+.controller('viewCtrl',['$scope','$routeParams','$http','$location', '$cookies', function($scope, $param ,$http, $location, $cookies) {
+        var user = $cookies.userChembook
         var form ={input: {}}
 
         $scope = treeview($scope,$http,$param,$location)  
-        $scope = navBarView($scope,$param, $location)     
+        $scope = navBarView($scope,$param, $location, user)     
         $scope.$on("openExperiment", function (event, args) {
           var tmp = args.value.split("-");
           $scope.form = getExperiment(tmp[0],tmp[1], form);
+          $('#containerProcedure').show();
+          $( "div[ng-controller='ckeCtrl']" ).hide()
         });        
         
         $scope.save = function () {
@@ -52,25 +81,35 @@ var xControllers = angular.module('xControllers', ['ui.layout', 'ngSanitize', 'a
           inform.add('Form data saved');
       //    $location.path('/');
         };
-
-        $http.get("simple.json").then(function(res){
-          if($param.experiment.length >1){
+    
+        if($param.experiment.length >1){
             var tmp = $param.experiment.split("-");
-            $scope.form = getExperiment(tmp[0],tmp[1], form);
-          }            
-        });
-
+            $scope.$root.$broadcast("openExperiment", {                                      
+                value: tmp[0] + "-" + tmp[1]
+            });
+        }            
       }
     ])
-.controller('registerCtrl', ['$scope', '$routeParams', '$http', '$location','inform', function($scope, $param ,$http, $location, inform) {        
+.controller('registerCtrl', ['$scope', '$routeParams', '$http', '$location','inform', '$cookies', 'ngDialog', function($scope, $param ,$http, $location, inform, $cookies, ngDialog) {  
+        var user = $cookies.userChembook
         $scope = treeview($scope,$http, $param,$location)  
-        $scope = navBarRegister($scope, $location)             
+        $scope = navBarRegister($scope, $location, user)             
         var form ={input: {}}
         $scope.form =form
+        var jqxhr = $.get( "example.php", function() {
+          alert( "success" );
+        })
+          .always(function() {
+              $scope.isReady = true;
+        });            
+        
         $scope.$on("openExperiment", function (event, args) {
           var tmp = args.value.split("-");
           $scope.form = getExperiment(tmp[0],tmp[1], form);
+          $('#containerProcedure').show();
+          $( "div[ng-controller='ckeCtrl']" ).hide()
         });        
+
         $scope.$watch('form.input', 
         function() { 
           if(exp != undefined){
@@ -119,16 +158,63 @@ var xControllers = angular.module('xControllers', ['ui.layout', 'ngSanitize', 'a
           if($scope.form.ctrl != undefined){$scope.form.ctrl.$setPristine(true);}
 //          inform.add('Form data saved');
         });
-  
-        $http.get("simple.json").then(function(res){
-          if($param.experiment.length >1){
-            var tmp = $param.experiment.split("-");
-            //$scope.form.input.batch_creator = "pippo"
-            $scope.form = getExperiment(tmp[0],tmp[1], form);
-          }            
+        $scope.$on("setMoleculesEvent", function (event, args) {
+          var ketcher = getKetcher();
+          exp.Rxn = ketcher.getMolfile();
+          loadStoic(exp.Rxn, "", "mole")
+          if($scope.form.ctrl != undefined){$scope.form.ctrl.$setPristine(false);}
         });
-        //$scope.form.input.batch_creator = "pippo"
-     }])
+        $scope.$on("findAllEvent", function (event, args) {
+            ngDialog.open({
+                template: 'firstDialog',
+                controller: 'FirstDialogCtrl',
+                className: 'ngdialog-theme-default ngdialog-theme-custom'
+            });
+        });
+  
+        if($param.experiment.length >1){
+            var tmp = $param.experiment.split("-");
+            $scope.$root.$broadcast("openExperiment", {                                      
+                value: tmp[0] + "-" + tmp[1]
+            });
+        }            
+    
+}])
+.controller('FirstDialogCtrl', function ($scope, ngDialog) {
+				$scope.next = function () {
+					ngDialog.close('ngdialog1');
+					ngDialog.open({
+						template: 'secondDialog',
+						className: 'ngdialog-theme-flat ngdialog-theme-custom'
+					});
+				};
+			})
+.controller('ckeCtrl', ['$scope', function($scope) {        
+  $scope.htmlEditor = ""
+    $scope.$on("openProcedure", function (event, args) {
+      $('#containerProcedure').hide();
+      $( "div[ng-controller='ckeCtrl']" ).show()
+
+      $scope.htmlEditor = exp.WorkUp
+/*
+      if(args.value==null){
+          $scope.htmlEditor = "";
+      }
+      else {
+        if(exp.page!="0014"){
+          $scope.htmlEditor = args.value;                  
+        }
+        else {
+          $scope.htmlEditor = args.value; 
+          $scope.htmlEditor = "test";
+          $scope.htmlEditor = args.value; 
+        }
+      }
+*/
+        //"ciao ugo " + exp.GeneralDataReaction[0].procedure;
+      //$scope.$apply()
+    });
+}]);  
 
 var treeview = function($scope,$http,$param,$location) {
         /* treeview section*/
@@ -262,12 +348,10 @@ var treeview = function($scope,$http,$param,$location) {
             var rxnIDs = getReactions(notebook + "-" + page ,"text", $('#containerReaction'),"#myGridSearch") 
           }
           else{
-            $location.path('/view/' + notebook + '-' + page);
-/*
+//            $location.path('/view/' + notebook + '-' + page);
             $scope.$root.$broadcast("openExperiment", {                                      
                 value: notebook + "-" + page
             });
-*/
           }
         }
         else{
@@ -305,14 +389,56 @@ var treeview = function($scope,$http,$param,$location) {
   return $scope
 }
 
-var navBarSearch = function($scope, $location){
+var navBarLogin = function($scope, $location){
+      /* navBar section*/
+          $scope.affixed = 'top';
+          $scope.brand = "<span class='glyphicon glyphicon-user'></span> Please Login";
+          $scope.inverse = true;
+          $scope.menus = [
+            {
+              title : "Move to",
+              menu : [
+                {
+                  title : "Register",
+                  action : "item.one"
+                },
+                {
+                  title : "View",
+                  action : "item.two"
+                }
+              ]
+            }
+          ]; // end menus
+
+          $scope.item = '';
+          $scope.styling = 'Inverse';
+          $scope.searchDisplay = 'Visible';true
+
+          var tmp = window.location.pathname.split("/");
+          $scope.navfn = function(action){
+            switch(action){
+              case 'item.one':
+                window.open(serverWeb + "/" + tmp[1] + "/index.html#/register/1", "_blank");
+                break;
+              case 'item.two':
+                window.open(serverWeb + "/" + tmp[1] + "/index.html#/view/1", "_blank");
+                break;
+              default:
+                $scope.item = 'Default selection.';
+                break;
+            }; // end switch
+          }; // end navfn
+  return $scope
+}
+
+var navBarSearch = function($scope, $location, user){
       /* navBar section*/
           $scope.affixed = 'top';
           $scope.search = {
             show : true,
             terms : ''
           };
-          $scope.brand = "<span class='glyphicon glyphicon-user'></span> Ugo";
+          $scope.brand = "<span class='glyphicon glyphicon-user'></span> " + user;
           $scope.inverse = true;
           $scope.menus = [
             {
@@ -329,7 +455,7 @@ var navBarSearch = function($scope, $location){
               ]
             },
             {
-              title : "Reaction",
+              title : "Search Rea",
               menu : [
                 {
                   title : "Search SSS",
@@ -342,9 +468,23 @@ var navBarSearch = function($scope, $location){
               ]
             },
             {
-              title : "Search Mol Online",
-              action : "searchOnline"
+              title : "Search Mol",
+              menu : [
+                {
+                  title : "Online",
+                  action : "searchOnline"
+                },
+                {
+                  title : "MAR SSS",
+                  action : "searchMARSSS"
+                },
+                {
+                  title : "MAR Exact",
+                  action : "searchMARExact"
+                }
+              ]
             },
+/*
             {
               title : "Search Text",
               menu : [
@@ -358,6 +498,7 @@ var navBarSearch = function($scope, $location){
                 }
               ]
             },
+*/
             {
               title : "Clear",
               action : "clear"
@@ -386,19 +527,26 @@ var navBarSearch = function($scope, $location){
           $scope.searchDisplay = 'Visible';true
 
           $scope.searchfn = function(){
-            var rxnIDs = getReactions($scope.search.terms ,"fulltext", $('#containerReaction'),"#myGridSearch") 
+            if($scope.search.terms.toUpperCase().indexOf("R ") >= 0){
+                var ft = $scope.search.terms.substring(2, $scope.search.terms.length)
+                getReactions( ft, "fulltext", $('#containerReaction'),"#myGridSearch") 
+            }
+            else {
+              getMAR($scope.search.terms) 
+            }
+
           }; // searchfn
 
+          var tmp = window.location.pathname.split("/");
           $scope.navfn = function(action){
             switch(action){
               case 'item.one':
-                $location.path('/register/1');
-//                window.open(window.location.origin +"/chembookAng/app/index.html#/register/1", "_self");
+//                $location.path('/register/1');
+                window.open(serverWeb + "/" + tmp[1] + "/index.html#/register/1", "_blank");
                 break;
               case 'item.two':
-                $location.path('/view/1');
-                
-                //window.open(window.location.origin +"/chembookAng/app/index.html#/view/1", "_self");
+//                $location.path('/view/1');                
+                window.open(serverWeb + "/" + tmp[1] + "/index.html#/view/1", "_blank");
                 break;
               case 'item.three':
                 $scope.item = 'Item three selected.';
@@ -408,16 +556,30 @@ var navBarSearch = function($scope, $location){
                   searchSSS(ketcher);
                 break;
               case 'item.exact':
+                    alert('work in progress')
                 break;
               case 'item.and':
+                    alert('work in progress')
                 break;
               case 'item.or':
+                    alert('work in progress')
                 break;
               case 'clear':
+                    alert('work in progress')
                 break;
               case 'searchOnline':
                   var ketcher = getKetcher();
                   searchOnline(ketcher);
+                break;
+              case 'searchMARSSS':
+                  var ketcher = getKetcher();
+                  searchMARSSS(ketcher);
+                break;
+              case 'searchMARExact':
+                    alert('work in progress')
+                    return
+                  var ketcher = getKetcher();
+                  searchMARSSS(ketcher);
                 break;
               case 'viewsel':
                 var expV = currentNB + "-" + currentPage
@@ -426,7 +588,7 @@ var navBarSearch = function($scope, $location){
                   return
                 }
                 //$location.path('/view/' + expV);
-                window.open(window.location.origin +"/chembookAng/app/index.html#/view/" + expV)
+                window.open(serverWeb + "/" + tmp[1] + "/index.html#/view/" + expV)
                 break;
               case 'updatesel':
                 var expV = currentNB + "-" + currentPage
@@ -435,7 +597,7 @@ var navBarSearch = function($scope, $location){
                   return
                 }
 //                $location.path('/register/' + expV);
-                window.open(window.location.origin +"/chembookAng/app/index.html#/register/" + expV)
+                window.open(serverWeb + "/" + tmp[1] + "/index.html#/register/" + expV)
                 break;
               case 'editReaction':
                 var expV = currentNB + "-" + currentPage
@@ -493,14 +655,14 @@ var navBarSearch = function($scope, $location){
   return $scope
 }
 
-var navBarRegister = function($scope, $location){
+var navBarRegister = function($scope, $location, user){
       /* navBar section*/
           $scope.affixed = 'top';
           $scope.search = {
             show : true,
             terms : ''
           };
-          $scope.brand = "<span class='glyphicon glyphicon-list-alt'></span> Reactions";
+          $scope.brand = "<span class='glyphicon glyphicon-user'></span> " + user;
           $scope.inverse = true;
           $scope.menus = [
             {
@@ -531,7 +693,7 @@ var navBarRegister = function($scope, $location){
                   action : "regdetail"
                 },
                 {
-                  title : "Reaction",
+                  title : "Reaction Scheme",
                   action : "regSchema"
                 },
                 {
@@ -543,11 +705,65 @@ var navBarRegister = function($scope, $location){
                   action : "regProc"
                 }
               ]
-            },                            
+            },
             {
-              title : "Edit Reaction",
-              action : "editReaction"
-            }
+              title : "Reaction",
+              menu : [
+                {
+                  title : "Create New Page",
+                  action : "newPage"
+                },
+                {
+                  title : "Clear Page",
+                  action : "clearPage"
+                },
+                {
+                  title : "Copy Page",
+                  action : "copyPage"
+                },
+                {
+                  title : "Edit Scheme",
+                  action : "editReaction"
+                },
+                {
+                  title : "Edit Procedure",
+                  action : "editProcedure"
+                },
+                {
+                  title : "Set Molecules",
+                  action : "setMolecules"
+                },
+                {
+                  title : "Find All",
+                  action : "findAll"
+                }
+              ]
+            },            
+            {
+              title : "Add to Reaction",
+              menu : [
+                {
+                  title : "Reagent from Chemtools",
+                  action : "addReaCT"
+                },
+                {
+                  title : "Product from Chemtools",
+                  action : "addProCT"
+                },
+                {
+                  title : "Reagent from Bottle",
+                  action : "addReaBott"
+                },
+                {
+                  title : "Product from Bottle",
+                  action : "addProBottle"
+                },
+                {
+                  title : "Solvent",
+                  action : "addSolvent"
+                }
+              ]
+            },            
           ]; // end menus
 
           $scope.item = '';
@@ -562,13 +778,7 @@ var navBarRegister = function($scope, $location){
             switch(action){
               case 'item.one':
                 $location.path('/search');
-                
-                //window.open(window.location.origin +"/chembookAng/app/index.html#/search", "_self");
-                break;                $scope.item = 'Item three selected.';
-                var el = document.getElementById('form1');
-                var scopeForm1 = angular.element(el).scope();
-                scopeForm1.submitForm(scopeForm1.ngform,scopeForm1.model);
-
+                break;                
               case 'item.two':
                 $location.path('/view/1');
                 break;
@@ -589,22 +799,38 @@ var navBarRegister = function($scope, $location){
                     value: ""
                 });
                 break;
+              case 'setMolecules':
+                $scope.$root.$broadcast("setMoleculesEvent", {                                      
+                    value: ""
+                });
+                break;
+              case 'findAll':
+                $scope.$root.$broadcast("findAllEvent", {                                      
+                    value: ""
+                });
+                break;
+              case 'editProcedure':
+                $scope.$root.$broadcast("openProcedure", {                                      
+                    value: "ciao ugo"
+                });
+                break;
               default:
                 $scope.item = 'Default selection.';
+                    alert("Working in progress")
                 break;
             }; // end switch
           }; // end navfn
-return $scope
+    return $scope
 }
 
-var navBarView = function($scope, $param, $location){
+var navBarView = function($scope, $param, $location, user){
       /* navBar section*/
           $scope.affixed = 'top';
           $scope.search = {
             show : false,
             terms : ''
           };
-          $scope.brand = "<span class='glyphicon glyphicon-list-alt'></span> Reactions";
+          $scope.brand = "<span class='glyphicon glyphicon-user'></span>  " + user;
           $scope.inverse = true;
           $scope.menus = [
             {
@@ -641,6 +867,7 @@ var navBarView = function($scope, $param, $location){
             alert('Attempting search on: "' + $scope.search.terms + '"');
           }; // searchfn
 
+          var tmp = window.location.pathname.split("/");
           $scope.navfn = function(action){
             switch(action){
               case 'item.one':
@@ -656,8 +883,8 @@ var navBarView = function($scope, $param, $location){
                 break;
               case 'UpdateReaction':
                 var expV = $scope.form.input.notebook + "-" + $scope.form.input.experiment
-                $location.path('/register/' + expV);
-//                window.open(window.location.origin +"/chembookAng/app/index.html#/register/" + expV)
+//                $location.path('/register/' + expV);
+                window.open(serverWeb + "/" + tmp[1] + "/index.html#/register/" + expV)
                 break;
               default:
                 $scope.item = 'Default selection.';
