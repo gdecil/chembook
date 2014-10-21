@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bingo & Python</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+        <style>
+        #mol { width: 250px; height: 250px; padding: 0.5em; }
+        #mol h3 { text-align: center; margin: 0; }
+       </style>
+    </head>
+    <body>
+        <div id="mol" class="ui-widget-content"></div>
+    </body>
+
+       <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+       <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>        
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var smile = getParameterByName('id')
+                var url = document.URL
+                if (url.indexOf("localhost") > 0) {
+                    $('#mol').append('<img id="mol1" src="http://localhost:5000/getMolBingo/' + smile + '" width="200" height="150" alt="web service python flask">')
+                }
+                else {
+                    $('#mol').append('<img id="mol1" src="http://indigo-gdecil.rhcloud.com/getMolBingo/' + smile + '" width="200" height="150" alt="web service python flask">')
+                } 
+                $(function() {
+                   $( "#mol" ).resizable();
+                });
+                $(function() {
+                    $( "#mol" ).draggable();
+                });                                  
+                $("#mol").resize(function () {
+                    var img_height = $('#mol').height();
+                    var img_width = $('#mol').width();
+                    $('#mol #mol1').css({ 'width': img_width, 'height': img_height - 20 });
+                });
+            });
+                
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\!&]" + name + "=([^&#]*)"),
+                    results = regex.exec(location.pathname);
+                return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+        </script>
+
+</html>

@@ -1,0 +1,169 @@
+from flask import Blueprint, render_template, abort, request, jsonify, Response, json
+from jinja2 import TemplateNotFound
+from os import remove
+from indigo import *
+from indigo_renderer import *
+from flask import send_file
+from tempfile import *
+from shutil import copyfileobj
+import psycopg2
+from utility import *
+
+from flask.ext.cors import cross_origin
+from bingoCfg import conn, _platform, query_db
+
+_platform = platform.platform()
+
+
+bingoI = Blueprint('bingoI', __name__, template_folder='templates')
+ 
+@bingoI.route('/insertReaction', methods = ['POST'])
+def insert_reaction(): 
+    ret1 = request.get_json(force=True, silent=True, cache=False)
+    j = json.loads(ret1)    
+    v_struct = j['struct'];
+    v_pageKey = j['pageKey'];
+    v_structType = j['structType'];    
+    v_nRea = j['nRea'];
+    if len(v_struct) < 120:
+        return Response(response=json.dumps('{"ret":"Empty Reaction"}'), status=200, mimetype="application/json")
+    
+    id = id_generator(40)
+    cursor = conn.cursor()
+    cursor.execute("""INSERT INTO CEN_REACTION_SCHEMES (RXN_SCHEME_KEY,
+                                                      PAGE_KEY,
+                                                      REACTION_TYPE,
+                                                      XML_METADATA,
+                                                      SYNTH_ROUTE_REF,
+                                                      VERSION,
+                                                      LAST_MODIFIED)
+          VALUES ('""" + id +"""',
+                  '""" + v_pageKey +"""',
+                  '""" + v_structType +"""',
+                  xml('<?xml version="1.0" encoding="UTF-8"?><Reaction_Properties><Meta_Data></Meta_Data></Reaction_Properties>'),
+                  '""" + v_nRea +"""',
+                  0,
+                  LOCALTIMESTAMP)""")
+                  
+# INSERT INTO compound values(2, bingo.compactmolecule('c1ccccc1', false)); 
+
+    cursor.execute("""UPDATE cen_reaction_schemes
+         SET native_rxn_sketch = BINGO.COMPACTREACTION ('""" + v_struct +"""', 1)
+       WHERE RXN_SCHEME_KEY = '""" + id +"""'""")
+    
+    conn.commit()                     
+    return Response(response=json.dumps('{"ret":"' + id + '"}'), status=200, mimetype="application/json")
+
+@bingoI.route('/Reaction.asmx/test', methods = ['POST'])
+# @cross_origin(headers=['Content-Type'], max_age=[1], automatic_options=[True])
+def get_experiment():
+    ret = json.dumps('{"ret":"OK"}')
+    resp = Response(response=ret, status=200, mimetype="application/json")
+    return resp
+
+@bingoI.route('/insertPage', methods = ['POST'])
+# @cross_origin(headers=['Content-Type'], max_age=[1], automatic_options=[True])
+def insert_page():
+    ret = json.dumps('{"ret":"OK"}')
+    resp = Response(response=ret, status=200, mimetype="application/json")
+    return resp
+    
+    ret1 = request.get_json(force=True, silent=True, cache=False)
+    j = json.loads(ret1)    
+    v_notebook = j['NOTEBOOK'];
+    v_owner_username = j['OWNER_USERNAME'];
+    v_experiment = j['EXPERIMENT'];
+
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT (notebook) FROM cen_notebooks WHERE notebook = '" + v_notebook +"'" )  
+    mypic2 = str(cursor.fetchone()[0]) 
+    if mypic2 == '0':
+        cursor.execute("""INSERT INTO CEN_NOTEBOOKS (SITE_CODE, USERNAME, NOTEBOOK, STATUS, XML_METADATA, LAST_MODIFIED) 
+            VALUES ('SITE1', '""" + v_owner_username + """', '""" + v_notebook + """', 'OPEN', xml('<?xml version="1.0" encoding="UTF-8"?><Notebook_Properties/>'),
+            LOCALTIMESTAMP)""")
+        
+    cursor.execute("SELECT COUNT (notebook) FROM cen_pages WHERE notebook ='" + 
+                   v_notebook + "' AND experiment = '" + v_experiment +"'")  
+    countExp = str(cursor.fetchone()[0]) 
+
+    if countExp ==1:
+        resp = Response(response=json.dumps('{"ret":"-1"}'), status=200, mimetype="application/json")
+        return resp
+    
+    id = id_generator(40)
+    
+    cursor.execute("""INSERT INTO CEN_PAGES (page_key,
+                                           SITE_CODE,
+                                           NOTEBOOK,
+                                           EXPERIMENT,
+                                           USERNAME,
+                                           OWNER_USERNAME,
+                                           LOOK_N_FEEL,
+                                           PAGE_STATUS,
+                                           CREATION_DATE,
+                                           MODIFIED_DATE,
+                                           XML_METADATA,
+                                           PROCEDURE,
+                                           PAGE_VERSION,
+                                           LATEST_VERSION,
+                                           TA_CODE,
+                                           PROJECT_CODE,
+                                           LITERATURE_REF,
+                                           SUBJECT,
+                                           MIGRATED_TO_PCEN,
+                                           BATCH_OWNER,
+                                           BATCH_CREATOR,
+                                           NBK_REF_VERSION,
+                                           VERSION,
+                                           YIELD,
+                                           ISSUCCESSFUL)
+          VALUES ('""" + id +"""',
+                  'SITE1',
+                  '""" + v_notebook +"""',
+                  '""" + v_experiment +"""',
+                  '""" + v_owner_username +"""',
+                  '""" + v_owner_username +"""',
+                  'MED-CHEM',
+                  'OPEN',
+                  LOCALTIMESTAMP,
+                  LOCALTIMESTAMP,
+                  xml('<?xml version="1.0" encoding="UTF-8"?><Page_Properties><Meta_Data><Archive_Date/><Signature_Url/><Table_Properties/><Ussi_Key>0</Ussi_Key><Auto_Calc_On>true</Auto_Calc_On><Cen_Version></Cen_Version><Completion_Date></Completion_Date><Continued_From_Rxn> </Continued_From_Rxn><Continued_To_Rxn> </Continued_To_Rxn><Project_Alias> </Project_Alias><DSP><Comments/><Description/><Procedure_Width>0</Procedure_Width><designUsers/><ScreenPanels/><Scale><Calculated>true</Calculated><Default_Value>0.0</Default_Value><Unit><Code></Code><Description></Description></Unit><Value>0</Value></Scale><PrototypeLeasdIDs/><DesignSite/><DesignCreationDate></DesignCreationDate><PID/><SummaryPID>null</SummaryPID><VrxnID/></DSP><ConceptionKeyWords/><ConceptorNames/></Meta_Data></Page_Properties>'),
+                  '""" + j['workup'] +"""',
+                  1,
+                  'Y',
+                  '""" + j['TH'] +"""',
+                  '""" + j['PROJECT_CODE'] +"""',
+                  '""" + j['LITERATURE_REF'] +"""',
+                  '""" + j['SUBJECT'] +"""',
+                  'N',
+                  '""" + v_owner_username +"""',
+                  '""" + v_owner_username +"""',
+                  '""" + v_notebook + "-" + v_experiment + "-1" + """',
+                  1,
+                  '""" + j['YIELD'] +"""',
+                  '""" + j['ISSUCCESSFUL'] +"""')""")
+    
+    ret = json.dumps('{"ret":"' + id + '"}')
+    resp = Response(response=ret, status=200, mimetype="application/json")
+
+    conn.commit()
+    return resp
+     
+@bingoI.route('/insertPageG/<data>', methods = ['GET'])
+def insert_pageG(data):
+    try:
+        json = data        
+        return json
+#         return jsonify(json)
+    except TemplateNotFound:
+        abort(404)
+        
+@bingoI.route('/insertForm', methods = ['POST'])
+def insert_for():
+#     print(request.json)m
+#     ret = json.dumps(request.json)     
+    #ret = '{"data": "JSON string example"}'
+
+#     resp = Response(response=ret, status=200, mimetype="application/json")
+    return request.form['fname']
+
