@@ -1,0 +1,122 @@
+﻿@charset "UTF-8";
+/*
+ * jQuery Image Gallery Demo CSS 3.0.0
+ * https://github.com/blueimp/jQuery-Image-Gallery
+ *
+ * Copyright 2013, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+
+body {
+  margin: 0;
+  padding: 15px 30px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  line-height: 1.4;
+  /*background: #222;*/
+  color: #fff;
+}
+h1 {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, sans-serif;
+}
+a {
+  color: orange;
+  text-decoration: none;
+}
+a:hover {
+  color: lightblue;
+}
+
+#links img {
+  border: 1px solid red;
+  vertical-align: middle;
+  width: 300px;
+  height: 60px;
+  padding:3px;
+  margin: 3px;
+}
+
+#reactEnum img {
+  border: 1px solid #0026ff;
+  vertical-align: middle;
+  width: 900px;
+  height: 200px;
+  padding:3px;
+  margin: 3px;
+}
+
+#reaction img {
+  border: 0px ;
+  vertical-align: middle;
+  width: 1000px;
+  height: 200px;
+  padding:3px;
+  margin: 3px;
+}
+
+#enums img {
+  border: 1px solid #0026ff;
+  vertical-align: middle;
+  width: 1000px;
+  height: 200px;
+  padding:3px;
+  margin: 3px;
+}
+
+#myGrid img {
+  border: 0px solid #0026ff;
+  vertical-align: middle;
+  width: 150px;
+  height: 50px;
+  padding:3px;
+  margin: 3px;
+}
+
+#tabsV img {
+  border: 0px solid #0026ff;
+  vertical-align: middle;
+  width: 500px;
+  height: 100px;
+  padding:3px;
+  margin: 3px;
+}
+
+#reactives img {
+  border: 0px solid #b6ff00;
+  vertical-align: middle;
+  width: 200px;
+  height:150px;
+  padding:3px;
+  margin: 3px;
+}
+blockquote {
+  padding: 0 20px;
+  margin: 0 0 20px;
+  border-left: 5px solid lightblue;
+}
+
+@media (min-width: 481px) {
+  body {
+    padding: 30px 60px;
+  }
+  .navigation {
+    list-style: none;
+    padding: 0;
+  }
+  .navigation li {
+    display: inline-block;
+  }
+  .navigation li:not(:first-child):before {
+    content: "| ";
+    margin: 0 5px;
+  }
+  .slide {
+      background: #fff;
+  }
+  .slide img{
+      border: 0px solid #fff;
+  }
+}

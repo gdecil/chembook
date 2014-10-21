@@ -1,0 +1,100 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="language" content="en" />
+
+    <title>Test</title>
+
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <!-- <script type="text/javascript" src="/js/vendor/jqgrid/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="/js/vendor/jquery-migrate-1.2.1.js"></script>
+        <script type="text/javascript" src="/js/vendor/jquery-ui.js"></script> -->
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+    	
+    	var data = '{"NOTEBOOK" : "002","OWNER_USERNAME" : "gdecil", "EXPERIMENT" : "002" , "SUBJECT" : "Test Ugo", "TH" : "002",    		"PROJECT_CODE" : "NMS",    		"LITERATURE_REF" : "Lit",    		"YIELD" : "20",    		"ISSUCCESSFUL" : "1",    		"workup" : "ciao pippo"    		}';
+    	var data = '{"notebook" : "002","enumVal" : "undefined", "page" : "002" }';
+	    	var data = '{"notebook" : "002","enumVal" : "undefined", "page" : "002" }';
+			var data = '{"cns":"ugo","userFullname":"Caruso, Michele"}'
+		
+    	//url = "http://indigo-gdecil.rhcloud.com/insertPage"
+		url = "http://localhost:5000/Reaction.asmx/GetUserNotebooks"
+    	$.ajax({
+    	    type : "POST",
+    	    url : url,
+//    	    data: data,  //bad request
+    	    data: JSON.stringify(data, null, '\t'),
+    	    contentType: 'application/json',
+    	    success: Success,
+            error: Error
+    	    /* success: function(result) {
+    	    	$("#log").append(result.ret)
+    	        //console.log(result);
+    	    } */
+    	});
+    	
+ /*        $.ajax({
+        		type: "POST",
+                url: "http://localhost:5000/insertPage",
+                data: dataX,
+                contentType: "application/json",
+                dataType: "json",
+                success: Success,
+                error: Error
+            });*/
+        
+        function Success(result, status) {
+/*             	var resp  = jQuery.parseJSON(result)
+            	$("#log").append(resp.ret)
+ */
+            	tmp = result
+                if (tmp.ExceptionType != undefined) {
+                    alert(tmp.Message)
+                    return tmp;
+                }
+                else {
+                    if (result.length==0) {
+                    	$("#log").append(" empty");
+                    }
+                    else {
+                    	$("#log").append("rxn :" + tmp[0].title);
+                    }
+                    return tmp.d;
+                } 
+            }
+     
+        function Error(request, status, error) {
+            alert(request.statusText);
+            $("#log").append(request.responseText);
+        } 
+        
+/*     	var request = $.ajax({
+	    		url: "http://localhost:5000/insertPage",
+	    		type: "POST",
+	    		data: "{'ajax': 'True'}",
+	    		contentType: 'application/json;charset=UTF-8'
+// 	    		dataType: "json"
+    		});
+  		request.done(function( msg ) {
+  			$( "#log" ).html( msg );
+  		});
+  		request.fail(function( jqXHR, textStatus ) {
+	  		alert( "Request failed: " + textStatus );
+  		}); */
+    });
+</script>
+
+</head>
+<body>
+    <div id='log'> 
+    	ciao ugo
+    </div>
+    <div>
+    </div>
+</body>
+</html> 
