@@ -5,16 +5,19 @@ import os
 
 _platform = platform.platform()
 
-if _platform != "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
+if _platform == "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
+#            conn_string = "host='localhost' dbname='indigo' user='admin8fqsmyu' password='postgres'"
+    conn_string = "host='127.0.0.1' dbname='postgres' user='postgres' password='postgres'"
+    conn = psycopg2.connect(conn_string)
+elif _platform == "Linux-3.13.0-37-generic-i686-with-Ubuntu-14.04-trusty":
+    conn_string = "host='127.0.0.1' dbname='postgres' user='postgres' password='postgres'"
+    conn = psycopg2.connect(conn_string)
+else:
     conn = psycopg2.connect(database=os.environ['OPENSHIFT_APP_NAME'],
         user=os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME'],
         password=os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD'],
         host=os.environ['OPENSHIFT_POSTGRESQL_DB_HOST'],
         port=os.environ['OPENSHIFT_POSTGRESQL_DB_PORT'] )
-#            conn_string = "host='localhost' dbname='indigo' user='admin8fqsmyu' password='postgres'"
-else:
-    conn_string = "host='127.0.0.1' dbname='postgres' user='postgres' password='postgres'"
-    conn = psycopg2.connect(conn_string)
 
 def query_db(query, args=(), one=False):
     cur = conn.cursor()
