@@ -32,7 +32,11 @@ app.register_blueprint(bingoI)
 
 _platform = platform.platform()
 
-if _platform != "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
+if _platform == "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
+    a=1
+elif _platform == "Linux-3.13.0-37-generic-i686-with-Ubuntu-14.04-trusty":
+    a=1
+else:
     app.config.from_pyfile('todoapp.cfg')
     
 db = SQLAlchemy(app)
@@ -137,12 +141,12 @@ def ChemBook():
 def index():
     return "http://indigo-gdecil.rhcloud.com/viewBingo/!id=2;   http://indigo-gdecil.rhcloud.com/view/!smile=Cc1ccccc1Br"
  
-if __name__ == '__main__':
-    app.run(debug=True)
-    
 # if __name__ == '__main__':
-#     app.run(
-#         host="0.0.0.0",
-#         port=int("80"),
-#         debug=True
-#     )    
+#     app.run(debug=True)
+    
+if __name__ == '__main__':
+    app.run(
+        host="0.0.0.0",
+        port=int("5000"),
+        debug=True
+    )    
