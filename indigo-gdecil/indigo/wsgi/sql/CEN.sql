@@ -1,4 +1,14 @@
-﻿CREATE TABLE cen_structures (
+﻿-- CEN_ATTACHEMENTS
+-- CEN_BATCH_AMOUNTS
+-- CEN_BATCHES
+-- CEN_NOTEBOOKS
+-- CEN_PAGES
+-- CEN_REACTION_SCHEMES
+-- CEN_STRUCTURES
+-- TGB1
+-- TGV1
+
+CREATE TABLE cen_structures (
 	struct_key varchar(256) NOT NULL,
 	page_key varchar(256),
 	struct_sketch bytea ,
