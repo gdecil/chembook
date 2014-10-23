@@ -318,6 +318,23 @@ CREATE TABLE cen_notebooks (
 );
 ALTER TABLE cen_notebooks ADD PRIMARY KEY (site_code,username,notebook);
 
+CREATE TABLE cen_users (
+	username varchar(64) NOT NULL,
+	password varchar(256),
+	xml_metadata text,
+	my_reagents text,
+	fullname varchar(256),
+	email varchar(256),
+	site_code varchar(16),
+	status varchar(16),
+	privilege_list varchar(1024),
+	last_modified timestamp with time zone DEFAULT current_timestamp,
+	version bigint DEFAULT 0,
+	audit_log text
+);
+ALTER TABLE cen_users ADD PRIMARY KEY (username);
+CREATE INDEX cen_users_i1 ON cen_users (site_code,username);
+
 ALTER TABLE cen_structures ADD CONSTRAINT cen_structures_fk1 FOREIGN KEY (page_key) REFERENCES cen_pages(page_key) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE;
 ALTER TABLE cen_pages ADD CONSTRAINT cen_pages_fk1 FOREIGN KEY (site_code,username,notebook) REFERENCES cen_notebooks(site_code,username,notebook) ON DELETE NO ACTION NOT DEFERRABLE INITIALLY IMMEDIATE;
 ALTER TABLE cen_attachements ADD CONSTRAINT cen_attachements_fk1 FOREIGN KEY (page_key) REFERENCES cen_pages(page_key) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE;
