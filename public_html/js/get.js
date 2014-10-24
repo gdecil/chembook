@@ -834,7 +834,6 @@ function TestReaction(rxn) {
 }
 
 function gettest() {
-    var server = window.location.protocol + "//" + window.location.host;
     var arr = [];
     arr.push("pippo");
     arr.push("pluto");
