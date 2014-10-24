@@ -125,8 +125,7 @@ function appendMain(page) {
             });
         });
         if (server.indexOf("localhost") == -1) {
-        	var prs = getProjects()
-            var dataOb = JSON.parse(getProjects());
+        	var dataOb = getProjects()
             var mydata = [];
             dataOb.forEach(function (item) {
                 mydata.push(item.NAME);
