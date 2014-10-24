@@ -139,7 +139,7 @@ def get_projects():
 #     return resp
 
 #     json_output = json.dumps('{"NAME":"PR1", "NAME":"PR2"}')   non va bene con js
-    json_output = '{"NAME":"PR1", "NAME":"PR2"}'                        
+    json_output = '[{"NAME":"PR1"}, {"NAME":"PR2"}]'                        
     return Response(response=json_output, status=200, mimetype="application/json")
 
 @bingo.route('/viewBingo/<id>', methods=['GET'])
