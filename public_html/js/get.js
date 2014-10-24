@@ -376,7 +376,7 @@ function getProjects() {
     }
     else {
 
-        return tmp.d;
+        return tmp;
     }
 }
 
