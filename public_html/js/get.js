@@ -1,3 +1,8 @@
+var server = window.location.protocol + "//" + window.location.host;
+if (server == "http://localhost"){
+	server = "http://localhost:5000"
+}
+
 //alert($.session.get("username"));
 
 function createReaction( rxn,  product,  reagent) {
