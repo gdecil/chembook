@@ -1,4 +1,8 @@
-var serverWeb = window.location.protocol + "//" + window.location.host;
+var server = window.location.protocol + "//" + window.location.host;
+if (server == "http://localhost"){
+	server = "http://localhost:5000"
+}
+
 var exp;
 var expCurrent;
 var arrReactive = [];
