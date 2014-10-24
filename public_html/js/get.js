@@ -19,7 +19,7 @@ function createReaction( rxn,  product,  reagent) {
     }
     else {
 
-        return tmp;
+        return tmp ;
     }
 }
 
