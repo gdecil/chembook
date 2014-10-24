@@ -1,7 +1,7 @@
-﻿var server = window.location.protocol + "//" + window.location.host;
-if (server == "http://localhost"){
-	server = "http://localhost:5000"
-}
+﻿//var server = window.location.protocol + "//" + window.location.host;
+//if (server == "http://localhost"){
+//	server = "http://localhost:5000"
+//}
 
 function Experiment(notebook, page, enumVal) {
     this.notebook = notebook;

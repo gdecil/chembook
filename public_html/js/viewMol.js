@@ -1,6 +1,6 @@
 var server = window.location.protocol + "//" + window.location.host;
-if (server == "http://localhost"){
-	server = "http://localhost:5000"
+if (server == "http://10.206.89.79"){
+	server = "http://10.206.89.79:5000"
 }
 
 var exp;
