@@ -132,6 +132,16 @@ def get_mol_bingo(id):
     response.headers['Content-Disposition'] = 'attachment; filename=mol.png'
     return response
 
+@bingo.route('/Reaction.asmx/getProjects', methods = ['GET','POST'])
+def get_projects():
+#     ret = json.dumps('{"ret":"OK"}')
+#     resp = Response(response=ret, status=200, mimetype="application/json")
+#     return resp
+
+    json_output = json.dumps('{"ret":""}')
+                            
+    return Response(response=json_output, status=200, mimetype="application/json")
+
 @bingo.route('/viewBingo/<id>', methods=['GET'])
 def view_bingo(id):
     try:
