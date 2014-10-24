@@ -121,7 +121,7 @@ function initializeSlider() {
 }
 
 function Enumeration() { //arrReactive, rxnQ vzr glob def in viewmol.js
-    var server = window.location.protocol + "//" + window.location.host;
+//    var server = window.location.protocol + "//" + window.location.host;
     //var dataX = "{'A':'" + A + "','B':'" + B + "','rxnQ':'" + rxnQ + "'}";
     arrReactive.length = 0;
     for (prop in objReactive) {
@@ -153,7 +153,7 @@ function Enumeration() { //arrReactive, rxnQ vzr glob def in viewmol.js
 }
 
 function gettest() {
-    var server = window.location.protocol + "//" + window.location.host;
+//    var server = window.location.protocol + "//" + window.location.host;
     var arr = [];
     arr.push("pippo");
     arr.push("pluto");
