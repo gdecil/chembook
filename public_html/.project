@@ -2721,6 +2721,11 @@
 			<locationURI>PARENT-2-PROJECT_LOC/SparkleShare/chembook/public_html/js/vendor/ketcher/util/vec2.js</locationURI>
 		</link>
 		<link>
+			<name>js/vendor/smartWizard/images/Thumbs.db</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/SparkleShare/chembook/public_html/js/vendor/smartWizard/images/Thumbs.db</locationURI>
+		</link>
+		<link>
 			<name>js/vendor/smartWizard/images/loader.gif</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/SparkleShare/chembook/public_html/js/vendor/smartWizard/images/loader.gif</locationURI>
