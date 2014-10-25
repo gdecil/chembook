@@ -17,6 +17,7 @@ def get_checkReaEnum():
     try:
         if request.method == 'POST':
             ret1 = request.get_json(force=True, silent=True, cache=False)
+            print ret1
             j = json.loads(ret1)    
             notebook = j['notebook'];
             page = j['page'];
