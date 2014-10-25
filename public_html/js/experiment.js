@@ -145,11 +145,11 @@ Experiment.prototype.GeneralData = function () {
         return tmp;
     }
     else {
-        if (tmp.d=="") {
+        if (tmp.length==0) {
             this.RXN_SCHEME_KEY = "";
         }
         else {
-            this.RXN_SCHEME_KEY = $.parseJSON(tmp.d)[0].RXN_SCHEME_KEY;
+            this.RXN_SCHEME_KEY = $.parseJSON(tmp)[0].RXN_SCHEME_KEY;
         }
         return tmp.d;
     } 
