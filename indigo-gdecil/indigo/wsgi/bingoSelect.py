@@ -33,8 +33,10 @@ def get_checkReaEnum():
         my_query = query_db(sql)
         print my_query
         json_output = json.dumps(my_query)
-        print json_output
-        return Response(response=json_output, status=200, mimetype="application/json")
+        ret = json.loads(json_output) 
+        print ret['count']
+        return ret['count']
+#         return Response(response=json_output, status=200, mimetype="application/json")
 
     except TemplateNotFound:
         abort(404) 
