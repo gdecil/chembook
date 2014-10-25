@@ -34,8 +34,9 @@ def get_checkReaEnum():
         print my_query
         json_output = json.dumps(my_query)
         ret = json.loads(json_output) 
-        print ret[0]
-        return ret['count']
+        ob = tuple(map(tuple, ret))
+        print ob.count
+        return ob.count
 #         return Response(response=json_output, status=200, mimetype="application/json")
 
     except TemplateNotFound:
