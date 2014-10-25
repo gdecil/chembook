@@ -34,7 +34,7 @@ def get_checkReaEnum():
         print my_query
         json_output = json.dumps(my_query)
         ret = json.loads(json_output) 
-        print ret['count']
+        print ret[0]
         return ret['count']
 #         return Response(response=json_output, status=200, mimetype="application/json")
 
