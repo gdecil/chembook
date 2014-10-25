@@ -25,7 +25,7 @@ def get_checkReaEnum():
             notebook = request.args.get('notebook')
             page = request.args.get('page')
  
-            sql="SELECT count(*) FROM cen_reaction_schemes r  " + \
+        sql="SELECT count(*) FROM cen_reaction_schemes r  " + \
                 "    WHERE reaction_type = 'ENUMERATED' and DBMS_LOB.getlength (r.native_rxn_sketch) > 0  " + \
                 "    and page_key = (select page_key from CEN_PAGES where notebook ='" + notebook + \
                 "'  and experiment  = '" + page + "') ";
