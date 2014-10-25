@@ -375,7 +375,7 @@ Experiment.prototype.updateStoic = function () {
 
 Experiment.prototype.checkEnum = function () {
     this.id
-    var dataX = "{'notebook':'" + this.notebook + "','page':'" + this.page + "'}";
+    var dataX = JSON.stringify('{"notebook":"' + this.notebook + '","page":"' + this.page + '"}');
 
     var ret = $.ajax({
         type: "POST",
