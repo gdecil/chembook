@@ -12,7 +12,33 @@ from flask.ext.cors import cross_origin
 
 bingo = Blueprint('bingo', __name__, template_folder='templates')
 
+@bingo.route('/Reaction.asmx/CheckReactionsEnumerated', methods = ['GET','POST'])
+def get_checkReaEnum():
+    try:
+        if request.method == 'POST':
+            ret1 = request.get_json(force=True, silent=True, cache=False)
+            j = json.loads(ret1)    
+            notebook = j['notebook'];
+            page = j['page'];
+        else:
+            notebook = request.args.get('notebook')
+            page = request.args.get('page')
+ 
+            sql="SELECT count(*) FROM cen_reaction_schemes r  " + \
+                "    WHERE reaction_type = 'ENUMERATED' and DBMS_LOB.getlength (r.native_rxn_sketch) > 0  " + \
+                "    and page_key = (select page_key from CEN_PAGES where notebook ='" + notebook + \
+                "'  and experiment  = '" + page + "') ";
+                
+         
+        my_query = query_db(sql)
 
+        json_output = json.dumps(my_query)
+        
+        return Response(response=json_output, status=200, mimetype="application/json")
+
+    except TemplateNotFound:
+        abort(404) 
+        
 @bingo.route('/Reaction.asmx/GetExperiment', methods = ['GET','POST'])
 def get_experiment():
 #     ret = json.dumps('{"ret":"OK"}')
@@ -41,7 +67,7 @@ def get_experiment():
             sql = "select * from pages_vw where notebook ='" + notebook \
             + "' and experiment  = '" + page + "' and SYNTH_ROUTE_REF =" + enumVal;
          
-        print sql        
+#         print sql        
 #         cursor.execute(sql)
 #         json_output = json.dumps(cursor.fetchall())
         my_query = query_db(sql)
