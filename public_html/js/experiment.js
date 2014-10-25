@@ -151,7 +151,7 @@ Experiment.prototype.GeneralData = function () {
         else {
             this.RXN_SCHEME_KEY = $.parseJSON(tmp)[0].RXN_SCHEME_KEY;
         }
-        return tmp.d;
+        return tmp;
     } 
 };
 
