@@ -17,7 +17,6 @@ def get_checkReaEnum():
     try:
         if request.method == 'POST':
             ret1 = request.get_json(force=True, silent=True, cache=False)
-            print ret1
             j = json.loads(ret1)    
             notebook = j['notebook'];
             page = j['page'];
@@ -32,9 +31,9 @@ def get_checkReaEnum():
                 
          
         my_query = query_db(sql)
-
+        print my_query
         json_output = json.dumps(my_query)
-        
+        print json_output
         return Response(response=json_output, status=200, mimetype="application/json")
 
     except TemplateNotFound:
