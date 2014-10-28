@@ -17,6 +17,111 @@ _platform = platform.platform()
 
 bingoI = Blueprint('bingoI', __name__, template_folder='templates')
  
+@bingoI.route('/Reaction.asmx/InsertDetail', methods = ['POST'])
+# @cross_origin(headers=['Content-Type'], max_age=[1], automatic_options=[True])
+def insert_detail():
+#     ret = json.dumps('{"ret":"OK"}')
+#     resp = Response(response=ret, status=200, mimetype="application/json")
+#     return resp
+    
+    ret1 = request.get_json(force=True, silent=True, cache=False)
+#     print ret1
+    j = json.loads(ret1)    
+    v_detail = j['detail']['OWNER_USERNAME'];
+    
+# {"detail":{"SUBJECT":"","YIELD":"","PROJECT_CODE":"","BATCH_CREATOR":"","NOTEBOOK":"test",
+# "EXPERIMENT":"01","CREATION_DATE":"","CONTINUED_FROM_RXN":"","CONTINUED_TO_RXN":"","ISSUCCESSFUL":"",
+# "LITERATURE_REF":"","OWNER_USERNAME":"DECILGI0"}}
+
+    cursor = conn.cursor()
+    sql = "SELECT COUNT (NOTEBOOK) FROM CEN_NOTEBOOKS WHERE NOTEBOOK = '" + \
+                   j['detail']['NOTEBOOK'] + "'" 
+                   
+    my_query = query_db(sql)
+    c = my_query[0]['count']
+        
+#     print c
+
+    if str(c) == '0':
+        cursor.execute("""INSERT INTO CEN_NOTEBOOKS (SITE_CODE, USERNAME, NOTEBOOK, STATUS, XML_METADATA, LAST_MODIFIED) 
+            VALUES ('SITE1', '""" + j['detail']['OWNER_USERNAME']  + """', '""" + j['detail']['NOTEBOOK'] + \
+            """', 'OPEN', xml('<?xml version="1.0" encoding="UTF-8"?><Notebook_Properties/>'),
+            LOCALTIMESTAMP)""")
+
+    sql = "SELECT COUNT (notebook) FROM cen_pages WHERE notebook ='" + \
+            j['detail']['NOTEBOOK']  + "' AND experiment = '" + j['detail']['EXPERIMENT']  +"'" 
+                   
+    my_query = query_db(sql)
+    countExp = my_query[0]['count']
+
+    if countExp ==1:
+        resp = Response(response=json.dumps('{"ret":"-1"}'), status=200, mimetype="application/json")
+        return resp
+    
+    id = id_generator(40)
+    yieldd = j['detail']['YIELD']
+    if  yieldd == "":
+         yieldd = '0'
+        
+    cursor.execute("""INSERT INTO CEN_PAGES (page_key,
+                                           SITE_CODE,
+                                           NOTEBOOK,
+                                           EXPERIMENT,
+                                           USERNAME,
+                                           OWNER_USERNAME,
+                                           LOOK_N_FEEL,
+                                           PAGE_STATUS,
+                                           CREATION_DATE,
+                                           MODIFIED_DATE,
+                                           XML_METADATA,
+                                           PROCEDURE,
+                                           PAGE_VERSION,
+                                           LATEST_VERSION,
+                                           TA_CODE,
+                                           PROJECT_CODE,
+                                           LITERATURE_REF,
+                                           SUBJECT,
+                                           MIGRATED_TO_PCEN,
+                                           BATCH_OWNER,
+                                           BATCH_CREATOR,
+                                           NBK_REF_VERSION,
+                                           VERSION,
+                                           YIELD,
+                                           ISSUCCESSFUL)
+          VALUES ('""" + id +"""',
+                  'SITE1',
+                  '""" + j['detail']['NOTEBOOK']  +"""',
+                  '""" + j['detail']['EXPERIMENT'] +"""',
+                  '""" + j['detail']['OWNER_USERNAME']  +"""',
+                  '""" + j['detail']['OWNER_USERNAME']  +"""',
+                  'MED-CHEM',
+                  'OPEN',
+                  LOCALTIMESTAMP,
+                  LOCALTIMESTAMP,
+                  xml('<?xml version="1.0" encoding="UTF-8"?><Page_Properties><Meta_Data><Archive_Date/><Signature_Url/><Table_Properties/><Ussi_Key>0</Ussi_Key><Auto_Calc_On>true</Auto_Calc_On><Cen_Version></Cen_Version><Completion_Date></Completion_Date><Continued_From_Rxn> </Continued_From_Rxn><Continued_To_Rxn> </Continued_To_Rxn><Project_Alias> </Project_Alias><DSP><Comments/><Description/><Procedure_Width>0</Procedure_Width><designUsers/><ScreenPanels/><Scale><Calculated>true</Calculated><Default_Value>0.0</Default_Value><Unit><Code></Code><Description></Description></Unit><Value>0</Value></Scale><PrototypeLeasdIDs/><DesignSite/><DesignCreationDate></DesignCreationDate><PID/><SummaryPID>null</SummaryPID><VrxnID/></DSP><ConceptionKeyWords/><ConceptorNames/></Meta_Data></Page_Properties>'),
+                  'procedure',
+                  1,
+                  'Y',
+                  'XX',
+                  '""" + j['detail']['PROJECT_CODE'] +"""',
+                  '""" + j['detail']['LITERATURE_REF'] +"""',
+                  '""" + j['detail']['SUBJECT'] +"""',
+                  'N',
+                  '""" + j['detail']['OWNER_USERNAME']  +"""',
+                  '""" + j['detail']['OWNER_USERNAME']  +"""',
+                  '""" + j['detail']['NOTEBOOK']  + "-" + j['detail']['EXPERIMENT'] + "-1" + """',
+                  1,
+                  '""" + yieldd + """',
+                  '""" + j['detail']['ISSUCCESSFUL'] + """')""")
+    
+#                   '""" + j['detail']['YIELD'] + """',
+
+    ret = json.dumps('{"ret":"' + id + '"}')
+    resp = Response(response=ret, status=200, mimetype="application/json")
+
+    conn.commit()
+    return resp
+     
 @bingoI.route('/insertReaction', methods = ['POST'])
 def insert_reaction(): 
     ret1 = request.get_json(force=True, silent=True, cache=False)
@@ -53,13 +158,6 @@ def insert_reaction():
     
     conn.commit()                     
     return Response(response=json.dumps('{"ret":"' + id + '"}'), status=200, mimetype="application/json")
-
-@bingoI.route('/Reaction.asmx/test', methods = ['POST'])
-# @cross_origin(headers=['Content-Type'], max_age=[1], automatic_options=[True])
-def get_experiment():
-    ret = json.dumps('{"ret":"OK"}')
-    resp = Response(response=ret, status=200, mimetype="application/json")
-    return resp
 
 @bingoI.route('/insertPage', methods = ['POST'])
 # @cross_origin(headers=['Content-Type'], max_age=[1], automatic_options=[True])

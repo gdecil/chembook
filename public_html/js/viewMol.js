@@ -5,6 +5,7 @@ if (server == "http://10.206.89.79"){
 if (server == "http://localhost"){
 	server = "http://localhost:5000"
 }
+$.session.set("username", "decilgi0");
 
 var exp;
 var expCurrent;
@@ -419,7 +420,7 @@ function addNode(node) {
             type: "POST",
             url: server + "/Reaction.asmx/GetPagesNotebook",
             contentType: "application/json; charset=utf-8",
-            data: "{'cns':'','notebook':'" + node.data.title + "'}"
+            data: JSON.stringify('{"notebook":"' + node.data.title + '"}')
         });
 
     }
@@ -1327,7 +1328,7 @@ function openExperiment(notebook, page, self) {
     exp = new Experiment(notebook, page);
     refreshSchema()
 
-    loadDetails($.parseJSON(expCurrent.GeneralDataReaction)[0]);
+    loadDetails(expCurrent.GeneralDataReaction[0]);
     var editor = CKEDITOR.instances["editor1"];
     if (editor != undefined) {
         editor.setData(expCurrent.WorkUp);

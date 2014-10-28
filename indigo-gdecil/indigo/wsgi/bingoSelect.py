@@ -31,13 +31,9 @@ def get_checkReaEnum():
                 
          
         my_query = query_db(sql)
-        print my_query
-        json_output = json.dumps(my_query)
-        ret = json.loads(json_output) 
-        ob = tuple(map(tuple, ret))
-        print ob.count
-        return ob.count
-#         return Response(response=json_output, status=200, mimetype="application/json")
+        dict = my_query[0]
+#         print dict['count']
+        return Response(response=str(dict['count']), status=200, mimetype="application/json")
 
     except TemplateNotFound:
         abort(404) 
@@ -81,6 +77,34 @@ def get_experiment():
 
     except TemplateNotFound:
         abort(404)   
+        
+@bingo.route('/Reaction.asmx/GetPagesNotebook', methods = ['GET','POST'])
+def get_pagesnotebooks():
+    try:
+        if request.method == 'POST':
+            ret1 = request.get_json(force=True, silent=True, cache=False)
+            j = json.loads(ret1)    
+            notebook = j['notebook'];
+        else:
+            notebook = request.args.get('notebook')
+            
+        sql = "select distinct experiment  from CEN_PAGES where notebook ='" + notebook + \
+        "' order by experiment"  
+                
+        my_query = query_db(sql)
+        if  len(my_query) > 0:            
+            json_output = json.dumps(my_query)
+            js ="["
+            for s in my_query:
+                js = js + '{"title": "' + s['experiment'] + '", "isLazy": false },'
+                
+            js= js[:-1] + "]"
+            return Response(response=js, status=200, mimetype="application/json")
+        else:
+            return Response(response='{"title": "No Records", "isLazy": true }', status=200, mimetype="application/json")
+            
+    except TemplateNotFound:
+        abort(404)
         
 @bingo.route('/Reaction.asmx/GetUsersFullname', methods = ['GET','POST'])
 def get_fullname():

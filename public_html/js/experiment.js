@@ -22,9 +22,9 @@ function Experiment(notebook, page, enumVal) {
     this.isProcedureChanged = false;
 
     if (this.GeneralDataReaction != "") {
-        this.Rxn_scheme_key = $.parseJSON(this.GeneralDataReaction)[0].RXN_SCHEME_KEY;
-        this.Owner = $.parseJSON(this.GeneralDataReaction)[0].OWNER_USERNAME;
-        this.WorkUp = $.parseJSON(this.GeneralDataReaction)[0].PROCEDURE;
+        this.Rxn_scheme_key = this.GeneralDataReaction[0].rxn_scheme_key;
+        this.Owner = this.GeneralDataReaction[0].owner_username;
+        this.WorkUp = this.GeneralDataReaction[0].procedure;
     }
 
     var _rxn = this.RXN();
@@ -82,7 +82,8 @@ Experiment.prototype.getAttachement = function () {
 
 //reagents stoic
 Experiment.prototype.getReagents = function () {
-    var dataX = "{'notebook':'" + this.notebook + "','page':'" + this.page + "','enumVal':'" + this.enumVal + "'}";
+    var dataX = JSON.stringify('{"notebook":"' + this.notebook + '","page":"' + this.page + '","enumVal":"' + this.enumVal + '"}');
+//    var dataX = "{'notebook':'" + this.notebook + "','page':'" + this.page + "','enumVal':'" + this.enumVal + "'}";
 
     var ret = $.ajax({
         type: "POST",
@@ -106,7 +107,7 @@ Experiment.prototype.getReagents = function () {
 
 //products stoic
 Experiment.prototype.getProducts = function () {
-    var dataX = "{'notebook':'" + this.notebook + "','page':'" + this.page + "','enumVal':'" + this.enumVal + "'}";
+    var dataX = JSON.stringify('{"notebook":"' + this.notebook + '","page":"' + this.page + '","enumVal":"' + this.enumVal + '"}');
 
     var ret = $.ajax({
         type: "POST",
@@ -149,14 +150,14 @@ Experiment.prototype.GeneralData = function () {
             this.RXN_SCHEME_KEY = "";
         }
         else {
-            this.RXN_SCHEME_KEY = $.parseJSON(tmp)[0].RXN_SCHEME_KEY;
+            this.RXN_SCHEME_KEY = tmp[0].rxn_scheme_key;
         }
         return tmp;
     } 
 };
 
 Experiment.prototype.RXN = function () {
-    if (this.Rxn_scheme_key == "") {
+    if (this.Rxn_scheme_key == "" || this.Rxn_scheme_key == null) {
         return;
     }
     var dataX = "{'reactionId':'" + this.Rxn_scheme_key + "','cns':'' , 'outType':''}";
@@ -630,14 +631,14 @@ Experiment.prototype.insertDetail = function () {
 
     }
 
-    var dataX = "{'detail':'" + JSON.stringify(this.GeneralDataReaction)
-        + "'}";
+    var dataX = '{"detail":' + JSON.stringify(this.GeneralDataReaction)
+        + '}';
     //return;
 
     var ret = $.ajax({
         type: "POST",
         url: server + "/Reaction.asmx/InsertDetail",
-        data: dataX,
+        data: JSON.stringify(dataX),
         contentType: "application/json; charset=utf-8",
         processData: false,
         dataType: "json",
@@ -649,7 +650,7 @@ Experiment.prototype.insertDetail = function () {
         return tmp;
     }
     else {
-        if (tmp.d > 0) {
+        if (JSON.parse(tmp).ret.length == 40) {
             alert("Experiment Registered");
         }
         else {
