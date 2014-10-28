@@ -11,6 +11,7 @@ from utility import *
 
 from flask.ext.cors import cross_origin
 from bingoCfg import conn, _platform, query_db
+from distlib.locators import Page
 
 _platform = platform.platform()
 
@@ -265,3 +266,48 @@ def insert_for():
 #     resp = Response(response=ret, status=200, mimetype="application/json")
     return request.form['fname']
 
+@bingoI.route('/Reaction.asmx/UpdateSchema', methods = ['POST'])
+def update_schema(): 
+    ret1 = request.get_json(force=True, silent=True, cache=False)
+    j = json.loads(ret1)    
+    v_struct = j['struct'];
+    notebook = j['notebook'];
+    page = j['page'];
+    enumVal = j['enumVal'];   
+    if len(v_struct) < 120:
+        return Response(response=json.dumps('{"ret":"Empty Reaction"}'), status=200, mimetype="application/json")
+    
+    if (enumVal =='' or enumVal =='undefined'):
+        sql = "select RXN_SCHEME_KEY,  PAGE_KEY from PAGES_VW where NOTEBOOK = " + notebook + \
+        " and EXPERIMENT = " + page;
+    else:
+        sql = "select RXN_SCHEME_KEY , PAGE_KEY from PAGES_VW where NOTEBOOK = " + notebook + \
+        " and EXPERIMENT = " + page + " and SYNTH_ROUTE_REF = " + enumVal
+    
+    
+    
+    id = id_generator(40)
+    cursor = conn.cursor()
+    cursor.execute("""INSERT INTO CEN_REACTION_SCHEMES (RXN_SCHEME_KEY,
+                                                      PAGE_KEY,
+                                                      REACTION_TYPE,
+                                                      XML_METADATA,
+                                                      SYNTH_ROUTE_REF,
+                                                      VERSION,
+                                                      LAST_MODIFIED)
+          VALUES ('""" + id +"""',
+                  '""" + v_pageKey +"""',
+                  '""" + v_structType +"""',
+                  xml('<?xml version="1.0" encoding="UTF-8"?><Reaction_Properties><Meta_Data></Meta_Data></Reaction_Properties>'),
+                  '""" + v_nRea +"""',
+                  0,
+                  LOCALTIMESTAMP)""")
+                  
+# INSERT INTO compound values(2, bingo.compactmolecule('c1ccccc1', false)); 
+
+    cursor.execute("""UPDATE cen_reaction_schemes
+         SET native_rxn_sketch = BINGO.COMPACTREACTION ('""" + v_struct +"""', 1)
+       WHERE RXN_SCHEME_KEY = '""" + id +"""'""")
+    
+    conn.commit()                     
+    return Response(response=json.dumps('{"ret":"' + id + '"}'), status=200, mimetype="application/json")
