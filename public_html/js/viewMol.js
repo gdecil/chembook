@@ -1435,29 +1435,29 @@ function viewExperimentEnum(notebook, page, enumReac, self) {
 }
 
 function loadDetails(details) {
-    $("#txtTitle").val(details.SUBJECT).attr('size', $("#txtTitle").val().length);
-    if (details.YIELD != null) {
-        $("#txtYield").val(details.YIELD.toString()).attr('size', $("#txtYield").val().length);
+    $("#txtTitle").val(details.subject).attr('size', $("#txtTitle").val().length);
+    if (details.yield != null) {
+        $("#txtYield").val(details.yield.toString()).attr('size', $("#txtYield").val().length);
     }
     else {
         $("#txtYield").val("");
     }
-    $("#txtProject").val(details.PROJECT_CODE).attr('size', $("#txtProject").val().length);
-    $("#txtBatchCrea").val(details.BATCH_CREATOR).attr('size', $("#txtBatchCrea").val().length);
-    $("#txtNotebook").val(details.NOTEBOOK).attr('size', $("#txtNotebook").val().length);
+    $("#txtProject").val(details.project_code).attr('size', $("#txtProject").val().length);
+    $("#txtBatchCrea").val(details.batch_creator).attr('size', $("#txtBatchCrea").val().length);
+    $("#txtNotebook").val(details.notebook).attr('size', $("#txtNotebook").val().length);
 
-    $("#txtDateCrea").val(details.CREATION_DATE).attr('size', $("#txtDateCrea").val().length);
-    $("#txtFromRxn").val(details.CONTINUED_FROM_RXN).attr('size', $("#txtFromRxn").val().length);
-    $("#txtToRxn").val(details.CONTINUED_TO_RXN).attr('size', $("#txtToRxn").val().length);
-    if (details.ISSUCCESSFUL != null) {
-        $("#txtSussRea").val(details.ISSUCCESSFUL).attr('size', $("#txtSussRea").val().length);
+    $("#txtDateCrea").val(details.creation_date).attr('size', $("#txtDateCrea").val().length);
+    $("#txtFromRxn").val(details.continued_from_rxn).attr('size', $("#txtFromRxn").val().length);
+    $("#txtToRxn").val(details.continued_to_rxn).attr('size', $("#txtToRxn").val().length);
+    if (details.issuccessful != null) {
+        $("#txtSussRea").val(details.issuccessful).attr('size', $("#txtSussRea").val().length);
     }
     else {
         $("#txtSussRea").val("");
     }
-    $("#txtPage").val(details.EXPERIMENT).attr('size', $("#txtPage").val().length);
+    $("#txtPage").val(details.experiment).attr('size', $("#txtPage").val().length);
 
-    $("#TextAreaLiter").val(details.LITERATURE_REF);
+    $("#TextAreaLiter").val(details.literature_ref);
 }
 
 function login(username, password) {
