@@ -106,26 +106,79 @@ def get_pagesnotebooks():
     except TemplateNotFound:
         abort(404)
         
-@bingo.route('/Reaction.asmx/GetUsersFullname', methods = ['GET','POST'])
-def get_fullname():
+@bingo.route('/Reaction.asmx/GetProducts', methods = ['GET','POST'])
+def get_products():
     try:
-        sql = "select fullname from CEN_USERS where site_code = 'SITE1' order by username"          
-        my_query = query_db(sql)
-        json_output = json.dumps(my_query)
-#         u = User('{"fullname": "Caldarelli, Marina"}')
-#         print u.fullname
-        js ="["
-        for s in my_query:
-#             print s
-#             print s['fullname']
-            js = js + '{"title": "' + s['fullname'] + \
-            '", "isLazy": true , "icon": "/js/vendor/jquery.dynatree/skin-custom/PersonIcon16.gif"},'
+        if request.method == 'POST':
+            ret1 = request.get_json(force=True, silent=True, cache=False)
+            j = json.loads(ret1)    
+            notebook = j['notebook'];
+            page = j['page'];
+            enumVal = j['enumVal'];   
+        else:
+            notebook = request.args.get('notebook')
+            page = request.args.get('page')
+            enumVal = request.args.get('enumVal')
             
-        js= js[:-1] + "]"
-        return Response(response=js, status=200, mimetype="application/json")
+        if enumVal == "undefined":            
+            sql = "select * from batch_lev3_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
+            "' and batch_type in ('PRODUCT' ,'INTENDED' , 'ACTUAL') and SYNTH_ROUTE_REF is null"  
+        else:
+            sql = "select * from batch_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
+            "' and batch_type in ('PRODUCT' ,'INTENDED' , 'ACTUAL') and SYNTH_ROUTE_REF =" + enumVal
 
+        my_query = query_db(sql)
+        
+        if  len(my_query) > 0:            
+            json_output = json.dumps(my_query)
+            return Response(response=json_output, status=200, mimetype="application/json")
+        else:
+            return Response(response='{"ret": "0", "isLazy": true }', status=200, mimetype="application/json")
+            
     except TemplateNotFound:
         abort(404)
+
+@bingo.route('/Reaction.asmx/GetReagents', methods = ['GET','POST'])
+def get_reagents():
+    try:
+        if request.method == 'POST':
+            ret1 = request.get_json(force=True, silent=True, cache=False)
+            j = json.loads(ret1)    
+            notebook = j['notebook'];
+            page = j['page'];
+            enumVal = j['enumVal'];   
+        else:
+            notebook = request.args.get('notebook')
+            page = request.args.get('page')
+            enumVal = request.args.get('enumVal')
+            
+        if enumVal == "undefined":            
+            sql = "select * from batch_lev3_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
+            "' and batch_type in ('SOLVENT' , 'REAGENT', 'REACTANT') and SYNTH_ROUTE_REF is null"  
+        else:
+            sql = "select * from batch_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
+            "' and batch_type in ('SOLVENT' , 'REAGENT', 'REACTANT') and SYNTH_ROUTE_REF =" + enumVal
+
+        my_query = query_db(sql)
+        
+        if  len(my_query) > 0:            
+            json_output = json.dumps(my_query)
+            return Response(response=json_output, status=200, mimetype="application/json")
+        else:
+            return Response(response='{"ret": "0", "isLazy": true }', status=200, mimetype="application/json")
+            
+    except TemplateNotFound:
+        abort(404)
+                
+@bingo.route('/Reaction.asmx/getProjects', methods = ['GET','POST'])
+def get_projects():
+#     ret = json.dumps('{"ret":"OK"}')
+#     resp = Response(response=ret, status=200, mimetype="application/json")
+#     return resp
+
+#     json_output = json.dumps('{"NAME":"PR1", "NAME":"PR2"}')   non va bene con js
+    json_output = '[{"NAME":"PR1"}, {"NAME":"PR2"}]'                        
+    return Response(response=json_output, status=200, mimetype="application/json")
 
 @bingo.route('/Reaction.asmx/GetUserNotebooks', methods = ['GET','POST'])
 def get_usernotebooks():
@@ -152,6 +205,27 @@ def get_usernotebooks():
         else:
             return Response(response='{"title": "No Records", "isLazy": true }', status=200, mimetype="application/json")
             
+    except TemplateNotFound:
+        abort(404)
+
+@bingo.route('/Reaction.asmx/GetUsersFullname', methods = ['GET','POST'])
+def get_fullname():
+    try:
+        sql = "select fullname from CEN_USERS where site_code = 'SITE1' order by username"          
+        my_query = query_db(sql)
+        json_output = json.dumps(my_query)
+#         u = User('{"fullname": "Caldarelli, Marina"}')
+#         print u.fullname
+        js ="["
+        for s in my_query:
+#             print s
+#             print s['fullname']
+            js = js + '{"title": "' + s['fullname'] + \
+            '", "isLazy": true , "icon": "/js/vendor/jquery.dynatree/skin-custom/PersonIcon16.gif"},'
+            
+        js= js[:-1] + "]"
+        return Response(response=js, status=200, mimetype="application/json")
+
     except TemplateNotFound:
         abort(404)
 
@@ -184,16 +258,6 @@ def get_mol_bingo(id):
     response.headers['Content-Type'] = 'image/png'
     response.headers['Content-Disposition'] = 'attachment; filename=mol.png'
     return response
-
-@bingo.route('/Reaction.asmx/getProjects', methods = ['GET','POST'])
-def get_projects():
-#     ret = json.dumps('{"ret":"OK"}')
-#     resp = Response(response=ret, status=200, mimetype="application/json")
-#     return resp
-
-#     json_output = json.dumps('{"NAME":"PR1", "NAME":"PR2"}')   non va bene con js
-    json_output = '[{"NAME":"PR1"}, {"NAME":"PR2"}]'                        
-    return Response(response=json_output, status=200, mimetype="application/json")
 
 @bingo.route('/viewBingo/<id>', methods=['GET'])
 def view_bingo(id):
