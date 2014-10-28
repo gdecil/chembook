@@ -1365,7 +1365,7 @@ function openExperiment(notebook, page, self) {
 
     var grid = $("#myAttach");
     grid.jqGrid('GridUnload');
-    cgAttach($.parseJSON(expCurrent.getAttachement()));
+//    cgAttach($.parseJSON(expCurrent.getAttachement()));
 }
 
 function openExperimentEnum(notebook, page, enumReac, self) {
