@@ -82,6 +82,7 @@ Experiment.prototype.getAttachement = function () {
 
 //reagents stoic
 Experiment.prototype.getReagents = function () {
+	
     var dataX = JSON.stringify('{"notebook":"' + this.notebook + '","page":"' + this.page + '","enumVal":"' + this.enumVal + '"}');
 //    var dataX = "{'notebook':'" + this.notebook + "','page':'" + this.page + "','enumVal':'" + this.enumVal + "'}";
 
