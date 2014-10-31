@@ -160,7 +160,7 @@ def insert_reaction(v_pageKey,v_struct, v_structType,v_nRea):
 # INSERT INTO compound values(2, bingo.compactmolecule('c1ccccc1', false)); 
 
     cursor.execute("""UPDATE cen_reaction_schemes
-         SET native_rxn_sketch = BINGO.COMPACTREACTION ('""" + v_struct +"""', 1)
+         SET native_rxn_sketch = BINGO.COMPACTREACTION ('""" + v_struct +"""', true)
        WHERE RXN_SCHEME_KEY = '""" + id +"""'""")
     
     conn.commit()                     
