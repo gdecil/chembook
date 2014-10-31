@@ -288,7 +288,7 @@ def update_schema():
     my_query = query_db(sql)
     dict = my_query[0]
     print dict
-    print dict['pake_key']
+    print dict['page_key']
     return ""
     id = id_generator(40)
     cursor = conn.cursor()
