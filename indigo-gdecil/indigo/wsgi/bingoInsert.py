@@ -269,6 +269,7 @@ def insert_for():
 @bingoI.route('/Reaction.asmx/UpdateSchema', methods = ['POST'])
 def update_schema(): 
     ret1 = request.get_json(force=True, silent=True, cache=False)
+    print ret1
     j = json.loads(ret1)    
     v_struct = j['struct'];
     notebook = j['notebook'];
