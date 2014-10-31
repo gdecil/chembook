@@ -285,8 +285,10 @@ def update_schema():
         sql = "select RXN_SCHEME_KEY , PAGE_KEY from PAGES_VW where NOTEBOOK = " + notebook + \
         " and EXPERIMENT = " + page + " and SYNTH_ROUTE_REF = " + enumVal
     
-    
-    
+    my_query = query_db(sql)
+    dict = my_query[0]
+    print dict
+    return ""
     id = id_generator(40)
     cursor = conn.cursor()
     cursor.execute("""INSERT INTO CEN_REACTION_SCHEMES (RXN_SCHEME_KEY,
