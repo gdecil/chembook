@@ -10,7 +10,7 @@ if _platform == "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
     conn_string = "host='127.0.0.1' dbname='postgres' user='postgres' password='postgres'"
     conn = psycopg2.connect(conn_string)
 elif _platform == "Linux-3.13.0-37-generic-i686-with-Ubuntu-14.04-trusty":
-    conn_string = "host='127.0.0.1' dbname='postgres' user='postgres' password='postgres'"
+    conn_string = "host='127.0.0.1:5433' dbname='postgres' user='postgres' password='postgres'"
     conn = psycopg2.connect(conn_string)
 else:
     conn = psycopg2.connect(database=os.environ['OPENSHIFT_APP_NAME'],
