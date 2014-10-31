@@ -298,7 +298,7 @@ def update_schema():
 #     sql = "SELECT coalesce(RXN_SCHEME_KEY, 'true') into isNull  from PAGES_VW where NOTEBOOK = '" + notebook + \
 #         "' and EXPERIMENT = '" + page + "'"
     
-    if dict['rxn_scheme_key']== 'None':
+    if dict['rxn_scheme_key']== None:
         id = insert_reaction (dict['page_key'] ,v_struct , 'INTENDED', null)
     else:
         cursor = conn.cursor()
