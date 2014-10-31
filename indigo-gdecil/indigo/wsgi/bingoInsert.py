@@ -279,11 +279,11 @@ def update_schema():
         return Response(response=json.dumps('{"ret":"Empty Reaction"}'), status=200, mimetype="application/json")
     
     if (enumVal =='' or enumVal =='undefined'):
-        sql = "select RXN_SCHEME_KEY,  PAGE_KEY from PAGES_VW where NOTEBOOK = " + notebook + \
-        " and EXPERIMENT = " + page;
+        sql = "select RXN_SCHEME_KEY,  PAGE_KEY from PAGES_VW where NOTEBOOK = '" + notebook + \
+        "' and EXPERIMENT = '" + page + "'"
     else:
-        sql = "select RXN_SCHEME_KEY , PAGE_KEY from PAGES_VW where NOTEBOOK = " + notebook + \
-        " and EXPERIMENT = " + page + " and SYNTH_ROUTE_REF = " + enumVal
+        sql = "select RXN_SCHEME_KEY , PAGE_KEY from PAGES_VW where NOTEBOOK = '" + notebook + \
+        "' and EXPERIMENT = '" + page + "' and SYNTH_ROUTE_REF = " + enumVal 
     
     my_query = query_db(sql)
     dict = my_query[0]
