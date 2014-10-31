@@ -138,6 +138,9 @@ def insert_reactionP():
     
 def insert_reaction(v_pageKey,v_struct, v_structType,v_nRea): 
     id = id_generator(40)
+    if v_nRea == None:
+        v_nRea = ''
+        
     cursor = conn.cursor()
     cursor.execute("""INSERT INTO CEN_REACTION_SCHEMES (RXN_SCHEME_KEY,
                                                       PAGE_KEY,
