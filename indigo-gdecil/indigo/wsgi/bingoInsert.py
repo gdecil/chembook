@@ -299,7 +299,7 @@ def update_schema():
 #         "' and EXPERIMENT = '" + page + "'"
     
     if dict['rxn_scheme_key']== None:
-        id = insert_reaction (dict['page_key'] ,v_struct , 'INTENDED', null)
+        id = insert_reaction (dict['page_key'] ,v_struct , 'INTENDED', None)
     else:
         cursor = conn.cursor()
         cursor.execute("""UPDATE cen_reaction_schemes
