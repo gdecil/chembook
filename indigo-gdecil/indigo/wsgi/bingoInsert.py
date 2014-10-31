@@ -124,7 +124,7 @@ def insert_detail():
     return resp
      
 @bingoI.route('/insertReaction', methods = ['POST'])
-def insert_reaction(): 
+def insert_reactionP(): 
     ret1 = request.get_json(force=True, silent=True, cache=False)
     j = json.loads(ret1)    
     v_struct = j['struct'];
@@ -133,7 +133,10 @@ def insert_reaction():
     v_nRea = j['nRea'];
     if len(v_struct) < 120:
         return Response(response=json.dumps('{"ret":"Empty Reaction"}'), status=200, mimetype="application/json")
+    id = insert_reaction(v_pageKey,v_structType,v_nRea)
+    return Response(response=json.dumps('{"ret":"' + id + '"}'), status=200, mimetype="application/json")
     
+def insert_reaction(v_pageKey,v_struct, v_structType,v_nRea): 
     id = id_generator(40)
     cursor = conn.cursor()
     cursor.execute("""INSERT INTO CEN_REACTION_SCHEMES (RXN_SCHEME_KEY,
@@ -158,7 +161,7 @@ def insert_reaction():
        WHERE RXN_SCHEME_KEY = '""" + id +"""'""")
     
     conn.commit()                     
-    return Response(response=json.dumps('{"ret":"' + id + '"}'), status=200, mimetype="application/json")
+    return id
 
 @bingoI.route('/insertPage', methods = ['POST'])
 # @cross_origin(headers=['Content-Type'], max_age=[1], automatic_options=[True])
@@ -287,31 +290,22 @@ def update_schema():
     
     my_query = query_db(sql)
     dict = my_query[0]
-    print dict
-    print dict['page_key']
-    return ""
-    id = id_generator(40)
-    cursor = conn.cursor()
-    cursor.execute("""INSERT INTO CEN_REACTION_SCHEMES (RXN_SCHEME_KEY,
-                                                      PAGE_KEY,
-                                                      REACTION_TYPE,
-                                                      XML_METADATA,
-                                                      SYNTH_ROUTE_REF,
-                                                      VERSION,
-                                                      LAST_MODIFIED)
-          VALUES ('""" + id +"""',
-                  '""" + v_pageKey +"""',
-                  '""" + v_structType +"""',
-                  xml('<?xml version="1.0" encoding="UTF-8"?><Reaction_Properties><Meta_Data></Meta_Data></Reaction_Properties>'),
-                  '""" + v_nRea +"""',
-                  0,
-                  LOCALTIMESTAMP)""")
-                  
-# INSERT INTO compound values(2, bingo.compactmolecule('c1ccccc1', false)); 
+#     print dict
+#     print dict['page_key']
+#     return ""
 
-    cursor.execute("""UPDATE cen_reaction_schemes
-         SET native_rxn_sketch = BINGO.COMPACTREACTION ('""" + v_struct +"""', 1)
-       WHERE RXN_SCHEME_KEY = '""" + id +"""'""")
     
-    conn.commit()                     
+#     sql = "SELECT coalesce(RXN_SCHEME_KEY, 'true') into isNull  from PAGES_VW where NOTEBOOK = '" + notebook + \
+#         "' and EXPERIMENT = '" + page + "'"
+    
+    if dict['rxn_scheme_key']== 'None':
+        id = insert_reaction (dict['page_key'] ,v_struct , 'INTENDED', null)
+    else:
+        cursor = conn.cursor()
+        cursor.execute("""UPDATE cen_reaction_schemes
+             SET native_rxn_sketch = BINGO.COMPACTREACTION ('""" + v_struct +"""', 1)
+               WHERE RXN_SCHEME_KEY = '""" + dict['rxn_scheme_key'] +"""'""")
+        id =dict['rxn_scheme_key']
+        conn.commit()                     
+    
     return Response(response=json.dumps('{"ret":"' + id + '"}'), status=200, mimetype="application/json")
