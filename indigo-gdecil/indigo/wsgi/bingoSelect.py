@@ -61,7 +61,7 @@ def get_experiment():
 #         cursor = conn.cursor()
         if enumVal=="undefined":
             sql="select * from pages_vw where notebook ='" + notebook \
-            + "' and experiment  = '" + page + "' and SYNTH_ROUTE_REF is null";                    
+            + "' and experiment  = '" + page + "' and SYNTH_ROUTE_REF = ''";                    
         else:
             sql = "select * from pages_vw where notebook ='" + notebook \
             + "' and experiment  = '" + page + "' and SYNTH_ROUTE_REF =" + enumVal;
