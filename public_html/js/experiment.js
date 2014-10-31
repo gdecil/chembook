@@ -557,7 +557,7 @@ Experiment.prototype.getEnumeratedNumbers = function () {
 }
 
 Experiment.prototype.setRxn = function (rxn) {
-    this.Rxn = rxn;
+    this.Rxn = JSON.stringify(rxn);
 };
 
 Experiment.prototype.setGenData = function (expGen) {
