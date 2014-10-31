@@ -311,7 +311,7 @@ Experiment.prototype.updateSchema = function () {
         return;
     }
     //var dataX = "{'rxn':'" + this.Rxn + "', 'rxnId':'" + this.Rxn_scheme_key + "'}";
-    var dataX = '{"rxn":"' + this.Rxn + '", "notebook":"' + this.notebook + '", "page":"' + this.page + '", "enumVal":"' + this.enumVal + '"}';
+    var dataX = '{"rxn":' + this.Rxn + ', "notebook":"' + this.notebook + '", "page":"' + this.page + '", "enumVal":"' + this.enumVal + '"}';
 
     var ret = $.ajax({
         type: "POST",
