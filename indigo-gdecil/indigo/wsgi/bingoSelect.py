@@ -170,7 +170,7 @@ def get_reactionI():
  
         sql = "SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = '" + id + "'"
         my_query = query_db(sql)
-        print str(my_query)
+#         print str(my_query)
         if str(my_query) != '[]':
             response =renderInd(my_query[0]['reaction'],"rea")
             response.headers['Content-Type'] = 'image/png'
