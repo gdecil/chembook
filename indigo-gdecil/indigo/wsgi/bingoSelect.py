@@ -71,7 +71,7 @@ def get_experiment():
 #         cursor.execute(sql)
 #         json_output = json.dumps(cursor.fetchall())
         my_query = query_db(sql)
-        print enumVal
+#         print enumVal
         json_output = json.dumps(my_query)
         
         return Response(response=json_output, status=200, mimetype="application/json")
