@@ -32,7 +32,7 @@ function Experiment(notebook, page, enumVal) {
         this.Rxn = "empty";
     }
     else {
-        this.Rxn = $.parseJSON(_rxn)[0].REACTION
+        this.Rxn = _rxn
     }
     
 }
@@ -161,12 +161,12 @@ Experiment.prototype.RXN = function () {
     if (this.Rxn_scheme_key == "" || this.Rxn_scheme_key == null) {
         return;
     }
-    var dataX = "{'reactionId':'" + this.Rxn_scheme_key + "','cns':'' , 'outType':''}";
+    var dataX = '{"reactionId":"' + this.Rxn_scheme_key + '","cns":"" , "outType":""}';
 
     var ret = $.ajax({
         type: "POST",
         url: server + "/Reaction.asmx/GetReaction",
-        data: dataX,
+        data: JSON.stringify(dataX),
         contentType: "application/json; charset=utf-8",
         processData: false,
         dataType: "json",
@@ -179,7 +179,7 @@ Experiment.prototype.RXN = function () {
     }
     else {
 
-        return tmp.d;
+        return tmp[0].reaction;
     } 
 };
 
@@ -328,7 +328,7 @@ Experiment.prototype.updateSchema = function () {
         return tmp;
     }
     else {
-        if (tmp.d > 0) {
+        if (JSON.parse(tmp).ret.length == 40) {
             this.isSchemeChanged = false;
             alert("Scheme updated");
         }

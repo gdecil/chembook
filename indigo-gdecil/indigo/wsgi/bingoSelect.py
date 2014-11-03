@@ -6,6 +6,7 @@ from indigo_renderer import *
 from flask import send_file
 from tempfile import *
 from shutil import copyfileobj
+import uuid
 import psycopg2
 from bingoCfg import conn, _platform, query_db
 from flask.ext.cors import cross_origin
@@ -61,7 +62,7 @@ def get_experiment():
 #         cursor = conn.cursor()
         if enumVal=="undefined":
             sql="select * from pages_vw where notebook ='" + notebook \
-            + "' and experiment  = '" + page + "' and SYNTH_ROUTE_REF = ''";                    
+            + "' and experiment  = '" + page + "' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)";                    
         else:
             sql = "select * from pages_vw where notebook ='" + notebook \
             + "' and experiment  = '" + page + "' and SYNTH_ROUTE_REF =" + enumVal;
@@ -70,7 +71,7 @@ def get_experiment():
 #         cursor.execute(sql)
 #         json_output = json.dumps(cursor.fetchall())
         my_query = query_db(sql)
-
+        print enumVal
         json_output = json.dumps(my_query)
         
         return Response(response=json_output, status=200, mimetype="application/json")
@@ -137,6 +138,49 @@ def get_products():
             
     except TemplateNotFound:
         abort(404)
+
+@bingo.route('/Reaction.asmx/GetReaction', methods = ['GET','POST'])
+def get_reaction():
+    try:
+        if request.method == 'POST':
+            ret1 = request.get_json(force=True, silent=True, cache=False)
+            j = json.loads(ret1)    
+            id = j['reactionId'];
+            c = j['cns'];
+            o = j['outType'];   
+        else:
+            id = request.args.get('reactionId')
+            c = request.args.get('cns')
+            o = request.args.get('outType')
+ 
+        sql = "SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = '" + id + "'"
+        my_query = query_db(sql)
+
+        json_output = json.dumps(my_query)
+        return Response(response=json_output, status=200, mimetype="application/json")
+
+    except TemplateNotFound:
+        abort(404)   
+
+@bingo.route('/GetReaction.ashx', methods = ['GET'])
+def get_reactionI():
+    try:
+        id = request.args.get('idReaction')
+        c = request.args.get('rand')
+ 
+        sql = "SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = '" + id + "'"
+        my_query = query_db(sql)
+        print str(my_query)
+        if str(my_query) != '[]':
+            response =renderInd(my_query[0]['reaction'],"rea")
+            response.headers['Content-Type'] = 'image/png'
+            response.headers['Content-Disposition'] = 'attachment; filename=mol.png'
+        else:
+            response = ""
+        return response
+
+    except TemplateNotFound:
+        abort(404)   
 
 @bingo.route('/Reaction.asmx/GetReagents', methods = ['GET','POST'])
 def get_reagents():
@@ -234,20 +278,59 @@ def get_mol_bingo(id):
     cursor = conn.cursor()
     cursor.execute("select bingo.smiles(molb) from compound where id =" + str(id) )  
     mypic2 = str(cursor.fetchone()[0]) 
-
     indigo = Indigo()
     smile = mypic2;
 #    return smile
+#     mol1.layout()
+    
+#     renderer = IndigoRenderer(indigo);
+#     indigo.setOption("render-output-format", "png");
+#     indigo.setOption("render-margins", 10, 10);
+#     if _platform == "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
+#         datadir = ""        
+#     elif _platform == "Linux-3.13.0-37-generic-i686-with-Ubuntu-14.04-trusty":
+#         datadir = ""        
+#     else:
+#         datadir = os.environ['OPENSHIFT_DATA_DIR']
+#         
+#     print datadir + "mol.png"         
+#     renderer.renderToFile(mol1, datadir + "mol.png");
+#         
+#     tempFileObj = NamedTemporaryFile(mode='w+b',suffix='png')
+#     pilImage = open(datadir + 'mol.png','rb')
+#     copyfileobj(pilImage,tempFileObj)
+#     pilImage.close()
+#     remove(datadir + 'mol.png')
+#     tempFileObj.seek(0,0)
+#     response = send_file(tempFileObj)
+
+    response = renderInd(smile,"mol")
+    
+    response.headers['Content-Type'] = 'image/png'
+    response.headers['Content-Disposition'] = 'attachment; filename=mol.png'
+    return response
+
+@bingo.route('/getMolBingo1/<int:id>', methods = ['GET'])
+def get_mol_bingo1(id):
+    cursor = conn.cursor()
+    cursor.execute("select bingo.smiles(molb) from compound where id =" + str(id) )
+    mypic2 = str(cursor.fetchone()[0])
+    indigo = Indigo()
+    smile = mypic2;
+    # return smile
     mol1 = indigo.loadMolecule(smile);
     mol1.layout();
+    
     renderer = IndigoRenderer(indigo);
     indigo.setOption("render-output-format", "png");
     indigo.setOption("render-margins", 10, 10);
-    if _platform != "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
-        datadir = os.environ['OPENSHIFT_DATA_DIR']
-    else:
+    if _platform == "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
         datadir = ""        
-    renderer.renderToFile(mol1, datadir + "mol.png");        
+    elif _platform == "Linux-3.13.0-37-generic-i686-with-Ubuntu-14.04-trusty":
+        datadir = ""        
+    else:
+        datadir = os.environ['OPENSHIFT_DATA_DIR']
+    renderer.renderToFile(mol1, datadir + "mol.png");
     tempFileObj = NamedTemporaryFile(mode='w+b',suffix='png')
     pilImage = open(datadir + 'mol.png','rb')
     copyfileobj(pilImage,tempFileObj)
@@ -266,6 +349,41 @@ def view_bingo(id):
     except TemplateNotFound:
         abort(404)    
 
+def renderInd(smile, typeInd):
+    indigo = Indigo()
+    if typeInd == "rea":
+        mol1 = indigo.loadReaction(smile)
+    else:
+        mol1 = indigo.loadMolecule(smile)
+
+    renderer = IndigoRenderer(indigo);
+    indigo.setOption("render-output-format", "png");
+    indigo.setOption("render-margins", 10, 10);
+    if _platform == "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
+        datadir = ""        
+    elif _platform == "Linux-3.13.0-37-generic-i686-with-Ubuntu-14.04-trusty":
+        datadir = ""        
+    else:
+        datadir = os.environ['OPENSHIFT_DATA_DIR']
+        
+    unique_filename= str(uuid.uuid4()) + ".png"
+
+    renderer.renderToFile(mol1, datadir + unique_filename);
+        
+    tempFileObj = NamedTemporaryFile(mode='w+b',suffix='png')
+    pilImage = open(datadir + unique_filename,'rb')
+    copyfileobj(pilImage,tempFileObj)
+    pilImage.close()
+    remove(datadir + unique_filename)
+    tempFileObj.seek(0,0)
+    response = send_file(tempFileObj)
+    return response
+
+#     unique_filename= uuid.uuid4()
+#     unique_filename= "mol.png"
+#     print mol1
+#      + ".png"
+    
 class User(object):
     def __init__(self,j):
         self.__dict__= json.loads(j)

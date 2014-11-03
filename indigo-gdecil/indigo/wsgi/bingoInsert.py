@@ -275,7 +275,6 @@ def insert_for():
 @bingoI.route('/Reaction.asmx/UpdateSchema', methods = ['POST'])
 def update_schema(): 
     ret1 = request.get_json(force=True, silent=True, cache=False)
-    print ret1
     j = json.loads(ret1)    
     v_struct = j['rxn'];
     notebook = j['notebook'];
@@ -304,11 +303,13 @@ def update_schema():
     if dict['rxn_scheme_key']== None:
         id = insert_reaction (dict['page_key'] ,v_struct , 'INTENDED', None)
     else:
-        cursor = conn.cursor()
+        print dict['rxn_scheme_key']
+        cursor = conn.cursor()    
         cursor.execute("""UPDATE cen_reaction_schemes
-             SET native_rxn_sketch = BINGO.COMPACTREACTION ('""" + v_struct +"""', 1)
+             SET native_rxn_sketch = BINGO.COMPACTREACTION ('""" + v_struct +"""', true)
                WHERE RXN_SCHEME_KEY = '""" + dict['rxn_scheme_key'] +"""'""")
         id =dict['rxn_scheme_key']
         conn.commit()                     
+
     
     return Response(response=json.dumps('{"ret":"' + id + '"}'), status=200, mimetype="application/json")
