@@ -1,4 +1,5 @@
 var server = window.location.protocol + "//" + window.location.host;
+var serverWeb = window.location.protocol + "//" + window.location.host;
 if (server == "http://10.206.89.79"){
 	server = "http://10.206.89.79:5000"
 }
