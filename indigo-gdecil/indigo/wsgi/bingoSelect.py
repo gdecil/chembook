@@ -326,7 +326,7 @@ def get_mol_bingo1(id):
     indigo.setOption("render-margins", 10, 10);
     if _platform == "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
         datadir = ""        
-    elif _platform == "Linux-3.13.0-37-generic-i686-with-Ubuntu-14.04-trusty":
+    elif _platform == "Linux-3.13.0-39-generic-i686-with-Ubuntu-14.04-trusty":
         datadir = ""        
     else:
         datadir = os.environ['OPENSHIFT_DATA_DIR']
@@ -361,7 +361,7 @@ def renderInd(smile, typeInd):
     indigo.setOption("render-margins", 10, 10);
     if _platform == "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
         datadir = ""        
-    elif _platform == "Linux-3.13.0-37-generic-i686-with-Ubuntu-14.04-trusty":
+    elif _platform == "Linux-3.13.0-39-generic-i686-with-Ubuntu-14.04-trusty":
         datadir = ""        
     else:
         datadir = os.environ['OPENSHIFT_DATA_DIR']
