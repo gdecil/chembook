@@ -5,7 +5,8 @@ import os
 
 _platform = platform.platform()
 
-if _platform == "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
+# Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty
+if "Linux-3.13" in _platform :
 #            conn_string = "host='localhost' dbname='indigo' user='admin8fqsmyu' password='postgres'"
     conn_string = "host='127.0.0.1' dbname='postgres' user='postgres' password='postgres'"
     conn = psycopg2.connect(conn_string)
