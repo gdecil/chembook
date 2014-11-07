@@ -34,7 +34,7 @@ _platform = platform.platform()
 
 if _platform == "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
     a=1
-elif _platform == "Linux-3.13.0-37-generic-i686-with-Ubuntu-14.04-trusty":
+elif _platform == "Linux-3.13.0-39-generic-i686-with-Ubuntu-14.04-trusty":
     a=1
 else:
     app.config.from_pyfile('todoapp.cfg')
