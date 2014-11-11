@@ -342,6 +342,57 @@ def get_mol_bingo1(id):
     response.headers['Content-Disposition'] = 'attachment; filename=mol.png'
     return response
 
+@bingo.route('/Reaction.asmx/MatchBingoReaction', methods = ['GET','POST'])
+def match_reaction():
+    try:
+        if request.method == 'POST':
+            ret1 = request.get_json(force=True, silent=True, cache=False)
+            j = json.loads(ret1)    
+            compound = j['compound'];
+            c = j['cns'];
+            o = j['searchType'];   
+        else:
+            compound = request.args.get('compound')
+            c = request.args.get('cns')
+            o = request.args.get('searchType')
+            
+        sql ="SELECT RXN_SCHEME_KEY, " + \
+             "      (SELECT fullname " +\
+             "        FROM cen_users" +\
+             "       WHERE username = (SELECT username" +\
+             "                           FROM cen_pages" +\
+             "                          WHERE page_key = r.page_key))" +\
+             "        AS username," +\
+             "      (SELECT notebook" +\
+             "        FROM cen_pages" +\
+             "       WHERE page_key = r.page_key)" +\
+             "        AS notebook," +\
+             "      (SELECT experiment" +\
+             "        FROM cen_pages" +\
+             "       WHERE page_key = r.page_key)" +\
+             "        AS page," +\
+             "      (SELECT creation_date" +\
+             "        FROM cen_pages" +\
+             "       WHERE page_key = r.page_key)" +\
+             "        AS creation_date," +\
+             "      (SELECT subject" +\
+             "        FROM cen_pages" +\
+             "       WHERE page_key = r.page_key)" +\
+             "        AS subject "
+        
+        if o == 'SSS':            
+            sql = sql + " from cen_reaction_schemes where native_rxn_sketch  @ ('" + compound + "', '')::bingo.rsub"
+        else:
+            sql = sql + " from cen_reaction_schemes where native_rxn_sketch  @ ('" + compound + "', '')::bingo.rexact"
+            
+        my_query = query_db(sql)
+
+        json_output = json.dumps(my_query)
+        return Response(response=json_output, status=200, mimetype="application/json")
+
+    except TemplateNotFound:
+        abort(404)   
+
 @bingo.route('/viewBingo/<id>', methods=['GET'])
 def view_bingo(id):
     try:
