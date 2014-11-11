@@ -620,7 +620,7 @@ function getReactions(reaction, searchType) {
     }
     else {
 
-        return tmp.d;
+        return tmp;
     }
 }
 
