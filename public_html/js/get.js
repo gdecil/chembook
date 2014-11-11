@@ -602,12 +602,12 @@ function getReactionTest(reaction, searchType) {
 }
 
 function getReactions(reaction, searchType) {
-    var dataX = "{'compound':'" + reaction + "', 'searchType':'" + searchType + "', 'cns':''}";
+    var dataX = '{"compound":"' + reaction + '", "searchType":"' + searchType + '", "cns":""}';
 
     var ret = $.ajax({
         type: "POST",
         url: server + "/Reaction.asmx/MatchBingoReaction",
-        data: dataX,
+        data: JSON.stringify(dataX),
         contentType: "application/json; charset=utf-8",
         processData: false,
         dataType: "json",
