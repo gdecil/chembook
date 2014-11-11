@@ -232,12 +232,12 @@ function cgReactions(mydata) {
         autowidth: true,
         colNames: ['USERNAME', 'NOTEBOOK', 'PAGE', 'CREATION_DATE m/d/Y', 'SUBJECT', 'ID'],
         colModel: [
-            {name: 'USERNAME', index: 'USERNAME', width: 60},
-            {name: 'NOTEBOOK', index: 'NOTEBOOK', width: 60},
-            {name: 'PAGE', index: 'PAGE', width: 60},
-            { name: 'CREATION_DATE', index: 'CREATION_DATE', width: 60, formatter: 'date', formatoptions: { newformat: 'm/d/Y' } },
-            {name: 'SUBJECT', index: 'SUBJECT', width: 160},
-            {name: 'RXN_SCHEME_KEY', index: 'RXN_SCHEME_KEY', width: 60, hidden:true, key:true}
+            {name: 'username', index: 'username', width: 60},
+            {name: 'notebook', index: 'notebook', width: 60},
+            {name: 'page', index: 'page', width: 60},
+            { name: 'creation_date', index: 'creation_date', width: 60, formatter: 'date', formatoptions: { newformat: 'm/d/Y' } },
+            {name: 'subject', index: 'subject', width: 160},
+            {name: 'rxn_scheme_key', index: 'rxn_scheme_key', width: 60, hidden:true, key:true}
         ],
         caption: "RXNID",
         pager : '#gridpager',
