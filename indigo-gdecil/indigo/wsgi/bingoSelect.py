@@ -386,7 +386,6 @@ def match_reaction():
         else:
             sql = sql + " from cen_reaction_schemes r where native_rxn_sketch  @ ('" + compound + "', '')::bingo.rexact"
             
-        print sql
         my_query = query_db(sql)
 
         json_output = json.dumps(my_query)
