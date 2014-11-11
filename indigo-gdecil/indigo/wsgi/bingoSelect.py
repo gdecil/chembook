@@ -10,6 +10,7 @@ import uuid
 import psycopg2
 from bingoCfg import conn, _platform, query_db
 from flask.ext.cors import cross_origin
+from psycopg2.extensions import SQL_IN
 
 bingo = Blueprint('bingo', __name__, template_folder='templates')
 
@@ -385,6 +386,7 @@ def match_reaction():
         else:
             sql = sql + " from cen_reaction_schemes where native_rxn_sketch  @ ('" + compound + "', '')::bingo.rexact"
             
+        print sql
         my_query = query_db(sql)
 
         json_output = json.dumps(my_query)
