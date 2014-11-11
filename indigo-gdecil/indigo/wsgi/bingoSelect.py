@@ -382,9 +382,9 @@ def match_reaction():
              "        AS subject "
         
         if o == 'SSS':            
-            sql = sql + " from cen_reaction_schemes where native_rxn_sketch  @ ('" + compound + "', '')::bingo.rsub"
+            sql = sql + " from cen_reaction_schemes r where native_rxn_sketch  @ ('" + compound + "', '')::bingo.rsub"
         else:
-            sql = sql + " from cen_reaction_schemes where native_rxn_sketch  @ ('" + compound + "', '')::bingo.rexact"
+            sql = sql + " from cen_reaction_schemes r where native_rxn_sketch  @ ('" + compound + "', '')::bingo.rexact"
             
         print sql
         my_query = query_db(sql)
