@@ -652,13 +652,13 @@ function searchSSS() {
         var rxn =ketcher.getMolfile();
         if (rxn.length > 105) {
             var rxnIDs = getReactions(rxn,"SSS")
-            getRXN( $.parseJSON(rxnIDs)[0].RXN_SCHEME_KEY);  
-            cgReactions($.parseJSON(rxnIDs));
+            getRXN( rxnIDs[0].RXN_SCHEME_KEY);  
+            cgReactions(rxnIDs);
         }
         else {
             var rxnIDs = getReactions("","SSS")
-            getRXN( $.parseJSON(rxnIDs)[0].RXN_SCHEME_KEY);  
-            cgReactions($.parseJSON(rxnIDs));
+            getRXN( rxnIDs[0].RXN_SCHEME_KEY);  
+            cgReactions(rxnIDs);
             
 //            $('.sideButtonCell').hide(); 
 //            alert("Please insert a reaction to search");
