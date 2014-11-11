@@ -602,7 +602,7 @@ function getReactionTest(reaction, searchType) {
 }
 
 function getReactions(reaction, searchType) {
-    var dataX = '{"compound":"' + reaction + '", "searchType":"' + searchType + '", "cns":""}';
+    var dataX = '{"compound":"' + JSON.stringify(reaction) + '", "searchType":"' + searchType + '", "cns":""}';
 
     var ret = $.ajax({
         type: "POST",
