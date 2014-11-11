@@ -652,12 +652,12 @@ function searchSSS() {
         var rxn =ketcher.getMolfile();
         if (rxn.length > 105) {
             var rxnIDs = getReactions(rxn,"SSS")
-            getRXN( rxnIDs[0].RXN_SCHEME_KEY);  
+            getRXN( rxnIDs[0].rxn_scheme_key);  
             cgReactions(rxnIDs);
         }
         else {
             var rxnIDs = getReactions("","SSS")
-            getRXN( rxnIDs[0].RXN_SCHEME_KEY);  
+            getRXN( rxnIDs[0].rxn_scheme_key);  
             cgReactions(rxnIDs);
             
 //            $('.sideButtonCell').hide(); 
