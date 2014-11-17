@@ -107,11 +107,14 @@ def get_mol(smile):
     indigo.setOption("render-output-format", "png");
     indigo.setOption("render-margins", 10, 10);
 #    indigo.setOption("render-comment", "N-Hydroxyaniline" + str(task_id))
-    if _platform != "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
-        datadir = os.environ['OPENSHIFT_DATA_DIR']
+
+    if _platform == "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
+        datadir = ""        
+    elif _platform == "Linux-3.13.0-39-generic-i686-with-Ubuntu-14.04-trusty":
+        datadir = ""        
     else:
-        datadir = ""
-        
+        datadir = os.environ['OPENSHIFT_DATA_DIR']
+                
     renderer.renderToFile(mol1, datadir + "mol.png");
     
         
