@@ -86,7 +86,9 @@ def testView():
 @app.route("/wait/<int:id>")
 def wait(id):
     ret = '{"data": "JSON string example"}'
+    print id
     time.sleep(id)
+    print id
     resp = Response(response=ret,
                     status=200,
                     mimetype="application/json")
