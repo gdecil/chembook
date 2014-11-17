@@ -15,6 +15,7 @@ from indigo_renderer import *
 import platform
 import psycopg2
 import bingoCfg
+import time
 
 from bingoSelect import *
 from bingoInsert import *
@@ -76,6 +77,16 @@ def api_message():
 def testView():
     ret = '{"data": "JSON string example"}'
 
+    resp = Response(response=ret,
+                    status=200,
+                    mimetype="application/json")
+
+    return resp
+
+@app.route("/wait/<int:id>")
+def wait(id):
+    ret = '{"data": "JSON string example"}'
+    time.sleep(id)
     resp = Response(response=ret,
                     status=200,
                     mimetype="application/json")
