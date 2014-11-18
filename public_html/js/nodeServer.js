@@ -2,7 +2,7 @@ var http = require('http');
  
 var server = http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  var zerorpc = require("zerorpc");
+  var zerorpc = require("/usr/local/lib/node_modules/zerorpc");
 
   var client = new zerorpc.Client();
   client.connect("tcp://127.0.0.1:4242");
