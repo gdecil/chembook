@@ -12,7 +12,6 @@ var server = http.createServer(function (req, res) {
     res.end(res1)
   });
 
-//    res.end('Hello Worldn');  
 })
  
 server.listen(1337, '0.0.0.0');
