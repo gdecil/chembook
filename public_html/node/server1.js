@@ -19,7 +19,7 @@ var dispatcher = require('./httpdispatcher');
 		chain.next(req, res, chain);
 	});
 	
-	dispatcher.afterFilter(/\//, function(req, res) { //any url
+	dispatcher.afterFilter(/\//, function(req, res, chain) { //any url
 		console.log("After filter");
 		chain.next(req, res, chain);
 	});
