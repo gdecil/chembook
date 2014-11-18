@@ -6,7 +6,7 @@ var server = http.createServer(function (req, res) {
   var zerorpc = require("/usr/local/lib/node_modules/zerorpc");
   var client = new zerorpc.Client();
   var url_par = url.parse(req.url, true);
-  var query = url_par.query;
+  var query = JSON.parse(url_par.query);
   console.log(query);
   client.connect("tcp://127.0.0.1:4242");
   client.invoke("hello", "Pippo!", function(error, res1, more) {
