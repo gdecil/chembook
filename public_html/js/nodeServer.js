@@ -5,6 +5,6 @@ var server = http.createServer(function (req, res) {
   res.end('Hello Worldn');
 })
  
-server.listen(1337, '127.0.0.1');
+server.listen(1337, '0.0.0.0');
  
 console.log('Server running at http://0.0.0.0:1337/');
