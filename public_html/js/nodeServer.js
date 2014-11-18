@@ -9,10 +9,9 @@ var server = http.createServer(function (req, res) {
 
   client.invoke("hello", "World!", function(error, res, more) {
     console.log(res);
-    res.end('Hello Worldn');
   });
 
-  
+    res.end('Hello Worldn');  
 })
  
 server.listen(1337, '0.0.0.0');
