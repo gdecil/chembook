@@ -7,7 +7,7 @@ var server = http.createServer(function (req, res) {
   var client = new zerorpc.Client();
   client.connect("tcp://127.0.0.1:4242");
 
-  client.invoke("hello", "World!", function(error, res, more) {
+  client.invoke("hello", "Pippo!", function(error, res, more) {
     console.log(res);
   });
 
