@@ -6,4 +6,5 @@ class HelloRPC(object):
 
 s = zerorpc.Server(HelloRPC())
 s.bind("tcp://0.0.0.0:4242")
-s.run()
+s.run(debug=True)
+
