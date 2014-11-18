@@ -1,3 +1,5 @@
+var http = require('http');
+var url = require('url');
 var dispatcher = require('./httpdispatcher');
 	
 	dispatcher.setStatic('resources');
