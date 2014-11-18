@@ -10,7 +10,7 @@ var server = http.createServer(function (req, res) {
   console.log(query.name);
   client.connect("tcp://127.0.0.1:4242");
   client.invoke("hello", query.name, function(error, res1, more) {
-    console.log(res1);
+//    console.log(res1);
     res.end(res1)
   });
 
