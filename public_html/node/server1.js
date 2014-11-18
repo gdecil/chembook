@@ -30,7 +30,7 @@ var dispatcher = require('./httpdispatcher');
 	
 	http.createServer(function (req, res) {
 		dispatcher.dispatch(req, res);
-	}).listen(1337, '127.0.0.1');
+	}).listen(1337, '0.0.0.0');
 	
 	
 	/*
