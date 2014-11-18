@@ -9,7 +9,7 @@ var server = http.createServer(function (req, res) {
   var query = url_par.query;
   console.log(query.name);
   client.connect("tcp://127.0.0.1:4242");
-  client.invoke("hello", "Pippo!", function(error, res1, more) {
+  client.invoke("hello", query.name, function(error, res1, more) {
     console.log(res1);
     res.end(res1)
   });
