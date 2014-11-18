@@ -6,12 +6,10 @@ var server = http.createServer(function (req, res) {
 
   var client = new zerorpc.Client();
   client.connect("tcp://127.0.0.1:4242");
-  var res2 ="";
   client.invoke("hello", "Pippo!", function(error, res1, more) {
-    console.log(res);
-    res2= res1;
+    console.log(res1);
+    res.end(res1)
   });
-    res.end(res2)
 
 })
  
