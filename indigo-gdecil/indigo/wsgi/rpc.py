@@ -7,10 +7,6 @@ import uuid
 from serial.rfc2217 import ECHO
 
 class HelloRPC(object):
-    def hello(self, name):
-        print self
-        return "Hello, %s" % name
-
     def renderInd(self, smile, typeInd):
         indigo = Indigo()
         if typeInd == "rea":
