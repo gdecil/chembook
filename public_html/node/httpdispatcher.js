@@ -47,15 +47,15 @@ HttpDispatcher.prototype.dispatch = function(req, res) {
 	var method = req.method.toLowerCase();
 	var dispatcher = this;
 	var doDispatch = function() {
-	var httpChain = new HttpChain();
-	var beforeFilters = this.getFilters(url.pathname, 'before');
-	httpChain.addAll(beforeFilters);
-	var listener = this.getListener(url.pathname, method);
-	var listenerCb = listener ? listener : this.errorListener;
-	httpChain.add(httpChain.getWrapped(listenerCb));
-	var afterFilters = this.getFilters(url.pathname, 'after');
-	httpChain.addAll(afterFilters);
-	httpChain.next(req, res);
+		var httpChain = new HttpChain();
+		var beforeFilters = this.getFilters(url.pathname, 'before');
+		httpChain.addAll(beforeFilters);
+		var listener = this.getListener(url.pathname, method);
+		var listenerCb = listener ? listener : this.errorListener;
+		httpChain.add(httpChain.getWrapped(listenerCb));
+		var afterFilters = this.getFilters(url.pathname, 'after');
+		httpChain.addAll(afterFilters);
+		httpChain.next(req, res);
 	}
 	if(method == 'post') {
 		var body = '';
