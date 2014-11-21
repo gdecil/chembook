@@ -9,6 +9,11 @@ var dispatcher = require('./httpdispatcher');
 		res.end('Page One');
 	});	
 	
+	dispatcher.onGet("/python", function(req, res) {
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		res.end('Page One');
+	});	
+
 	dispatcher.onPost("/page2", function(req, res) {
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 		res.end('Page Two');
