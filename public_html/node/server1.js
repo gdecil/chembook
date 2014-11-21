@@ -21,7 +21,7 @@ var dispatcher = require('./httpdispatcher');
 					res.end(res1)
 				})
 			}					
-		res.end(req.params.func);
+//		res.end(req.params.func);
 	});	
 
 	dispatcher.onPost("/page2", function(req, res) {
