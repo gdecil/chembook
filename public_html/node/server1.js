@@ -12,6 +12,13 @@ var dispatcher = require('./httpdispatcher');
 	dispatcher.onGet("/python", function(req, res) {
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 		console.log(req.params.name);
+		if (req.params.func == 'pippo')
+			{
+				client.connect("tcp://127.0.0.1:4242");
+				client.invoke("hello", query.name, function(error, res1, more) {
+					res.end(res1)
+				})
+			}					
 		res.end(req.params.func);
 	});	
 
