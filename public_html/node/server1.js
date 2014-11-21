@@ -11,7 +11,7 @@ var dispatcher = require('./httpdispatcher');
 	
 	dispatcher.onGet("/python", function(req, res) {
 		res.writeHead(200, {'Content-Type': 'text/plain'});
-		console.log(req.params);
+		console.log(req.params.name);
 		res.end('py');
 	});	
 
