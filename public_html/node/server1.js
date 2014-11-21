@@ -20,7 +20,11 @@ var dispatcher = require('./httpdispatcher');
 				client.invoke("renderInd", req.params.smile, function(error, res1, more) {
 					res.end(res1)
 				})
-			}					
+			}
+		else
+			{
+				res.end(req.params.func);
+			}
 //		res.end(req.params.func);
 	});	
 
