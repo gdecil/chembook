@@ -14,10 +14,10 @@ var dispatcher = require('./httpdispatcher');
 		console.log(req.params.name);
 		var zerorpc = require("/usr/local/lib/node_modules/zerorpc");
 		var client = new zerorpc.Client();
-		if (req.params.func == 'pippo')
+		if (req.params.func == 'renderInd')
 			{
 				client.connect("tcp://127.0.0.1:4242");
-				client.invoke("hello", req.params.name, function(error, res1, more) {
+				client.invoke("renderInd", req.params.smile, function(error, res1, more) {
 					res.end(res1)
 				})
 			}					
