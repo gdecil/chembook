@@ -11,7 +11,7 @@ var dispatcher = require('./httpdispatcher');
 	
 	dispatcher.onGet("/python", function(req, res) {
 		res.writeHead(200, {'Content-Type': 'text/plain'});
-		res.end('Page One');
+		res.end(req.params);
 	});	
 
 	dispatcher.onPost("/page2", function(req, res) {
