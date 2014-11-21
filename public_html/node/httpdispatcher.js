@@ -3,32 +3,32 @@ var HttpDispatcher = function() {
 this.listeners = { get: [ ], post: [ ] };
 this.filters = { before: [ ], after: [ ] };
 this.errorListener = function(req, res) {
-res.writeHead(404);
-res.end();
+	res.writeHead(404);
+	res.end();
 }
 this.staticFolderPrefix = '/static';
-this.staticDirname;
+	this.staticDirname;
 }
 HttpDispatcher.prototype.on = function(method, url, cb) {
-this.listeners[method].push({
-cb: cb,
-url: url
-});
+	this.listeners[method].push({
+		cb: cb,
+		url: url
+	});
 }
 HttpDispatcher.prototype.filter = function(method, url, cb) {
-this.filters[method].push({
-cb: cb,
-url: url
-});
+	this.filters[method].push({
+		cb: cb,
+		url: url
+	});
 }
 HttpDispatcher.prototype.onGet = function(url, cb) {
-this.on('get', url, cb);
+	this.on('get', url, cb);
 }
 HttpDispatcher.prototype.onPost = function(url, cb) {
-this.on('post', url, cb);
+	this.on('post', url, cb);
 }
 HttpDispatcher.prototype.onError = function(cb) {
-this.errorListener = cb;
+	this.errorListener = cb;
 }
 HttpDispatcher.prototype.setStatic = function(folder) {
 	this.on('get', new RegExp("\/"+folder), this.staticListener.bind(this));
