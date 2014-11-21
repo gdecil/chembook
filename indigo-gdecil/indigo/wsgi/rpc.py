@@ -4,9 +4,11 @@ from indigo_renderer import *
 from tempfile import *
 from shutil import copyfileobj
 import uuid
+from serial.rfc2217 import ECHO
 
 class HelloRPC(object):
     def hello(self, name):
+        print self
         return "Hello, %s" % name
 
     def renderInd(self, smile, typeInd):
