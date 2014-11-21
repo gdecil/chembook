@@ -11,11 +11,11 @@ var dispatcher = require('./httpdispatcher');
 	
 	dispatcher.onGet("/python", function(req, res) {
 		res.writeHead(200, {'Content-Type': 'text/plain'});
-		console.log(req.params.smile);
 		var zerorpc = require("/usr/local/lib/node_modules/zerorpc");
 		var client = new zerorpc.Client();
 		if (req.params.func == 'renderInd')
 			{
+				console.log(req.params.smile);
 				client.connect("tcp://127.0.0.1:4242");
 				client.invoke("renderInd", req.params.smile, function(error, res1, more) {
 					res.end(res1)
