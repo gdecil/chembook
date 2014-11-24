@@ -46,4 +46,4 @@ def hello(self, name):
     print self
     return "Hello, %s" % name
 
-renderInd('ugo','ccccc')
+renderInd('ugo','cccccc')
