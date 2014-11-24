@@ -1,4 +1,4 @@
-from indigo import *
+from ../indigo import *
 from indigo_renderer import *
 from tempfile import *
 from shutil import copyfileobj
