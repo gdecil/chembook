@@ -31,8 +31,8 @@ def renderInd(self, smile):
     renderer.renderToFile(mol1, datadir + unique_filename);
 
     with open(datadir + unique_filename, 'rb') as imageFile:
-        str = base64.b64encode(imageFile.read())
-        print str
+        str1 = base64.b64encode(imageFile.read())
+        print str1
 
     print datadir + unique_filename
     print "uno"
