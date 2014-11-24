@@ -4,8 +4,10 @@ from indigo_renderer import *
 from tempfile import *
 from shutil import copyfileobj
 import uuid
+import base64
+
 from serial.rfc2217 import ECHO
-from flask import send_file
+from __builtin__ import str
 
 class HelloRPC(object):
     def renderInd(self, smile):
@@ -29,6 +31,11 @@ class HelloRPC(object):
         unique_filename= str(uuid.uuid4()) + ".png"
     
         renderer.renderToFile(mol1, datadir + unique_filename);
+        
+        with open(datadir + unique_filename, 'rb') as imageFile:
+            str = base64.b64encode(imageFile.read())
+            print str
+            
         print datadir + unique_filename
         print "uno"
             
