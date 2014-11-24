@@ -34,7 +34,7 @@ def renderInd(self, smile):
         str = base64.b64encode(imageFile.read())
         print str
 
-print datadir + unique_filename
+    print datadir + unique_filename
     print "uno"
         
     tempFileObj = NamedTemporaryFile(mode='w+b',suffix='png')
