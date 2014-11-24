@@ -6,6 +6,7 @@ from shutil import copyfileobj
 import uuid
 from serial.rfc2217 import ECHO
 
+
     def renderInd(self, smile):
         
         typeInd =""
