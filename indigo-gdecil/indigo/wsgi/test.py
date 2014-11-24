@@ -45,3 +45,5 @@ def renderInd(self, smile):
 def hello(self, name):
     print self
     return "Hello, %s" % name
+
+hello(pippo)
