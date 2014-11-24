@@ -5,6 +5,7 @@ from tempfile import *
 from shutil import copyfileobj
 import uuid
 from serial.rfc2217 import ECHO
+from flask import send_file
 
 class HelloRPC(object):
     def renderInd(self, smile):
