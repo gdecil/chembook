@@ -29,7 +29,12 @@ def renderInd(self, smile):
     unique_filename= str(uuid.uuid4()) + ".png"
 
     renderer.renderToFile(mol1, datadir + unique_filename);
-    print datadir + unique_filename
+
+    with open(datadir + unique_filename, 'rb') as imageFile:
+        str = base64.b64encode(imageFile.read())
+        print str
+
+print datadir + unique_filename
     print "uno"
         
     tempFileObj = NamedTemporaryFile(mode='w+b',suffix='png')
