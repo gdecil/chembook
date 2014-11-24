@@ -5,8 +5,7 @@ from tempfile import *
 from shutil import copyfileobj
 import uuid
 from serial.rfc2217 import ECHO
-from flask import send_file
-
+import base64
 
 def renderInd(self, smile):
     
