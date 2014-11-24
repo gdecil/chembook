@@ -33,22 +33,11 @@ class HelloRPC(object):
         renderer.renderToFile(mol1, datadir + unique_filename);
         
         with open(datadir + unique_filename, 'rb') as imageFile:
-            str = base64.b64encode(imageFile.read())
-            print str
+            str1 = base64.b64encode(imageFile.read())
+            print str1
             
-        print datadir + unique_filename
-        print "uno"
-            
-        tempFileObj = NamedTemporaryFile(mode='w+b',suffix='png')
-        pilImage = open(datadir + unique_filename,'rb')
-        copyfileobj(pilImage,tempFileObj)
-        pilImage.close()
-        print "due"
-#         remove(datadir + unique_filename)
-        tempFileObj.seek(0,0)
-        response = send_file(tempFileObj)
-        print unique_filename
-        return response
+        return str1
+    
     def hello(self, name):
         print self
         return "Hello, %s" % name
