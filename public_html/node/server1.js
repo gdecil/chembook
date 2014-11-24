@@ -18,6 +18,7 @@ var dispatcher = require('./httpdispatcher');
 				console.log(req.params.smile);
 				client.connect("tcp://127.0.0.1:4242");
 				client.invoke("renderInd", req.params.smile, function(error, res1, more) {
+					res.writeHead(200, {'Content-Type': 'image/png'});
 					res.end(res1)
 				})
 			}
