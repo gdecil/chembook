@@ -6,7 +6,7 @@ from datetime import datetime
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         print 20
-        self.write(datetime.datetime.now().str() )
+        self.write(datetime.now().str() )
         
 class WaitHandler(tornado.web.RequestHandler):
     @tornado.gen.coroutine
