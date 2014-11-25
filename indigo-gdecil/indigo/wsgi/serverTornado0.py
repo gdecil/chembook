@@ -1,11 +1,12 @@
 import tornado.ioloop
 import tornado.web
 import time
+from datetime import datetime
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         print 20
-        self.write("HW")
+        self.write(datetime.utcnow())
         
 class WaitHandler(tornado.web.RequestHandler):
     @tornado.gen.coroutine
