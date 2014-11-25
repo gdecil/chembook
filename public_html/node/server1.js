@@ -18,10 +18,15 @@ var dispatcher = require('./httpdispatcher');
 				console.log(req.params.smile);
 				client.connect("tcp://127.0.0.1:4242");
 				client.invoke("renderInd", req.params.smile, function(error, res1, more) {
-					res.end(error); 
-//					var bitmap = new Buffer(res1, 'base64')
-//					res.writeHead(200, {'Content-Type': 'image/png'});
-//					res.end(bitmap);
+//					res.end(error); 
+					if (res1 == "" ) {
+						res.end("Error");
+					}
+					else {
+						var bitmap = new Buffer(res1, 'base64')
+						res.writeHead(200, {'Content-Type': 'image/png'});
+						res.end(bitmap);						
+					}
 				})
 			}
 		else if (req.params.func == 'hello') {
