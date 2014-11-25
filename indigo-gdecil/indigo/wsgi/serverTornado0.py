@@ -11,7 +11,7 @@ class MainHandler(tornado.web.RequestHandler):
         
 class WaitHandler(tornado.web.RequestHandler):
     def test(self):
-        self.write_message("chunk!")
+        self.write("chunk!")
     @tornado.gen.coroutine
     def get(self):
         print 10
