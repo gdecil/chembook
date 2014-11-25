@@ -10,10 +10,12 @@ class MainHandler(tornado.web.RequestHandler):
         self.write(datetime.now().strftime("%H:%M:%S") )
         
 class WaitHandler(tornado.web.RequestHandler):
+    def test(self):
+        self.write_message("chunk!")
     @tornado.gen.coroutine
     def get(self):
         print 10
-        IOLoop.instance().add_timeout(10)
+        IOLoop.instance().add_timeout(10, self.test)
 #         time.sleep(20)
         print 15
         self.write("chunk")
