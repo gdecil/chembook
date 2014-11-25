@@ -8,10 +8,15 @@ class MainHandler(tornado.web.RequestHandler):
         self.write("HW")
         
 class WaitHandler(tornado.web.RequestHandler):
+    @tornado.web.asynchronous
     def get(self):
         print 10
         time.sleep(20)
+        self.on_response
+        
+    def on_response(self, response):
         self.write("pippo")
+        self.finish()
 
 application = tornado.web.Application([
     (r"/", MainHandler),
