@@ -4,10 +4,12 @@ import time
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
+        print 20
         self.write("HW")
         
 class WaitHandler(tornado.web.RequestHandler):
     def get(self):
+        print 10
         time.sleep(20)
         self.write("pippo")
 
