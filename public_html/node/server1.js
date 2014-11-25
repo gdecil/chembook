@@ -19,11 +19,9 @@ var dispatcher = require('./httpdispatcher');
 				client.connect("tcp://127.0.0.1:4242");
 				client.invoke("renderInd", req.params.smile, function(error, res1, more) {
 					res.end(res1); 
-					var bitmap = new Buffer(res1, 'base64')
-					res.writeHead(200, {'Content-Type': 'image/png'});
-//					var imageData = new Image();
-//					imageData.src = 'data:image/png;base64,' + res1;
-					res.end(bitmap);
+//					var bitmap = new Buffer(res1, 'base64')
+//					res.writeHead(200, {'Content-Type': 'image/png'});
+//					res.end(bitmap);
 				})
 			}
 		else if (req.params.func == 'hello') {
