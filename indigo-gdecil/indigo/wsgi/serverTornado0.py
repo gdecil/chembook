@@ -1,7 +1,8 @@
 import tornado.ioloop
 import tornado.web
 import time
-from datetime import datetime
+import datetime
+
 from tornado.ioloop import IOLoop
 from gi.overrides.keysyms import seconds
 
