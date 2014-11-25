@@ -15,7 +15,9 @@ class WaitHandler(tornado.web.RequestHandler):
         self.on_response
         
     def on_response(self, response):
+        print 30
         self.write("pippo")
+        print 40
         self.finish()
 
 application = tornado.web.Application([
