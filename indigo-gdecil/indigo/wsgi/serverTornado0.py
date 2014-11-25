@@ -12,6 +12,7 @@ class WaitHandler(tornado.web.RequestHandler):
     def get(self):
         print 10
         time.sleep(20)
+        print 15
         self.on_response
         
     def on_response(self, response):
