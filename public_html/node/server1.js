@@ -19,11 +19,9 @@ var dispatcher = require('./httpdispatcher');
 				client.connect("tcp://127.0.0.1:4242");
 				client.invoke("renderInd", req.params.smile, function(error, res1, more) {
 					res.writeHead(200, {'Content-Type': 'image/png'});
-					var imageData ={
-							"mimeType" : "data:image/png",
-							"src" : encodeURIComponent(res1)
-					}
-					res.end(imageData)
+					var imageData = new Image();
+					imageData.src = 'data:image/png;base64,' + res1;
+					res.end(imageData);
 				})
 			}
 		else if (req.params.func == 'hello') {
