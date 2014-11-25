@@ -12,10 +12,13 @@ class WaitHandler(tornado.web.RequestHandler):
     def get(self):
         print 10
         time.sleep(20)
-        self.on_response(response)
+        print 15
+        self.on_response(self)
         
     def on_response(self, response):
-        self.write("pippo")
+        print 30
+        self.write("response")
+        print 40
         self.finish()
 
 application = tornado.web.Application([
