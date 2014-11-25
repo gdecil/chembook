@@ -17,12 +17,12 @@ class HelloRPC(object):
         if typeInd == "rea":
             mol1 = indigo.loadReaction(smile)
         else:
-            print smile
+#             print smile
             mol1 = indigo.loadMolecule(smile)
-            print mol1
+#             print mol1
         
         renderer = IndigoRenderer(indigo);
-        print renderer
+#         print renderer
         indigo.setOption("render-output-format", "png");
         indigo.setOption("render-margins", 10, 10);
 
@@ -34,7 +34,7 @@ class HelloRPC(object):
         
         with open(datadir + unique_filename, 'rb') as imageFile:
             str1 = base64.b64encode(imageFile.read())
-            print str1
+#             print str1
             
         return str1
     
