@@ -2,6 +2,7 @@ import tornado.ioloop
 import tornado.web
 import time
 from datetime import datetime
+from tornado.ioloop import IOLoop
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -12,7 +13,8 @@ class WaitHandler(tornado.web.RequestHandler):
     @tornado.gen.coroutine
     def get(self):
         print 10
-        time.sleep(20)
+        IOLoop.add_timeout(self, 10)
+#         time.sleep(20)
         print 15
         self.write("chunk")
 #         self.on_response(self)
