@@ -1,7 +1,11 @@
 var http = require('http');
 var url = require('url');
 var dispatcher = require('./httpdispatcher');
-	
+var d = require('domain').create()
+d.on('error', function(err){
+	console.log(err)
+});
+
 	dispatcher.setStatic('resources');
 	
 	dispatcher.onGet("/page1", function(req, res) {
@@ -18,15 +22,21 @@ var dispatcher = require('./httpdispatcher');
 				console.log(req.params.smile);
 				client.connect("tcp://127.0.0.1:4242");
 				client.invoke("renderInd", req.params.smile, function(error, res1, more) {
-//					res.end(error); 
-					if (res1 == null ) {
-						res.end("Error");
-					}
-					else {
+					d.run(function(){
 						var bitmap = new Buffer(res1, 'base64')
 						res.writeHead(200, {'Content-Type': 'image/png'});
 						res.end(bitmap);						
-					}
+
+					});
+//					res.end(error); 
+//					if (res1 == null ) {
+//						res.end("Error");
+//					}
+//					else {
+//						var bitmap = new Buffer(res1, 'base64')
+//						res.writeHead(200, {'Content-Type': 'image/png'});
+//						res.end(bitmap);						
+//					}
 				})
 			}
 		else if (req.params.func == 'hello') {
