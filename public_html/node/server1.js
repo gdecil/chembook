@@ -19,7 +19,7 @@ var dispatcher = require('./httpdispatcher');
 				client.connect("tcp://127.0.0.1:4242");
 				client.invoke("renderInd", req.params.smile, function(error, res1, more) {
 //					res.end(error); 
-					if (res1 == "" ) {
+					if (res1 == null ) {
 						res.end("Error");
 					}
 					else {
