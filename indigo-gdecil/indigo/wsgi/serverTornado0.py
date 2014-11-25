@@ -1,5 +1,6 @@
 import tornado.ioloop
 import tornado.web
+import time
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -7,6 +8,7 @@ class MainHandler(tornado.web.RequestHandler):
         
 class WaitHandler(tornado.web.RequestHandler):
     def get(self):
+        time.sleep(20)
         self.write("pippo")
 
 application = tornado.web.Application([
