@@ -17,7 +17,7 @@ class WaitHandler(tornado.web.RequestHandler):
     @tornado.gen.coroutine
     def get(self):
         print 10
-        IOLoop.instance().add_timeout(timedelta(seconds=5), self.test)
+        IOLoop.instance().add_timeout(datetime.datetime.timedelta(seconds=5), self.test)
 #         time.sleep(20)
         print 15
         self.write("chunk")
