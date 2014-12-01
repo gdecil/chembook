@@ -52,9 +52,24 @@ class DbHandler(tornado.web.RequestHandler):
               'host=127.0.0.1 port=5433'
         self.db = momoko.Pool(dsn=dsn, size=5)
         
-        dao = UserDAO(self.db)
-        cursor = yield self.executor.submit(dao.get_list)                 
-        print cursor
+#         dao = UserDAO(self.db)
+
+        sql = """
+            SELECT id, username, email, password
+            FROM users_user
+        """
+#         cursor = yield momoko.Op(self.db.execute, sql)
+        cursor = yield self.executor.submit( momoko.Op(self.db.execute, sql)
+                                            )                 
+
+        desc = cursor.description
+        result = [dict(zip([col[0] for col in desc], row))
+                         for row in cursor.fetchall()]
+
+        cursor.close()
+        
+#         cursor = yield self.executor.submit(dao.get_list)                 
+        print result
         self.finish()
     @tornado.gen.coroutine
     def post(self):
