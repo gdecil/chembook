@@ -42,7 +42,7 @@ class UserDAO(object):
         cursor.close()
 #         print result
 #         yield result
-        return result
+        return 
 
     @gen.coroutine
     def create(self):
