@@ -30,6 +30,10 @@ class TestHandler(tornado.web.RequestHandler):
         self.write(future_result)
     @tornado.gen.coroutine
     def post(self):
+        dsn = 'dbname=postgres user=postgres password=postgres ' \
+              'host=127.0.0.1 port=5433'
+        self.db = momoko.Pool(dsn=dsn, size=5)
+        
         dao = UserDAO(self.db)
         cursor = yield self.executor.submit(dao.create,
                                             self = self
