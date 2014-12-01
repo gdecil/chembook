@@ -28,6 +28,7 @@ class TestHandler(tornado.web.RequestHandler):
         future_result = yield self.executor.submit(test,
                                               name='current_counter') 
         self.write(future_result)
+    @tornado.gen.coroutine
     def post(self):
         dao = UserDAO(self.db)
         cursor = yield self.executor.submit(dao.create,)         
