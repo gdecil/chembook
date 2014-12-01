@@ -6,6 +6,9 @@ import time
 from functools import partial
 import os
 from concurrent.futures import ThreadPoolExecutor
+
+from daos import UserDAO
+import momoko
  
  
 def long_blocking_function(index, sleep_time):
@@ -25,7 +28,14 @@ class TestHandler(tornado.web.RequestHandler):
         future_result = yield self.executor.submit(test,
                                               name='current_counter') 
         self.write(future_result)
-        
+    def post(self):
+        dao = UserDAO(self.db)
+        cursor = yield self.executor.submit(dao.create,)         
+        if not cursor.closed:
+            self.write('closing cursor')
+            cursor.close()
+        self.finish()
+                
 class BarHandler(tornado.web.RequestHandler):
  
     counter = 0
@@ -68,6 +78,9 @@ class Application(tornado.web.Application):
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
         )
         tornado.web.Application.__init__(self, handlers, **settings)
+        dsn = 'dbname=postgres user=postgres password=postgres ' \
+              'host=127.0.0.1 port=5433'
+        self.db = momoko.Pool(dsn=dsn, size=5)
  
  
 def main():
