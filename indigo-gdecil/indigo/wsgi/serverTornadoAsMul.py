@@ -22,7 +22,7 @@ def test(name):
     return ('test' + name)
 
 def getList():
-    return 
+    return 'pippo'
 class TestHandler(tornado.web.RequestHandler): 
     def initialize(self, executor):
         self.executor = executor 
