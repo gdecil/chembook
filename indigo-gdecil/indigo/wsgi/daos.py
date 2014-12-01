@@ -40,6 +40,7 @@ class UserDAO(object):
                          for row in cursor.fetchall()]
 
         cursor.close()
+        print result
         yield result
         return 
 
