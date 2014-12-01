@@ -10,7 +10,7 @@ from gi.overrides.keysyms import seconds
 
 def test(name):
     
-    return name + "AAAA" 
+    return ('Keyyyyy' + name)
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
