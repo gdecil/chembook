@@ -78,10 +78,11 @@ class Application(tornado.web.Application):
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
         )
-        tornado.web.Application.__init__(self, handlers, **settings)
         dsn = 'dbname=postgres user=postgres password=postgres ' \
               'host=127.0.0.1 port=5433'
         self.db = momoko.Pool(dsn=dsn, size=5)
+
+        tornado.web.Application.__init__(self, handlers, **settings)
  
  
 def main():
