@@ -58,21 +58,20 @@ class DbHandler(tornado.web.RequestHandler):
             SELECT id, username, email, password
             FROM users_user
         """
-#         cursor = yield momoko.Op(self.db.execute, sql)
-        cursor = yield self.executor.submit( momoko.Op,
-                                             self.db.execute,
-                                             Task = sql
-                                            )                 
-#         print cursor.get_result
-#         desc = cursor.get_result
-#         result = [dict(zip([col[0] for col in desc], row))
-#                          for row in cursor.fetchall()]
-# 
-#         cursor.close()
-#         
-# #         cursor = yield self.executor.submit(dao.get_list)                 
-#         print result
-        self.write(cursor)
+        cursor = yield momoko.Op(self.db.execute, sql)
+#         cursor = yield self.executor.submit( momoko.Op,
+#                                              self.db.execute,
+#                                              Task = sql
+#                                             )                 
+        desc = cursor.description
+        result = [dict(zip([col[0] for col in desc], row))
+                         for row in cursor.fetchall()]
+
+        cursor.close()
+        
+#         cursor = yield self.executor.submit(dao.get_list)                 
+        print result
+        self.finish()
     @tornado.gen.coroutine
     def post(self):
         dsn = 'dbname=postgres user=postgres password=postgres ' \
