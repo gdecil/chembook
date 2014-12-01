@@ -43,6 +43,38 @@ class TestHandler(tornado.web.RequestHandler):
             cursor.close()
         self.finish()
                 
+class DbHandler(tornado.web.RequestHandler): 
+    def initialize(self, executor):
+        self.executor = executor 
+    @tornado.gen.coroutine
+    def get(self): 
+        dsn = 'dbname=postgres user=postgres password=postgres ' \
+              'host=127.0.0.1 port=5433'
+        self.db = momoko.Pool(dsn=dsn, size=5)
+        
+        dao = UserDAO(self.db)
+        cursor = yield self.executor.submit(dao.get_list)         
+        
+        print cursor
+        if not cursor.closed:
+            self.write('closing cursor')
+            cursor.close()
+        self.finish()
+    @tornado.gen.coroutine
+    def post(self):
+        dsn = 'dbname=postgres user=postgres password=postgres ' \
+              'host=127.0.0.1 port=5433'
+        self.db = momoko.Pool(dsn=dsn, size=5)
+        
+        dao = UserDAO(self.db)
+        cursor = yield self.executor.submit(dao.create)         
+        
+        print cursor
+        if not cursor.closed:
+            self.write('closing cursor')
+            cursor.close()
+        self.finish()
+
 class BarHandler(tornado.web.RequestHandler):
  
     counter = 0
