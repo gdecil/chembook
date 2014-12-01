@@ -7,10 +7,10 @@ from tornado.ioloop import IOLoop
 from gi.overrides.keysyms import seconds
 
 
-@tornado.gen.coroutine
+
 def test(name):
-    response = yield "name"
-    return 
+    
+    return name + "AAAA" 
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -18,11 +18,12 @@ class MainHandler(tornado.web.RequestHandler):
         self.write(datetime.now().strftime("%H:%M:%S") )
         
 class AsincHandler(tornado.web.RequestHandler):
+    @tornado.gen.coroutine
     def get(self):
         print 10
-        ret = test("name")
-        print ret.result()
-        self.write("ugo")
+        future_result = yield test("name")
+        print future_result
+        self.write(future_result)
 
 class WaitHandler(tornado.web.RequestHandler):
     def test(self):
