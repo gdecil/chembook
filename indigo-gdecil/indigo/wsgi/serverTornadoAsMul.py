@@ -53,12 +53,8 @@ class DbHandler(tornado.web.RequestHandler):
         self.db = momoko.Pool(dsn=dsn, size=5)
         
         dao = UserDAO(self.db)
-        cursor = yield self.executor.submit(dao.get_list)         
-        
+        cursor = yield self.executor.submit(dao.get_list)                 
         print cursor
-        if not cursor.closed:
-            self.write('closing cursor')
-            cursor.close()
         self.finish()
     @tornado.gen.coroutine
     def post(self):
