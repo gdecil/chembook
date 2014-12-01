@@ -35,9 +35,7 @@ class TestHandler(tornado.web.RequestHandler):
         self.db = momoko.Pool(dsn=dsn, size=5)
         
         dao = UserDAO(self.db)
-        cursor = yield self.executor.submit(dao.create,
-                                            self = self
-                                            )         
+        cursor = yield self.executor.submit(dao.create)         
         if not cursor.closed:
             self.write('closing cursor')
             cursor.close()
