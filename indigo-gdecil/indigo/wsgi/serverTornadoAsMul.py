@@ -59,7 +59,8 @@ class DbHandler(tornado.web.RequestHandler):
             FROM users_user
         """
 #         cursor = yield momoko.Op(self.db.execute, sql)
-        cursor = yield self.executor.submit( momoko.Op(self.db.execute, sql)
+        cursor = yield self.executor.submit( momoko.Op,
+                                             Task = sql
                                             )                 
 
         desc = cursor.description
