@@ -41,8 +41,8 @@ class UserDAO(object):
 
         cursor.close()
 #         print result
-        yield result
-        return 
+#         yield result
+        return result
 
     @gen.coroutine
     def create(self):
