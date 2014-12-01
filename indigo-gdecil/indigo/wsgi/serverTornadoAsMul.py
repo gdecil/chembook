@@ -21,7 +21,7 @@ def long_blocking_function(index, sleep_time):
 def test(name):
     return ('test' + name)
 
-def getList():
+def getList(self):
     dsn = 'dbname=postgres user=postgres password=postgres ' \
           'host=127.0.0.1 port=5433'
     self.db = momoko.Pool(dsn=dsn, size=5)
