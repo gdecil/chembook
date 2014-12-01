@@ -14,12 +14,11 @@ class Application(web.Application):
             (r"/user", PostgresUserHandler)
         ]
         web.Application.__init__(self, handlers)
-        dsn = 'dbname=ds_test user=db_test password=test ' \
-              'host=localhost port=5432
-              
-#         conn_string = "host='127.0.0.1' dbname='postgres' user='postgres' password='postgres'"'
+        dsn = 'dbname=postgres user=postgres password=postgres ' \
+              'host=127.0.0.1 port=5433'
         self.db = momoko.Pool(dsn=dsn, size=5)
 
+#         conn_string = "host='127.0.0.1' dbname='postgres' user='postgres' password='postgres'"'
 
 class PostgresHandler(web.RequestHandler):
     SUPPORTED_METHODS = ("GET", "HEAD", "POST", "DELETE", "PATCH", "PUT", "OPTIONS") 
