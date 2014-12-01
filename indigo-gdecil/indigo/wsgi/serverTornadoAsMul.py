@@ -110,7 +110,8 @@ class DbHandler1(tornado.web.RequestHandler):
         self.executor = executor 
     @gen.coroutine
     def get(self): 
-        cursor = yield self.executor.submit( getList
+        cursor = yield self.executor.submit( getList,
+                                             self
                                             )                 
         print cursor
         self.finish()
