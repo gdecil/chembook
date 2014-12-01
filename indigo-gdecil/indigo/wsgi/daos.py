@@ -40,7 +40,8 @@ class UserDAO(object):
                          for row in cursor.fetchall()]
 
         cursor.close()
-        return result
+        yield result
+        return 
 
     @gen.coroutine
     def create(self):
@@ -53,7 +54,8 @@ class UserDAO(object):
                                      self._get_random_str())
         password = self._get_random_str()
         cursor = yield momoko.Op(self.db.execute, sql, (username, email, password))
-        return cursor
+        yield cursor
+        return 
 
 
     @gen.coroutine
@@ -70,7 +72,8 @@ class UserDAO(object):
         params = list(data.values())
         params.append(id)
         cursor = yield momoko.Op(self.db.execute, sql, params)
-        return cursor
+        yield cursor
+        return 
 
 
     @gen.coroutine
@@ -80,7 +83,8 @@ class UserDAO(object):
             DROP SEQUENCE IF EXISTS user_id;
         """
         cursor = yield momoko.Op(self.db.execute, sql)
-        return cursor
+        yield cursor
+        return 
 
     @gen.coroutine
     def delete(self, id):
@@ -91,7 +95,8 @@ class UserDAO(object):
         """
         cursor = yield momoko.Op(self.db.execute, sql, (id,))
         cursor.close()
-        return ''
+        yield ''
+        return 
 
     @gen.coroutine
     def create_table(self, callback=None):
@@ -106,4 +111,5 @@ class UserDAO(object):
             ALTER SEQUENCE user_id OWNED BY users_user.id;
         """
         cursor = yield momoko.Op(self.db.execute, sql)
-        return cursor
+        yield cursor
+        return 
