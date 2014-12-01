@@ -111,5 +111,5 @@ class UserDAO(object):
             ALTER SEQUENCE user_id OWNED BY users_user.id;
         """
         cursor = yield momoko.Op(self.db.execute, sql)
-        callback(cursor) 
+        return cursor.body 
     
