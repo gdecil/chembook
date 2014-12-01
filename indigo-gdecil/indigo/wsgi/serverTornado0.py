@@ -20,7 +20,8 @@ class AsincHandler(tornado.web.RequestHandler):
     def get(self):
         print 10
         ret = test("name")
-        self.write(ret)
+        print ret
+        self.write("ugo")
 
 class WaitHandler(tornado.web.RequestHandler):
     def test(self):
