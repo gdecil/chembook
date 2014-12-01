@@ -63,7 +63,7 @@ class DbHandler(tornado.web.RequestHandler):
                                              self.db.execute,
                                              Task = sql
                                             )                 
-        print cursor
+        print cursor.get_result
         desc = cursor.get_result
         result = [dict(zip([col[0] for col in desc], row))
                          for row in cursor.fetchall()]
