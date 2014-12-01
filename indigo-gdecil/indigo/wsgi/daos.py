@@ -53,8 +53,8 @@ class UserDAO(object):
         email = '{0}@{1}.com'.format(self._get_random_str(),
                                      self._get_random_str())
         password = self._get_random_str()
-        cursor = yield momoko.Op(self.db.execute, sql, (username, email, password))
-        yield cursor
+        cursor = yield momoko.Op(self.db.execute, sql, (username, email, password))            
+        print cursor    
         return 
 
 
