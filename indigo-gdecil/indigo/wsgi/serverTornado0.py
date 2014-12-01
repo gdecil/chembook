@@ -6,11 +6,22 @@ import datetime
 from tornado.ioloop import IOLoop
 from gi.overrides.keysyms import seconds
 
+
+@tornado.gen.coroutine
+def test(name):
+    return name
+
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         print 20
         self.write(datetime.now().strftime("%H:%M:%S") )
         
+class AsincHandler(tornado.web.RequestHandler):
+    def get(self):
+        print 10
+        IOLoop.instance().test("name")
+        self.write("chunk")
+
 class WaitHandler(tornado.web.RequestHandler):
     def test(self):
         self.write("chunk!")
@@ -32,6 +43,7 @@ class WaitHandler(tornado.web.RequestHandler):
 application = tornado.web.Application([
     (r"/", MainHandler),
     (r"/wait", WaitHandler),
+    (r"/asinc", AsincHandler),
 ])
 
 if __name__ == "__main__":
