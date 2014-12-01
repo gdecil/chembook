@@ -19,8 +19,8 @@ class MainHandler(tornado.web.RequestHandler):
 class AsincHandler(tornado.web.RequestHandler):
     def get(self):
         print 10
-        IOLoop.instance().test("name")
-        self.write("chunk")
+        ret = test("name")
+        self.write(ret)
 
 class WaitHandler(tornado.web.RequestHandler):
     def test(self):
