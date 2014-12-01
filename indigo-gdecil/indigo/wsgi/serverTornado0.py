@@ -10,7 +10,7 @@ from gi.overrides.keysyms import seconds
 @tornado.gen.coroutine
 def test(name):
     response = yield "name"
-    return response
+    return 
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
