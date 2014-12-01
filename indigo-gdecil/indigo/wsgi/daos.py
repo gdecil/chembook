@@ -25,7 +25,8 @@ class UserDAO(object):
                          for row in cursor.fetchall()]
 
         cursor.close()
-        return result
+        yield result
+        return 
 
     @gen.coroutine
     def get_list(self):
