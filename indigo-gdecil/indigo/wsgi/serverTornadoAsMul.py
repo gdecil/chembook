@@ -109,6 +109,7 @@ class Application(tornado.web.Application):
         # Create the ThreadPoolExecutor here - we only want one of them.
         handlers = [(r"/bar", BarHandler, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/test", TestHandler, dict(executor=ThreadPoolExecutor(max_workers=10))),
+                    (r"/db", DbHandler, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     ]
  
         settings = dict(
