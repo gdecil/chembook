@@ -20,7 +20,9 @@ def long_blocking_function(index, sleep_time):
  
 def test(name):
     return ('test' + name)
- 
+
+def getList():
+    return 
 class TestHandler(tornado.web.RequestHandler): 
     def initialize(self, executor):
         self.executor = executor 
