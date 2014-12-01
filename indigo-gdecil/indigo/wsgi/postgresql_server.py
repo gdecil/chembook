@@ -15,7 +15,9 @@ class Application(web.Application):
         ]
         web.Application.__init__(self, handlers)
         dsn = 'dbname=ds_test user=db_test password=test ' \
-              'host=localhost port=5432'
+              'host=localhost port=5432
+              
+#         conn_string = "host='127.0.0.1' dbname='postgres' user='postgres' password='postgres'"'
         self.db = momoko.Pool(dsn=dsn, size=5)
 
 
