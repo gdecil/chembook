@@ -9,7 +9,7 @@ from gi.overrides.keysyms import seconds
 
 @tornado.gen.coroutine
 def test(name):
-    return name
+    return "name"
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
