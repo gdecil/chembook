@@ -36,6 +36,7 @@ class TestHandler(tornado.web.RequestHandler):
         
         dao = UserDAO(self.db)
         cursor = yield self.executor.submit(dao.create)         
+        
         print cursor
         if not cursor.closed:
             self.write('closing cursor')
