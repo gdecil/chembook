@@ -22,7 +22,22 @@ def test(name):
     return ('test' + name)
 
 def getList():
+    dsn = 'dbname=postgres user=postgres password=postgres ' \
+          'host=127.0.0.1 port=5433'
+    self.db = momoko.Pool(dsn=dsn, size=5)
+    
+    sql = """
+        SELECT id, username, email, password
+        FROM users_user
+    """
+    cursor = momoko.Op(self.db.execute, sql)
+    desc = cursor.description
+    result = [dict(zip([col[0] for col in desc], row))
+                     for row in cursor.fetchall()]
+
+    cursor.close()    
     return 'pippo'
+
 class TestHandler(tornado.web.RequestHandler): 
     def initialize(self, executor):
         self.executor = executor 
