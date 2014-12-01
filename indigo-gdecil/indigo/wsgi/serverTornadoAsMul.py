@@ -31,7 +31,9 @@ class TestHandler(tornado.web.RequestHandler):
     @tornado.gen.coroutine
     def post(self):
         dao = UserDAO(self.db)
-        cursor = yield self.executor.submit(dao.create,)         
+        cursor = yield self.executor.submit(dao.create,
+                                            self = self
+                                            )         
         if not cursor.closed:
             self.write('closing cursor')
             cursor.close()
