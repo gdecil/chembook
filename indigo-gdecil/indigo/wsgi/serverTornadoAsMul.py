@@ -46,7 +46,7 @@ class TestHandler(tornado.web.RequestHandler):
 class DbHandler(tornado.web.RequestHandler): 
     def initialize(self, executor):
         self.executor = executor 
-    @tornado.gen.coroutine
+    @gen.coroutine
     def get(self): 
         dsn = 'dbname=postgres user=postgres password=postgres ' \
               'host=127.0.0.1 port=5433'
