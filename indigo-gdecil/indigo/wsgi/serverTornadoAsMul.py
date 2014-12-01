@@ -72,7 +72,7 @@ class DbHandler(tornado.web.RequestHandler):
 #         
 # #         cursor = yield self.executor.submit(dao.get_list)                 
 #         print result
-        self.finish()
+        self.write(cursor)
     @tornado.gen.coroutine
     def post(self):
         dsn = 'dbname=postgres user=postgres password=postgres ' \
