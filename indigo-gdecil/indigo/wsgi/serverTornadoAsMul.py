@@ -90,6 +90,16 @@ class DbHandler(tornado.web.RequestHandler):
             cursor.close()
         self.finish()
 
+class DbHandler1(tornado.web.RequestHandler): 
+    def initialize(self, executor):
+        self.executor = executor 
+    @gen.coroutine
+    def get(self): 
+        cursor = yield self.executor.submit( getList
+                                            )                 
+        print cursor
+        self.finish()
+        
 class BarHandler(tornado.web.RequestHandler):
  
     counter = 0
@@ -125,6 +135,7 @@ class Application(tornado.web.Application):
         handlers = [(r"/bar", BarHandler, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/test", TestHandler, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/db", DbHandler, dict(executor=ThreadPoolExecutor(max_workers=10))),
+                    (r"/db1", DbHandler1, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     ]
  
         settings = dict(
