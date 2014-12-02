@@ -49,6 +49,7 @@ class SleepHandler(tornado.web.RequestHandler):
             FROM users_user
         """
         cursor = momoko.Op(self.db.execute, sql)
+        print cursor
         desc = cursor.description
         result = [dict(zip([col[0] for col in desc], row))
                          for row in cursor.fetchall()]
