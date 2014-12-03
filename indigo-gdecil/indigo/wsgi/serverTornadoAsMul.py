@@ -148,7 +148,7 @@ class Reaction(tornado.web.RequestHandler):
         self.dao = TornadoSelect()
 
     @gen.coroutine
-    def get(self): 
+    def get(self, param1): 
         smile=self.get_arguments("smile")
         print param1
         self.finish()
@@ -190,9 +190,9 @@ class Application(tornado.web.Application):
                     (r"/db", DbHandler, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/db1", DbHandler1, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/render", Render, dict(executor=ThreadPoolExecutor(max_workers=10))),
-                    (r"/Reaction.asmx/pippo", Reaction, dict(executor=ThreadPoolExecutor(max_workers=10))),
+                    (r"/Reaction.asmx/(?P<param1>[^\/])", Reaction, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     ]
-#  ?P<param1>[^\/]
+ 
         settings = dict(
             debug=True,
             static_path=os.path.join(os.path.dirname(__file__), "static"),
