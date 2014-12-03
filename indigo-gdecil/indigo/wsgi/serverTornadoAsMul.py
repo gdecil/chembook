@@ -142,6 +142,17 @@ class Render(tornado.web.RequestHandler):
         self.set_header("Content-type", "image/png") 
         self.finish()
 
+class Reaction(tornado.web.RequestHandler): 
+    def initialize(self, executor):
+        self.executor = executor 
+        self.dao = TornadoSelect()
+
+    @gen.coroutine
+    def get(self, param1): 
+        smile=self.get_arguments("smile")
+        print param1
+        self.finish()
+
 class BarHandler(tornado.web.RequestHandler):
  
     counter = 0
@@ -179,6 +190,7 @@ class Application(tornado.web.Application):
                     (r"/db", DbHandler, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/db1", DbHandler1, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/render", Render, dict(executor=ThreadPoolExecutor(max_workers=10))),
+                    (r"/Reaction.asmx/?P<param1>[^\/]", Reaction, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     ]
  
         settings = dict(
