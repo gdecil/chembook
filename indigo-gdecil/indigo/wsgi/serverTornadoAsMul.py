@@ -117,8 +117,7 @@ class DbHandler1(tornado.web.RequestHandler):
 
     @gen.coroutine
     def get(self): 
-        future_result = yield self.executor.submit( self.dao.getListpg
-                                              )                 
+        future_result = yield self.executor.submit( self.dao.getListpg )                 
         print future_result
         self.finish()
         
