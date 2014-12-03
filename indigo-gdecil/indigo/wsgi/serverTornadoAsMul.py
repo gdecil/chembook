@@ -190,10 +190,10 @@ class Application(tornado.web.Application):
                     (r"/db", DbHandler, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/db1", DbHandler1, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/render", Render, dict(executor=ThreadPoolExecutor(max_workers=10))),
-                    (r"/Reaction.asmx/", Reaction, dict(executor=ThreadPoolExecutor(max_workers=10))),
+                    (r"/Reaction.asmx/([a-z])", Reaction, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     ]
  
-#  ?P<param1>[^\/]
+#  ?P<param1>[^\/] (^[A-Za-z]+$)
         settings = dict(
             debug=True,
             static_path=os.path.join(os.path.dirname(__file__), "static"),
