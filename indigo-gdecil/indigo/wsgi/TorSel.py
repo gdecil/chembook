@@ -13,7 +13,7 @@ class TornadoSelect(object):
         global con 
         con = psycopg2.connect(host='localhost', database='postgres', user='postgres', password='postgres', port=5433)
 
-    def getListpg(test):
+    def getListpg(self):
         cur = con.cursor()
         sql = """
             SELECT id, username, email, password
