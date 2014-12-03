@@ -113,11 +113,11 @@ class DbHandler(tornado.web.RequestHandler):
 class DbHandler1(tornado.web.RequestHandler): 
     def initialize(self, executor):
         self.executor = executor 
+        self.dao = TornadoSelect()
+
     @gen.coroutine
     def get(self): 
-        connection ="host='localhost', database='postgres', user='postgres', password='postgres', port=5433"
-        dao = TornadoSelect(connection)
-        future_result = yield self.executor.submit( dao.getListpg
+        future_result = yield self.executor.submit( self.dao.getListpg
                                               )                 
         print future_result
         self.finish()
