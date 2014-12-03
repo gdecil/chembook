@@ -190,7 +190,7 @@ class Application(tornado.web.Application):
                     (r"/db", DbHandler, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/db1", DbHandler1, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/render", Render, dict(executor=ThreadPoolExecutor(max_workers=10))),
-                    (r"/Reaction.asmx/?P<param1>[^\/]", Reaction, dict(executor=ThreadPoolExecutor(max_workers=10))),
+                    (r"/Reaction.asmx/pippo", Reaction, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     ]
  
         settings = dict(
