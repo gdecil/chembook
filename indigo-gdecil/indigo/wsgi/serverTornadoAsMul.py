@@ -42,7 +42,7 @@ def getList():
     return result
 
 def getListpg():
-    con = psycopg2.connect( database='postgres', user='postgres', password='postgres', port=5433)
+    con = psycopg2.connect( host='localhost', database='postgres', user='postgres', password='postgres', port=5433)
     cur = con.cursor()
     sql = """
         SELECT id, username, email, password
