@@ -21,16 +21,16 @@ def long_blocking_function(index, sleep_time):
 def test(name):
     return ('test' + name)
 
-def getList(self):
+def getList():
     dsn = 'dbname=postgres user=postgres password=postgres ' \
           'host=127.0.0.1 port=5433'
-    self.db = momoko.Pool(dsn=dsn, size=5)
+    db = momoko.Pool(dsn=dsn, size=5)
     
     sql = """
         SELECT id, username, email, password
         FROM users_user
     """
-    cursor = yield momoko.Op(self.db.execute, sql)
+    cursor = yield momoko.Op(db.execute, sql)
     print 'pippo'
     long_blocking_function('10', 5)
     
@@ -115,9 +115,8 @@ class DbHandler1(tornado.web.RequestHandler):
         self.executor = executor 
     @gen.coroutine
     def get(self): 
-        cursor = yield self.executor.submit( getList,
-                                             self
-                                            )                 
+        cursor = yield self.executor.submit( getList
+                                              )                 
         print cursor
         self.finish()
         
