@@ -152,7 +152,7 @@ class Reaction(tornado.web.RequestHandler):
         smile=self.get_arguments("smile")
         print smile[0]
         print param1
-        if param1 == 'GetUsersFullname'
+        if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.renderInd, 
                                                     smile = smile[0], 
                                                     typeInd ="mol"
