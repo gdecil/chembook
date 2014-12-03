@@ -10,11 +10,10 @@ from psycopg2.extensions import SQL_IN
 
 class TornadoSelect(object):
     def __init__(self):
-        global db_connection 
-        db_connection = "host='localhost', database='postgres', user='postgres', password='postgres', port=5433"
+        global con 
+        con = psycopg2.connect(host='localhost', database='postgres', user='postgres', password='postgres', port=5433)
 
     def getListpg(test):
-        con = psycopg2.connect(db_connection)
         cur = con.cursor()
         sql = """
             SELECT id, username, email, password
