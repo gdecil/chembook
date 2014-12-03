@@ -8,8 +8,6 @@ import psycopg2
 from bingoCfg import conn, _platform, query_db
 from psycopg2.extensions import SQL_IN
 
-bingo = Blueprint('bingo', __name__, template_folder='templates')
-
 class TornadoSelect(object):
     def __init__(self, db):
         self.db = db
