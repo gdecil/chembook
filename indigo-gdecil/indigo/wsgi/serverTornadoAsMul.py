@@ -89,7 +89,7 @@ class DbHandler(tornado.web.RequestHandler):
         
 #         cursor = yield self.executor.submit(dao.get_list)                 
         print result
-        long_blocking_function(10, 5)
+        long_blocking_function('10', 5)
         
         self.finish()
     @tornado.gen.coroutine
