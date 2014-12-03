@@ -150,6 +150,7 @@ class Reaction(tornado.web.RequestHandler):
     @gen.coroutine
     def get(self, param1): 
         smile=self.get_arguments("smile")
+        print smile[0]
         print param1
         self.finish()
 
