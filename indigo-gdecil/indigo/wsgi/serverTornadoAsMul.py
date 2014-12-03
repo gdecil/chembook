@@ -30,7 +30,7 @@ def getList(self):
         SELECT id, username, email, password
         FROM users_user
     """
-    cursor = momoko.Op(self.db.execute, sql)
+    cursor = yield momoko.Op(self.db.execute, sql)
     
     long_blocking_function('10', 5)
     
