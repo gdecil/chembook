@@ -138,7 +138,7 @@ class Render(tornado.web.RequestHandler):
                                                     typeInd ="mol"
                                                     )                 
         
-        self.write(future_result)
+        self.write(future_result.decode('base64'))
         self.set_header("Content-type", "image/png") 
         self.finish()
 
