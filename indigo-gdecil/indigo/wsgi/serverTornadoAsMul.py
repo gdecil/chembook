@@ -128,15 +128,16 @@ class Render(tornado.web.RequestHandler):
 
     @gen.coroutine
     def get(self): 
-        smile=self.get_arguments("ugo")
+        smile=self.get_arguments("sm1le")
+        ugo=self.get_arguments("ugo")
 #         ugo=self.get_query_arguments("ugo")
         print smile[0]
-#         print ugo
-#         future_result = yield self.executor.submit( self.dao.renderInd, 
-#                                                     smile = smile, 
-#                                                     typeInd ="mol"
-#                                                     )                 
-#         print future_result
+        print ugo
+        future_result = yield self.executor.submit( self.dao.renderInd, 
+                                                    smile = smile[0], 
+                                                    typeInd ="mol"
+                                                    )                 
+        print future_result
         self.finish()
 
 class BarHandler(tornado.web.RequestHandler):
