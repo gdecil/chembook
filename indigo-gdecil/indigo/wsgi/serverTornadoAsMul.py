@@ -89,6 +89,8 @@ class DbHandler(tornado.web.RequestHandler):
         
 #         cursor = yield self.executor.submit(dao.get_list)                 
         print result
+        long_blocking_function(10, 10)
+        
         self.finish()
     @tornado.gen.coroutine
     def post(self):
