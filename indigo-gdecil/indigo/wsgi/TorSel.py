@@ -32,6 +32,7 @@ class TornadoSelect(object):
         if typeInd == "rea":
             mol1 = indigo.loadReaction(smile)
         else:
+            print smile
             mol1 = indigo.loadMolecule(smile)
     
         renderer = IndigoRenderer(indigo);
