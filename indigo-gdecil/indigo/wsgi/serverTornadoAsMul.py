@@ -54,7 +54,7 @@ def getListpg():
                      for row in cur.fetchall()]
 
     cur.close()    
-    long_blocking_function('10', 5)
+    long_blocking_function('10', 20)
     return result
     
 class TestHandler(tornado.web.RequestHandler): 
