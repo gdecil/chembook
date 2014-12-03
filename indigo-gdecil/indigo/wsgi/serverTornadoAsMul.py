@@ -137,7 +137,7 @@ class Render(tornado.web.RequestHandler):
                                                     smile = smile[0], 
                                                     typeInd ="mol"
                                                     )                 
-        print future_result
+        self.write(future_result) 
         self.finish()
 
 class BarHandler(tornado.web.RequestHandler):
