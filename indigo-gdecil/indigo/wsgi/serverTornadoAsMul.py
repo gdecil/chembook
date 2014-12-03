@@ -8,7 +8,7 @@ from functools import partial
 import os
 from concurrent.futures import ThreadPoolExecutor
 
-from daos import UserDAO
+from TorSel import TornadoSelect
 import momoko
 import psycopg2 
  
@@ -41,22 +41,6 @@ def getList():
     cursor.close()    
     return result
 
-def getListpg():
-    con = psycopg2.connect( host='localhost', database='postgres', user='postgres', password='postgres', port=5433)
-    cur = con.cursor()
-    sql = """
-        SELECT id, username, email, password
-        FROM users_user
-    """
-    cur.execute(sql)
-    desc = cur.description
-    result = [dict(zip([col[0] for col in desc], row))
-                     for row in cur.fetchall()]
-
-    cur.close()    
-    long_blocking_function('10', 20)
-    return result
-    
 class TestHandler(tornado.web.RequestHandler): 
     def initialize(self, executor):
         self.executor = executor 
@@ -131,7 +115,8 @@ class DbHandler1(tornado.web.RequestHandler):
         self.executor = executor 
     @gen.coroutine
     def get(self): 
-        future_result = yield self.executor.submit( getListpg
+        dao = TornadoSelect(self.db)
+        future_result = yield self.executor.submit( dao.getListpg
                                               )                 
         print future_result
         self.finish()
