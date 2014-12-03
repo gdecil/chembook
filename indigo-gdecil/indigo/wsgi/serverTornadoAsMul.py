@@ -129,10 +129,11 @@ class Render(tornado.web.RequestHandler):
     @gen.coroutine
     def get(self): 
         smile=self.get_query_arguments("smile")
-        future_result = yield self.executor.submit( self.dao.renderInd, 
-                                                    smile = smile, 
-                                                    typeInd ="mol"
-                                                    )                 
+        print smile
+#         future_result = yield self.executor.submit( self.dao.renderInd, 
+#                                                     smile = smile, 
+#                                                     typeInd ="mol"
+#                                                     )                 
         print future_result
         self.finish()
 
