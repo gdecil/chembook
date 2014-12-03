@@ -25,7 +25,6 @@ class TornadoSelect(object):
                          for row in cur.fetchall()]
     
         cur.close()    
-        long_blocking_function('10', 20)
         return result
     
 
