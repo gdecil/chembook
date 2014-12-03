@@ -39,7 +39,7 @@ def getList(self):
                      for row in cursor.fetchall()]
 
     cursor.close()    
-    return 'pippo'
+    return 
 
 class TestHandler(tornado.web.RequestHandler): 
     def initialize(self, executor):
