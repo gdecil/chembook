@@ -51,7 +51,7 @@ def getListpg():
     cur.execute(sql)
     desc = cur.description
     result = [dict(zip([col[0] for col in desc], row))
-                     for row in cursor.fetchall()]
+                     for row in cur.fetchall()]
 
     cur.close()    
     return result
