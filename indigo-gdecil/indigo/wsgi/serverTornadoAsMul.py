@@ -55,7 +55,7 @@ def getListpg():
 
     cur.close()    
     print result
-    return "result"
+    return ("result")
     
 class TestHandler(tornado.web.RequestHandler): 
     def initialize(self, executor):
