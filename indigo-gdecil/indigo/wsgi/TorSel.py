@@ -38,19 +38,17 @@ class TornadoSelect(object):
         renderer = IndigoRenderer(indigo);
         indigo.setOption("render-output-format", "png");
         indigo.setOption("render-margins", 10, 10);
-        datadir = ""        
+        datadir = ""
+            
         unique_filename= str(uuid.uuid4()) + ".png"
     
         renderer.renderToFile(mol1, datadir + unique_filename);
+        
+        with open(datadir + unique_filename, 'rb') as imageFile:
+            str1 = base64.b64encode(imageFile.read())
+#             print str1
             
-        tempFileObj = NamedTemporaryFile(mode='w+b',suffix='png')
-        pilImage = open(datadir + unique_filename,'rb')
-        copyfileobj(pilImage,tempFileObj)
-        pilImage.close()
-        remove(datadir + unique_filename)
-        tempFileObj.seek(0,0)
-        response = send_file(tempFileObj)
-        return response
+        return str1
 
 def get_checkReaEnum():
     try:
