@@ -27,7 +27,7 @@ class TornadoSelect(object):
         cur.close()    
         return result
     
-    def renderInd(smile, typeInd):
+    def renderInd(self, smile, typeInd):
         indigo = Indigo()
         if typeInd == "rea":
             mol1 = indigo.loadReaction(smile)
