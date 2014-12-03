@@ -29,7 +29,6 @@ class TornadoSelect(object):
         return result
     
 
-@bingo.route('/Reaction.asmx/CheckReactionsEnumerated', methods = ['GET','POST'])
 def get_checkReaEnum():
     try:
         if request.method == 'POST':
@@ -55,7 +54,6 @@ def get_checkReaEnum():
     except TemplateNotFound:
         abort(404) 
         
-@bingo.route('/Reaction.asmx/GetExperiment', methods = ['GET','POST'])
 def get_experiment():
 #     ret = json.dumps('{"ret":"OK"}')
 #     resp = Response(response=ret, status=200, mimetype="application/json")
@@ -95,7 +93,6 @@ def get_experiment():
     except TemplateNotFound:
         abort(404)   
         
-@bingo.route('/Reaction.asmx/GetPagesNotebook', methods = ['GET','POST'])
 def get_pagesnotebooks():
     try:
         if request.method == 'POST':
@@ -123,7 +120,6 @@ def get_pagesnotebooks():
     except TemplateNotFound:
         abort(404)
         
-@bingo.route('/Reaction.asmx/GetProducts', methods = ['GET','POST'])
 def get_products():
     try:
         if request.method == 'POST':
@@ -155,7 +151,6 @@ def get_products():
     except TemplateNotFound:
         abort(404)
 
-@bingo.route('/Reaction.asmx/GetReaction', methods = ['GET','POST'])
 def get_reaction():
     try:
         if request.method == 'POST':
@@ -178,7 +173,6 @@ def get_reaction():
     except TemplateNotFound:
         abort(404)   
 
-@bingo.route('/GetReaction.ashx', methods = ['GET'])
 def get_reactionI():
     try:
         id = request.args.get('idReaction')
@@ -198,7 +192,6 @@ def get_reactionI():
     except TemplateNotFound:
         abort(404)   
 
-@bingo.route('/Reaction.asmx/GetReagents', methods = ['GET','POST'])
 def get_reagents():
     try:
         if request.method == 'POST':
@@ -230,7 +223,6 @@ def get_reagents():
     except TemplateNotFound:
         abort(404)
                 
-@bingo.route('/Reaction.asmx/getProjects', methods = ['GET','POST'])
 def get_projects():
 #     ret = json.dumps('{"ret":"OK"}')
 #     resp = Response(response=ret, status=200, mimetype="application/json")
@@ -240,7 +232,6 @@ def get_projects():
     json_output = '[{"NAME":"PR1"}, {"NAME":"PR2"}]'                        
     return Response(response=json_output, status=200, mimetype="application/json")
 
-@bingo.route('/Reaction.asmx/GetUserNotebooks', methods = ['GET','POST'])
 def get_usernotebooks():
     try:
         if request.method == 'POST':
@@ -268,7 +259,6 @@ def get_usernotebooks():
     except TemplateNotFound:
         abort(404)
 
-@bingo.route('/Reaction.asmx/GetUsersFullname', methods = ['GET','POST'])
 def get_fullname():
     try:
         sql = "select fullname from CEN_USERS where site_code = 'SITE1' order by username"          
@@ -289,44 +279,18 @@ def get_fullname():
     except TemplateNotFound:
         abort(404)
 
-@bingo.route('/getMolBingo/<int:id>', methods = ['GET'])
 def get_mol_bingo(id):    
     cursor = conn.cursor()
     cursor.execute("select bingo.smiles(molb) from compound where id =" + str(id) )  
     mypic2 = str(cursor.fetchone()[0]) 
     indigo = Indigo()
     smile = mypic2;
-#    return smile
-#     mol1.layout()
-    
-#     renderer = IndigoRenderer(indigo);
-#     indigo.setOption("render-output-format", "png");
-#     indigo.setOption("render-margins", 10, 10);
-#     if _platform == "Linux-3.13.0-36-generic-i686-with-Ubuntu-14.04-trusty":
-#         datadir = ""        
-#     elif _platform == "Linux-3.13.0-37-generic-i686-with-Ubuntu-14.04-trusty":
-#         datadir = ""        
-#     else:
-#         datadir = os.environ['OPENSHIFT_DATA_DIR']
-#         
-#     print datadir + "mol.png"         
-#     renderer.renderToFile(mol1, datadir + "mol.png");
-#         
-#     tempFileObj = NamedTemporaryFile(mode='w+b',suffix='png')
-#     pilImage = open(datadir + 'mol.png','rb')
-#     copyfileobj(pilImage,tempFileObj)
-#     pilImage.close()
-#     remove(datadir + 'mol.png')
-#     tempFileObj.seek(0,0)
-#     response = send_file(tempFileObj)
-
     response = renderInd(smile,"mol")
     
     response.headers['Content-Type'] = 'image/png'
     response.headers['Content-Disposition'] = 'attachment; filename=mol.png'
     return response
 
-@bingo.route('/getMolBingo1/<int:id>', methods = ['GET'])
 def get_mol_bingo1(id):
     cursor = conn.cursor()
     cursor.execute("select bingo.smiles(molb) from compound where id =" + str(id) )
@@ -358,7 +322,6 @@ def get_mol_bingo1(id):
     response.headers['Content-Disposition'] = 'attachment; filename=mol.png'
     return response
 
-@bingo.route('/Reaction.asmx/MatchBingoReaction', methods = ['GET','POST'])
 def match_reaction():
     try:
         if request.method == 'POST':
@@ -408,7 +371,6 @@ def match_reaction():
     except TemplateNotFound:
         abort(404)   
 
-@bingo.route('/viewBingo/<id>', methods=['GET'])
 def view_bingo(id):
     try:
         return render_template('bingo.html', id=id)
