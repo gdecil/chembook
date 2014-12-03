@@ -54,6 +54,7 @@ def getListpg():
                      for row in cur.fetchall()]
 
     cur.close()    
+    print result
     return result
     
 class TestHandler(tornado.web.RequestHandler): 
