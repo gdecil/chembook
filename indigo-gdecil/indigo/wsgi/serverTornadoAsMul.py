@@ -137,7 +137,9 @@ class Render(tornado.web.RequestHandler):
                                                     smile = smile[0], 
                                                     typeInd ="mol"
                                                     )                 
-        self.write(future_result) 
+        
+        self.write(future_result)
+        self.set_header("Content-type", "image/png") 
         self.finish()
 
 class BarHandler(tornado.web.RequestHandler):
