@@ -128,7 +128,7 @@ class Render(tornado.web.RequestHandler):
 
     @gen.coroutine
     def get(self): 
-        smile=self.get_arguments("smile")
+        smile=self.get_arguments("ugo")
 #         ugo=self.get_query_arguments("ugo")
         print smile
 #         print ugo
