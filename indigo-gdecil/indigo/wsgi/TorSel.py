@@ -9,7 +9,8 @@ from bingoCfg import conn, _platform, query_db
 from psycopg2.extensions import SQL_IN
 
 class TornadoSelect(object):
-    def __init__(self, db_connection):
+    def __init__(self):
+        db_connection ="host='localhost', database='postgres', user='postgres', password='postgres', port=5433"
         self.connection = db_connection
 
     def getListpg():
