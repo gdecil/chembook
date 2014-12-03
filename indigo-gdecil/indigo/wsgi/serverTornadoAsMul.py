@@ -130,7 +130,7 @@ class Render(tornado.web.RequestHandler):
     def get(self): 
         smile=self.get_arguments("ugo")
 #         ugo=self.get_query_arguments("ugo")
-        print smile
+        print smile[0]
 #         print ugo
 #         future_result = yield self.executor.submit( self.dao.renderInd, 
 #                                                     smile = smile, 
