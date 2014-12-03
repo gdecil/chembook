@@ -31,6 +31,9 @@ def getList(self):
         FROM users_user
     """
     cursor = momoko.Op(self.db.execute, sql)
+    
+    long_blocking_function('10', 5)
+    
     desc = cursor.description
     result = [dict(zip([col[0] for col in desc], row))
                      for row in cursor.fetchall()]
@@ -89,7 +92,7 @@ class DbHandler(tornado.web.RequestHandler):
         
 #         cursor = yield self.executor.submit(dao.get_list)                 
         print result
-        long_blocking_function('10', 5)
+        
         
         self.finish()
     @tornado.gen.coroutine
