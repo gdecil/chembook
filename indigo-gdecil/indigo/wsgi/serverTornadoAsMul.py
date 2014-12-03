@@ -31,7 +31,7 @@ def getList(self):
         FROM users_user
     """
     cursor = yield momoko.Op(self.db.execute, sql)
-    
+    print 'pippo'
     long_blocking_function('10', 5)
     
     desc = cursor.description
