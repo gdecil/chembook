@@ -117,6 +117,9 @@ class DbHandler1(tornado.web.RequestHandler):
     def get(self): 
         cursor = yield self.executor.submit( getList
                                               )                 
+        future_result = yield self.executor.submit(long_blocking_function,
+                                              index=current_counter,
+                                              sleep_time=5)
         print cursor
         self.finish()
         
