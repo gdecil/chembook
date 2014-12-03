@@ -120,7 +120,7 @@ class DbHandler1(tornado.web.RequestHandler):
         future_result = yield self.executor.submit(long_blocking_function,
                                               index='5',
                                               sleep_time=5)
-        print cursor
+        print future_result
         self.finish()
         
 class BarHandler(tornado.web.RequestHandler):
