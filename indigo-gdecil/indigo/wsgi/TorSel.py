@@ -67,6 +67,7 @@ class TornadoSelect(object):
         except TemplateNotFound:
             abort(404)
 
+
 def get_checkReaEnum():
     try:
         if request.method == 'POST':
@@ -297,6 +298,7 @@ def get_usernotebooks():
     except TemplateNotFound:
         abort(404)
 
+
 def get_mol_bingo(id):    
     cursor = conn.cursor()
     cursor.execute("select bingo.smiles(molb) from compound where id =" + str(id) )  
@@ -311,26 +313,7 @@ def get_mol_bingo(id):
 
 def get_mol_bingo1(id):
     cursor = conn.cursor()
-    cursor.executdef get_fullname():
-    try:
-        sql = "select fullname from CEN_USERS where site_code = 'SITE1' order by username"          
-        my_query = query_db(sql)
-        json_output = json.dumps(my_query)
-#         u = User('{"fullname": "Caldarelli, Marina"}')
-#         print u.fullname
-        js ="["
-        for s in my_query:
-#             print s
-#             print s['fullname']
-            js = js + '{"title": "' + s['fullname'] + \
-            '", "isLazy": true , "icon": "/js/vendor/jquery.dynatree/skin-custom/PersonIcon16.gif"},'
-            
-        js= js[:-1] + "]"
-        return Response(response=js, status=200, mimetype="application/json")
-
-    except TemplateNotFound:
-        abort(404)
-e("select bingo.smiles(molb) from compound where id =" + str(id) )
+    cursor.execute("select bingo.smiles(molb) from compound where id =" + str(id) )
     mypic2 = str(cursor.fetchone()[0])
     indigo = Indigo()
     smile = mypic2;
