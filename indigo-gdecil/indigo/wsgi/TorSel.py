@@ -12,7 +12,7 @@ import base64
 class TornadoSelect(object):
     def __init__(self):
         global con 
-        con = psycopg2.connect(host='localhost', database='postgres', user='postgres', password='postgres', port=5433)
+        con = psycopg2.connect(host='localhost', database='postgres', user='postgres', password='postgres', port=5432)
 
     def getListpg(self):
         cur = con.cursor()

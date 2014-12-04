@@ -149,8 +149,8 @@ class Reaction(tornado.web.RequestHandler):
 
     @gen.coroutine
     def get(self, param1): 
-        smile=self.get_arguments("smile")
-        print smile[0]
+#         smile=self.get_arguments("smile")
+#         print smile[0]
         print param1
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.renderInd, 
@@ -205,9 +205,9 @@ class Application(tornado.web.Application):
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
         )
-        dsn = 'dbname=postgres user=postgres password=postgres ' \
-              'host=127.0.0.1 port=5433'
-        self.db = momoko.Pool(dsn=dsn, size=5)
+#         dsn = 'dbname=postgres user=postgres password=postgres ' \
+#               'host=127.0.0.1 port=5433'
+#         self.db = momoko.Pool(dsn=dsn, size=5)
 
         tornado.web.Application.__init__(self, handlers, **settings)
  
