@@ -1,3 +1,4 @@
+from flask import json
 from os import remove
 from indigo import *
 from indigo_renderer import *
