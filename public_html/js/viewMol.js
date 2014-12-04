@@ -4,7 +4,7 @@ if (server == "http://10.206.89.79"){
 	server = "http://10.206.89.79:5000"
 }
 else if (server == "http://localhost"){
-	server = "http://localhost:8889"
+	server = "http://127.0.0.1:8889"
 }
 else {
 	server = "http://indigo-gdecil.rhcloud.com"
