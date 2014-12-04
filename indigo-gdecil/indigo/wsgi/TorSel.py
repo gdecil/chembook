@@ -68,7 +68,10 @@ class TornadoSelect(object):
         except:
             raise
 
-
+    def get_projects():
+        json_output = '[{"NAME":"PR1"}, {"NAME":"PR2"}]'                        
+        return json_output
+    
 def get_checkReaEnum():
     try:
         if request.method == 'POST':
