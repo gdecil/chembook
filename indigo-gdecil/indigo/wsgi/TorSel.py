@@ -51,7 +51,7 @@ class TornadoSelect(object):
             
         return str1
 
-    def get_fullname():
+    def get_fullname(self):
         try:
             sql = "select fullname from CEN_USERS where site_code = 'SITE1' order by username"          
             my_query = query_db(sql)
