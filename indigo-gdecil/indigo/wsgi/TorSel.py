@@ -63,6 +63,7 @@ class TornadoSelect(object):
                 '", "isLazy": true , "icon": "/js/vendor/jquery.dynatree/skin-custom/PersonIcon16.gif"},'
                 
             js= js[:-1] + "]"
+            print js
             return js
     
         except:
