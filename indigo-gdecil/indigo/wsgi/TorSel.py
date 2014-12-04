@@ -68,7 +68,7 @@ class TornadoSelect(object):
         except:
             raise
 
-    def get_projects():
+    def get_projects(self):
         json_output = '[{"NAME":"PR1"}, {"NAME":"PR2"}]'                        
         return json_output
     
