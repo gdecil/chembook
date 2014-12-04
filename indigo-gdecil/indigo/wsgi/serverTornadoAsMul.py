@@ -143,6 +143,7 @@ class Render(tornado.web.RequestHandler):
         self.finish()
 
 class Reaction(tornado.web.RequestHandler): 
+    SUPPORTED_METHODS = ("CONNECT", "GET", "HEAD", "POST", "DELETE", "PATCH", "PUT", "OPTIONS")
     def initialize(self, executor):
         self.executor = executor 
         self.dao = TornadoSelect()
