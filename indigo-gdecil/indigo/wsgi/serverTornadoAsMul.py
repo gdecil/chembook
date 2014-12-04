@@ -155,7 +155,7 @@ class Reaction(tornado.web.RequestHandler):
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname )    
         elif param1 == 'getProject':
-            future_result = yield self.executor.submit( self.dao.get_project )    
+            future_result = yield self.executor.submit( self.dao.get_projects )    
         
         self.write(future_result) 
         self.finish()
