@@ -51,7 +51,7 @@ class TornadoSelect(object):
             
         return str1
 
-    def get_fullname(self):
+    def get_fullname(self):        
         try:
             sql = "select fullname from CEN_USERS where site_code = 'SITE1' order by username"          
             my_query = query_db(sql)
@@ -64,8 +64,8 @@ class TornadoSelect(object):
             js= js[:-1] + "]"
             return Response(response=js, status=200, mimetype="application/json")
     
-        except TemplateNotFound:
-            abort(404)
+        except:
+            raise
 
 
 def get_checkReaEnum():
