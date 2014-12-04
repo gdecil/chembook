@@ -154,7 +154,8 @@ class Reaction(tornado.web.RequestHandler):
         print param1
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname
-                                                    )                 
+                                                   )    
+        self.write(future_result) 
         self.finish()
 
 class BarHandler(tornado.web.RequestHandler):
