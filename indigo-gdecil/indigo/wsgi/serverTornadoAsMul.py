@@ -153,9 +153,7 @@ class Reaction(tornado.web.RequestHandler):
 #         print smile[0]
         print param1
         if param1 == 'GetUsersFullname':
-            future_result = yield self.executor.submit( self.dao.renderInd, 
-                                                    smile = smile[0], 
-                                                    typeInd ="mol"
+            future_result = yield self.executor.submit( self.dao.get_fullname
                                                     )                 
         self.finish()
 
