@@ -1,6 +1,6 @@
 ﻿//var server = window.location.protocol + "//" + window.location.host;
 //if (server == "http://localhost"){
-//	server = "http://localhost:5000"
+//	server = "http://localhost:8889"
 //}
 
 function Experiment(notebook, page, enumVal) {
