@@ -164,7 +164,7 @@ class Reaction(tornado.web.RequestHandler):
         self.finish()
     def options(self, *args, **kwargs):
         print "SUPPORTED_METHODS"
-        tornado.web.RequestHandler.options(self, *args, **kwargs)
+#         tornado.web.RequestHandler.options(self, *args, **kwargs)
         self.finish()
 
 class BarHandler(tornado.web.RequestHandler):
