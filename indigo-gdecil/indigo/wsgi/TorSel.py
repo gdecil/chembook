@@ -72,6 +72,26 @@ class TornadoSelect(object):
         json_output = '[{"NAME":"PR1"}, {"NAME":"PR2"}]'                        
         return json_output
     
+    def get_usernotebooks(self, userFullname):
+        try:
+            sql = "select distinct notebook from CEN_PAGES where owner_username =(select "  + \
+            "username from CEN_USERS where fullname = '" + userFullname \
+            + "' and site_code = 'SITE1') order by notebook"          
+            my_query = query_db(sql)
+            if  len(my_query) > 0:            
+                json_output = json.dumps(my_query)
+                js ="["
+                for s in my_query:
+                    js = js + '{"title": "' + s['notebook'] + '", "isLazy": true },'
+                    
+                js= js[:-1] + "]"
+                return js
+            else:
+                return '{"title": "No Records", "isLazy": true }'
+                
+        except:
+            raise
+
 def get_checkReaEnum():
     try:
         if request.method == 'POST':
@@ -275,32 +295,7 @@ def get_projects():
     json_output = '[{"NAME":"PR1"}, {"NAME":"PR2"}]'                        
     return Response(response=json_output, status=200, mimetype="application/json")
 
-def get_usernotebooks():
-    try:
-        if request.method == 'POST':
-            ret1 = request.get_json(force=True, silent=True, cache=False)
-            j = json.loads(ret1)    
-            userFullname = j['userFullname'];
-        else:
-            userFullname = request.args.get('userFullname')
-            
-        sql = "select distinct notebook from CEN_PAGES where owner_username =(select "  + \
-        "username from CEN_USERS where fullname = '" + userFullname \
-        + "' and site_code = 'SITE1') order by notebook"          
-        my_query = query_db(sql)
-        if  len(my_query) > 0:            
-            json_output = json.dumps(my_query)
-            js ="["
-            for s in my_query:
-                js = js + '{"title": "' + s['notebook'] + '", "isLazy": true },'
-                
-            js= js[:-1] + "]"
-            return Response(response=js, status=200, mimetype="application/json")
-        else:
-            return Response(response='{"title": "No Records", "isLazy": true }', status=200, mimetype="application/json")
-            
-    except TemplateNotFound:
-        abort(404)
+
 
 
 def get_mol_bingo(id):    
