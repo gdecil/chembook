@@ -146,7 +146,7 @@ class Reaction(tornado.web.RequestHandler):
 #     SUPPORTED_METHODS = tornado.web.RequestHandler.SUPPORTED_METHODS + ('OPTIONS',)
 #     SUPPORTED_METHODS = ("CONNECT", "GET", "HEAD", "POST", "DELETE", "PATCH", "PUT", "OPTIONS")
     SUPPORTED_METHODS = ("GET", "HEAD", "POST", "DELETE", "PATCH", "PUT", "OPTIONS")
-    CORS_ORIGIN = '*'
+#     CORS_ORIGIN = '*'
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
         
