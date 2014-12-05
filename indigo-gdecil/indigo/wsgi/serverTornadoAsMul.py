@@ -77,7 +77,7 @@ class TestArg(tornado.web.RequestHandler):
             dictlist.append(temp)
         print temp[0]
         print temp[1]
-        print dictlist
+        print dictlist[0]
         print par
                     
 class DbHandler(tornado.web.RequestHandler): 
