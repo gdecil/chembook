@@ -169,6 +169,7 @@ class Reaction(tornado.web.RequestHandler):
             future_result = yield self.executor.submit( self.dao.get_projects )    
             self.write(future_result) 
         else:
+            print "error 500"
             self.write_error(500) 
         self.finish()
         
