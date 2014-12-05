@@ -168,7 +168,7 @@ class Reaction(tornado.web.RequestHandler):
         elif param1 == 'getProjects':
             future_result = yield self.executor.submit( self.dao.get_projects )    
             self.write(future_result) 
-        else
+        else:
             self.write_error(500) 
         self.finish()
         
