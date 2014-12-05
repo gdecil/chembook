@@ -153,7 +153,7 @@ class Reaction(tornado.web.RequestHandler):
     def get(self, param1): 
 #         smile=self.get_arguments("smile")
 #         print smile[0]
-        print param1
+        print SUPPORTED_METHODS
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname )    
         elif param1 == 'getProject':
