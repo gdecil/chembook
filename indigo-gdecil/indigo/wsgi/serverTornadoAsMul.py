@@ -66,9 +66,15 @@ class TestHandler(tornado.web.RequestHandler):
 
 class TestArg(tornado.web.RequestHandler):    
     def post(self):
-        print tornado.escape.json_decode(self.request.body)
+        dict = tornado.escape.json_decode(self.request.body)
+        print dict
         print self.request.body
         par=self.get_arguments("smile")
+        for key, value in dict.iteritems():
+            temp = [key,value]
+            dictlist.append(temp)
+        print temp
+        print dictlist
         print par
                     
 class DbHandler(tornado.web.RequestHandler): 
