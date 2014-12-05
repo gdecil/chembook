@@ -67,6 +67,7 @@ class TestHandler(tornado.web.RequestHandler):
 class TestArg(tornado.web.RequestHandler):    
     def post(self):
         print tornado.escape.json_decode(self.request.body)
+        print self.request.body
         par=self.get_arguments("smile")
         print par
                     
