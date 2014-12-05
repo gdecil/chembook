@@ -170,6 +170,7 @@ class Reaction(tornado.web.RequestHandler):
             self.write(future_result) 
         elif param1 == "GetUserNotebooks":
             par1=self.get_arguments("userFullname")
+            print par1
             future_result = yield self.executor.submit( self.dao.get_usernotebooks,
                                                         userFullname = par1 )    
             self.write(future_result) 
