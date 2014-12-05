@@ -74,6 +74,7 @@ class TornadoSelect(object):
     
     def get_usernotebooks(self, userFullname):
         try:
+            print userFullname
             sql = "select distinct notebook from CEN_PAGES where owner_username =(select "  + \
             "username from CEN_USERS where fullname = '" + userFullname \
             + "' and site_code = 'SITE1') order by notebook"          
