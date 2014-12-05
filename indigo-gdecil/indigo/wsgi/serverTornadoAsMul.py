@@ -63,7 +63,12 @@ class TestHandler(tornado.web.RequestHandler):
             self.write('closing cursor')
             cursor.close()
         self.finish()
-                
+
+class TestArg(tornado.web.RequestHandler):    
+    def post(self):
+        par=self.get_arguments("smile")
+        print par
+                    
 class DbHandler(tornado.web.RequestHandler): 
     def initialize(self, executor):
         self.executor = executor 
