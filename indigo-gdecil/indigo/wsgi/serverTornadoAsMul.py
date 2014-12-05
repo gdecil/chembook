@@ -168,7 +168,10 @@ class Reaction(tornado.web.RequestHandler):
         elif param1 == 'getProjects':
             future_result = yield self.executor.submit( self.dao.get_projects )    
             self.write(future_result) 
+        else
+            self.write_error(500) 
         self.finish()
+        
     def options(self, *args, **kwargs):
 #         print "SUPPORTED_METHODS"
 #         tornado.web.RequestHandler.options(self, *args, **kwargs)
