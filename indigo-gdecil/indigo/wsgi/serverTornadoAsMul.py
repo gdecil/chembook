@@ -7,7 +7,7 @@ import time
 from functools import partial
 import os
 from concurrent.futures import ThreadPoolExecutor
-
+from tornado_cors import CorsMixin
 from TorSel import TornadoSelect
 import momoko
 import psycopg2 
