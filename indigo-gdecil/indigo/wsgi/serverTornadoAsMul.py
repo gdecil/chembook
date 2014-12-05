@@ -75,7 +75,7 @@ class TestArg(tornado.web.RequestHandler):
         for key, value in dict.iteritems():
             temp = [key,value]
             dictlist.append(temp)
-        print temp
+        print temp[0]
         print dictlist
         print par
                     
