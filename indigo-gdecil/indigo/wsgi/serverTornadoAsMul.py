@@ -186,7 +186,26 @@ class Reaction(tornado.web.RequestHandler):
 #         tornado.web.RequestHandler.options(self, *args, **kwargs)
         self.finish()
 
-    post = get    
+    def post(self, *args, **kwargs):
+        if param1 == 'GetUsersFullname':
+            future_result = yield self.executor.submit( self.dao.get_fullname )    
+            self.write(future_result) 
+        elif param1 == 'getProjects':
+            future_result = yield self.executor.submit( self.dao.get_projects )    
+            self.write(future_result) 
+        elif param1 == "GetUserNotebooks":
+            par0 = self.get_argument("cns")
+            par1 = self.get_argument("userFullname")
+#             par1=self.get_arguments("userFullname")
+            print par1
+            future_result = yield self.executor.submit( self.dao.get_usernotebooks,
+                                                        userFullname = par1 )    
+            self.write(future_result) 
+        else:
+            print "error post"
+            self.write_error(500) 
+        self.finish()
+#     post = get    
 
 class BarHandler(tornado.web.RequestHandler):
  
