@@ -71,7 +71,7 @@ class TestArg(tornado.web.RequestHandler):
         print self.request.body
         par=self.get_arguments("smile")
         temp = []
-        dictList = []
+        dictlist = []
         for key, value in dict.iteritems():
             temp = [key,value]
             dictlist.append(temp)
