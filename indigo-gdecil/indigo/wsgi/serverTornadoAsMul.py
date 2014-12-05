@@ -171,7 +171,7 @@ class Reaction(tornado.web.RequestHandler):
         elif param1 == "GetUserNotebooks":
             par1=self.get_arguments("userFullname")
             future_result = yield self.executor.submit( self.dao.get_usernotebooks,
-                                                        par1 )    
+                                                        userFullname = par1 )    
             self.write(future_result) 
         else:
             print "error 500"
