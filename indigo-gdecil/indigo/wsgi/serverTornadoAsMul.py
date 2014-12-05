@@ -70,6 +70,8 @@ class TestArg(tornado.web.RequestHandler):
         print dict
         print self.request.body
         par=self.get_arguments("smile")
+        temp = []
+        dictList = []
         for key, value in dict.iteritems():
             temp = [key,value]
             dictlist.append(temp)
