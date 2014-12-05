@@ -170,7 +170,7 @@ class Reaction(tornado.web.RequestHandler):
             self.write(future_result) 
         else:
             print "error 500"
-            self.write_error(500) 
+            self.write_error("500") 
         self.finish()
         
     def options(self, *args, **kwargs):
