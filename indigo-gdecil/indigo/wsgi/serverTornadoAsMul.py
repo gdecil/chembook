@@ -204,7 +204,7 @@ class Reaction(tornado.web.RequestHandler):
             future_result = yield self.executor.submit( self.dao.get_projects )    
             self.write(future_result) 
         elif param1 == "GetUserNotebooks":  
-            par1 = getParam(dict.replace("\\", ""), 'userFullname')
+            par1 = getParam(dict, 'userFullname')
             print par1
             future_result = yield self.executor.submit( self.dao.get_usernotebooks,
                                                         userFullname = par1 )    
