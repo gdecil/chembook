@@ -188,10 +188,10 @@ class Reaction(tornado.web.RequestHandler):
     def get(self, param1): 
 #         smile=self.get_arguments("smile")
 #         print smile[0]
-        dict = tornado.escape.json_decode(self.request.body.replace("\\", ""))
         print self.request.body
         print tornado.escape.json_decode(self.request.body)
         print self.request.body.replace("\\", "")
+        dict = tornado.escape.json_decode(self.request.body.replace("\\", ""))
         
 #         par = getParam(dict, 'smile')
 #         par1 = getParam(dict, 'name')
