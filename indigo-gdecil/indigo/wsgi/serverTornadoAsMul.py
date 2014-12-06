@@ -47,9 +47,9 @@ def getParam(dict, name):
         for key, value in dict.iteritems():
             if key == name:
                 return value
-            temp = [key,value]
-            dictlist.append(temp)
-        print dictlist[0][1]
+#             temp = [key,value]
+#             dictlist.append(temp)
+#         print dictlist[0][1]
 
 class TestHandler(tornado.web.RequestHandler): 
     def initialize(self, executor):
