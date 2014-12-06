@@ -189,13 +189,16 @@ class Reaction(tornado.web.RequestHandler):
 #         smile=self.get_arguments("smile")
 #         print smile[0]
         print self.request.body
-        a1= tornado.escape.json_decode(self.request.body)
-        print a1
-        a2 = tornado.escape.json_decode(a1)
-        print a2
-        a= self.request.body.replace("\\", "")
-        print a
-        dict = tornado.escape.json_decode(a1)
+        if self.request.body != None:            
+            a1= tornado.escape.json_decode(self.request.body)
+            dict = tornado.escape.json_decode(a1)
+            
+#         print a1
+#         a2 = tornado.escape.json_decode(a1)
+#         print a2
+#         a= self.request.body.replace("\\", "")
+#         print a
+        
         
 #         par = getParam(dict, 'smile')
 #         par1 = getParam(dict, 'name')
