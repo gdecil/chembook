@@ -190,7 +190,9 @@ class Reaction(tornado.web.RequestHandler):
 #         print smile[0]
         dict = tornado.escape.json_decode(self.request.body)
         par = getParam(dict, 'smile')
+        par1 = getParam(dict, 'name')
         print par
+        print par1
         self.finish()
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname )    
