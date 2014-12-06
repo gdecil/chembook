@@ -191,7 +191,7 @@ class Reaction(tornado.web.RequestHandler):
         dict = tornado.escape.json_decode(self.request.body)
         print self.request.body
         print tornado.escape.json_decode(self.request.body)
-        print tornado.escape(self.request.body)
+        print tornado.escape.url_unescape(self.request.body)
         
 #         par = getParam(dict, 'smile')
 #         par1 = getParam(dict, 'name')
