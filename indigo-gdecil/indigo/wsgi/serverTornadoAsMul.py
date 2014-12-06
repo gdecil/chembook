@@ -189,7 +189,7 @@ class Reaction(tornado.web.RequestHandler):
 #         smile=self.get_arguments("smile")
 #         print smile[0]
         print self.request.body
-        if self.request.body != null:            
+        if len(self.request.body) > 0:            
             a1= tornado.escape.json_decode(self.request.body)
             dict = tornado.escape.json_decode(a1)
             
