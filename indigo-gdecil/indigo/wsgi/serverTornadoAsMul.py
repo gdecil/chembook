@@ -41,6 +41,16 @@ def getList():
     cursor.close()    
     return result
 
+def getParam(dict, name):
+        temp = []
+        dictlist = []
+        for key, value in dict.iteritems():
+            if key == name:
+                return value
+            temp = [key,value]
+            dictlist.append(temp)
+        print dictlist[0][1]
+
 class TestHandler(tornado.web.RequestHandler): 
     def initialize(self, executor):
         self.executor = executor 
@@ -179,13 +189,9 @@ class Reaction(tornado.web.RequestHandler):
 #         smile=self.get_arguments("smile")
 #         print smile[0]
         dict = tornado.escape.json_decode(self.request.body)
-        temp = []
-        dictlist = []
-        for key, value in dict.iteritems():
-            temp = [key,value]
-            dictlist.append(temp)
-        print dictlist[0][1]
-        
+        par = getParam(dict, 'smile')
+        print par
+        self.finish()
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname )    
             self.write(future_result) 
