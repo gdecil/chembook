@@ -188,7 +188,7 @@ class Reaction(tornado.web.RequestHandler):
     def get(self, param1): 
 #         smile=self.get_arguments("smile")
 #         print smile[0]
-        dict = tornado.escape.json_decode(self.request.body)
+        dict = tornado.escape.json_decode(self.request.body.replace("\\", ""))
         print self.request.body
         print tornado.escape.json_decode(self.request.body)
         print self.request.body.replace("\\", "")
@@ -204,7 +204,7 @@ class Reaction(tornado.web.RequestHandler):
             future_result = yield self.executor.submit( self.dao.get_projects )    
             self.write(future_result) 
         elif param1 == "GetUserNotebooks":  
-            par1 = getParam(self.request.body.replace("\\", ""), 'userFullname')
+            par1 = getParam(dict.replace("\\", ""), 'userFullname')
             print par1
             future_result = yield self.executor.submit( self.dao.get_usernotebooks,
                                                         userFullname = par1 )    
