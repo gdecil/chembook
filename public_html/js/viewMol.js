@@ -405,7 +405,7 @@ $(function () {
             type: "POST",
             url: server + "/Reaction.asmx/GetUsersFullname",
             contentType: "application/json; charset=utf-8",
-            data: '{"cns":""}'
+            data: JSON.stringify('{"cns":""}')
         },
         onExpand: function (expand, node) {
             if (expand) {
