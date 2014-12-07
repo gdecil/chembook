@@ -10,6 +10,8 @@ from concurrent.futures import ThreadPoolExecutor
 from tornado_cors import CorsMixin
 from TorSel import TornadoSelect
 from TorIns import TornadoInsert
+import TorCfg
+
 import momoko
 import psycopg2 
  
@@ -42,16 +44,6 @@ def getList():
     cursor.close()    
     return result
 
-def getParam(dict, name):
-        temp = []
-        dictlist = []
-        for key, value in dict.iteritems():
-            if key == name:
-                return value
-#             temp = [key,value]
-#             dictlist.append(temp)        self.dao = TornadoSelect()
-
-#         print dictlist[0][1]
 
 class TestHandler(tornado.web.RequestHandler): 
     def initialize(self, executor):
@@ -193,42 +185,34 @@ class Reaction(tornado.web.RequestHandler):
 #         smile=self.get_arguments("smile")
 #         print smile[0]
         print self.request.body
-        if len(self.request.body) > 0:            
-            a1= tornado.escape.json_decode(self.request.body)
-            dict = tornado.escape.json_decode(a1)
+        if len(self.request.body) > 0:
+            if param1 == 'InsertDetail':
+                a1= tornado.escape.json_decode(self.request.body)
+            else:
+                a1= tornado.escape.json_decode(self.request.body)
+                dict = tornado.escape.json_decode(a1)
             
-#         print a1
-#         a2 = tornado.escape.json_decode(a1)
-#         print a2
-#         a= self.request.body.replace("\\", "")
-#         print a
-        
-        
-#         par = getParam(dict, 'smile')
-#         par1 = getParam(dict, 'name')
-#         print par
-#         print par1
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname )    
             self.write(future_result) 
         elif param1 == 'CheckReactionsEnumerated':
-            par1 = getParam(dict, 'notebook')
-            par2 = getParam(dict, 'page')
+            par1 = TorCfg.getParam(dict, 'notebook')
+            par2 = TorCfg.getParam(dict, 'page')
             future_result = yield self.executor.submit( self.dao.get_checkReaEnum,
                                                          notebook = par1, 
                                                          page =par2)    
             self.write(str(future_result)) 
         elif param1 == 'GetExperiment':
-            par1 = getParam(dict, 'notebook')
-            par2 = getParam(dict, 'page')
-            par3 = getParam(dict, 'enumVal')
+            par1 = TorCfg.getParam(dict, 'notebook')
+            par2 = TorCfg.getParam(dict, 'page')
+            par3 = TorCfg.getParam(dict, 'enumVal')
             future_result = yield self.executor.submit( self.dao.get_experiment,
                                                          notebook = par1, 
                                                          page =par2, 
                                                          enumVal = par3)    
             self.write(future_result) 
         elif param1 == "GetPagesNotebook":  
-            par1 = getParam(dict, 'notebook')
+            par1 = TorCfg.getParam(dict, 'notebook')
             print par1
             future_result = yield self.executor.submit( self.dao.get_pagesnotebooks,
                                                         notebook = par1 )    
@@ -237,10 +221,14 @@ class Reaction(tornado.web.RequestHandler):
             future_result = yield self.executor.submit( self.dao.get_projects )    
             self.write(future_result) 
         elif param1 == "GetUserNotebooks":  
-            par1 = getParam(dict, 'userFullname')
+            par1 = TorCfg.getParam(dict, 'userFullname')
             print par1
             future_result = yield self.executor.submit( self.dao.get_usernotebooks,
                                                         userFullname = par1 )    
+            self.write(future_result) 
+        elif param1 == "InsertDetail":  
+            future_result = yield self.executor.submit( self.dao1.insert_detail ,
+                                                        userFullname = a1 )    
             self.write(future_result) 
         else:
             print param1
