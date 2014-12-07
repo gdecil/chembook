@@ -227,7 +227,7 @@ class Reaction(tornado.web.RequestHandler):
                                                         userFullname = par1 )    
             self.write(future_result) 
         elif param1 == "InsertDetail":  
-            future_result = yield self.executor.submit( self.dao1.insert_detail ,
+            future_result = yield self.executor.submit( self.daoI.insert_detail ,
                                                         userFullname = a1 )    
             self.write(future_result) 
         else:
