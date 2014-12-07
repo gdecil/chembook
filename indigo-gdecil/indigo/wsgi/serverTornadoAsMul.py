@@ -207,6 +207,15 @@ class Reaction(tornado.web.RequestHandler):
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname )    
             self.write(future_result) 
+        elif param1 == 'GetExperiment':
+            par1 = getParam(dict, 'notebook')
+            par2 = getParam(dict, 'page')
+            par3 = getParam(dict, 'enumVal')
+            future_result = yield self.executor.submit( self.dao.get_experiment,
+                                                         notebook = par1, 
+                                                         page =par2, 
+                                                         enumVal = par3)    
+            self.write(future_result) 
         elif param1 == 'getProjects':
             future_result = yield self.executor.submit( self.dao.get_projects )    
             self.write(future_result) 
@@ -222,6 +231,7 @@ class Reaction(tornado.web.RequestHandler):
             self.write_error(500) 
         self.finish()
         
+        get_experiment(notebook, page, enumVal)
     def options(self, *args, **kwargs):
 #         print "SUPPORTED_METHODS"
 #         tornado.web.RequestHandler.options(self, *args, **kwargs)

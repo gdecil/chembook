@@ -52,6 +52,22 @@ class TornadoSelect(object):
             
         return str1
 
+    def get_experiment(notebook, page, enumVal):
+        try: 
+            if enumVal=="undefined":
+                sql="select * from pages_vw where notebook ='" + notebook \
+                + "' and experiment  = '" + page + "' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)";                    
+            else:
+                sql = "select * from pages_vw where notebook ='" + notebook \
+                + "' and experiment  = '" + page + "' and SYNTH_ROUTE_REF =" + enumVal;
+             
+            my_query = query_db(sql)
+            json_output = json.dumps(my_query)            
+            return json_output
+    
+        except:
+            raise   
+        
     def get_fullname(self):        
         try:
             sql = "select fullname from CEN_USERS where site_code = 'SITE1' order by username"          
@@ -118,44 +134,7 @@ def get_checkReaEnum():
     except TemplateNotFound:
         abort(404) 
         
-def get_experiment():
-#     ret = json.dumps('{"ret":"OK"}')
-#     resp = Response(response=ret, status=200, mimetype="application/json")
-#     return resp
-    try:
-#         return Response(response=json.dumps('{"ret":"post ok"}'), status=200, mimetype="application/json")
-        if request.method == 'POST':
-#             return Response(response=json.dumps('{"ret":"post ok"}'), status=200, mimetype="application/json")
-            ret1 = request.get_json(force=True, silent=True, cache=False)
-            j = json.loads(ret1)    
-            notebook = j['notebook'];
-            page = j['page'];
-            enumVal = j['enumVal'];   
-        else:
-            notebook = request.args.get('notebook')
-            page = request.args.get('page')
-            enumVal = request.args.get('enumVal')
-#             return Response(response=json.dumps('{"ret":"' + notebook + page + enumVal + '"}'), status=200, mimetype="application/json")
- 
-#         cursor = conn.cursor()
-        if enumVal=="undefined":
-            sql="select * from pages_vw where notebook ='" + notebook \
-            + "' and experiment  = '" + page + "' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)";                    
-        else:
-            sql = "select * from pages_vw where notebook ='" + notebook \
-            + "' and experiment  = '" + page + "' and SYNTH_ROUTE_REF =" + enumVal;
-         
-#         print sql        
-#         cursor.execute(sql)
-#         json_output = json.dumps(cursor.fetchall())
-        my_query = query_db(sql)
-#         print enumVal
-        json_output = json.dumps(my_query)
-        
-        return Response(response=json_output, status=200, mimetype="application/json")
 
-    except TemplateNotFound:
-        abort(404)   
         
 def get_pagesnotebooks():
     try:
