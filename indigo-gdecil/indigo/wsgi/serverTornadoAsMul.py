@@ -207,6 +207,13 @@ class Reaction(tornado.web.RequestHandler):
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname )    
             self.write(future_result) 
+        elif param1 == 'CheckReactionsEnumerated':
+            par1 = getParam(dict, 'notebook')
+            par2 = getParam(dict, 'page')
+            future_result = yield self.executor.submit( self.dao.get_checkReaEnum,
+                                                         notebook = par1, 
+                                                         page =par2)    
+            self.write(future_result) 
         elif param1 == 'GetExperiment':
             par1 = getParam(dict, 'notebook')
             par2 = getParam(dict, 'page')
@@ -233,10 +240,9 @@ class Reaction(tornado.web.RequestHandler):
             self.write(future_result) 
         else:
             print param1
-            print "error 500"
+            print "error MANCA LA FUNZIONE IN REACTION class"
             self.write_error(500) 
         self.finish()
-        
         
     def options(self, *args, **kwargs):
 #         print "SUPPORTED_METHODS"

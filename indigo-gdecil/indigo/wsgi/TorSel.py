@@ -127,33 +127,22 @@ class TornadoSelect(object):
                 return '{"title": "No Records", "isLazy": true }'
                 
         except:
+            raise   
+                            
+    def get_checkReaEnum(self, notebook, page):
+        try:     
+            sql="SELECT count(*) FROM cen_reaction_schemes r  " + \
+                    "    WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0  " + \
+                    "    and page_key = (select page_key from CEN_PAGES where notebook ='" + notebook + \
+                    "'  and experiment  = '" + page + "') ";
+                                                    
+            my_query = query_db(sql)
+            dict = my_query[0]
+            return dict['count']
+    
+        except:
             raise
-        
-def get_checkReaEnum():
-    try:
-        if request.method == 'POST':
-            ret1 = request.get_json(force=True, silent=True, cache=False)
-            j = json.loads(ret1)    
-            notebook = j['notebook'];
-            page = j['page'];
-        else:
-            notebook = request.args.get('notebook')
-            page = request.args.get('page')
- 
-        sql="SELECT count(*) FROM cen_reaction_schemes r  " + \
-                "    WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0  " + \
-                "    and page_key = (select page_key from CEN_PAGES where notebook ='" + notebook + \
-                "'  and experiment  = '" + page + "') ";
                 
-         
-        my_query = query_db(sql)
-        dict = my_query[0]
-#         print dict['count']
-        return Response(response=str(dict['count']), status=200, mimetype="application/json")
-
-    except TemplateNotFound:
-        abort(404)                 
-        
 def get_products():
     try:
         if request.method == 'POST':
