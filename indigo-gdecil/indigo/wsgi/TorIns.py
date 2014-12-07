@@ -21,19 +21,7 @@ class TornadoInsert(object):
         dict = escape.json_decode(request)
         print dict
         j = json.loads(request)
-        print j
         v_detail = j['detail']['OWNER_USERNAME'];
-        print v_detail
-        
-        par1 = TorCfg.getParam(dict, 'OWNER_USERNAME')
-        print par1
-        par2 = TorCfg.getParam(dict, 'page')
-        par3 = TorCfg.getParam(dict, 'enumVal')
-        return "finito"
-    
-#         ret1 = request.get_json(force=True, silent=True, cache=False)
-#         j = json.loads(ret1)    
-#         v_detail = j['detail']['OWNER_USERNAME'];
         
         cursor = conn.cursor()
         sql = "SELECT COUNT (NOTEBOOK) FROM CEN_NOTEBOOKS WHERE NOTEBOOK = '" + \
