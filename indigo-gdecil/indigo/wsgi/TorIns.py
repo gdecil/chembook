@@ -22,6 +22,8 @@ class TornadoInsert(object):
         print dict
         j = json.loads(request)
         print j
+        v_detail = j['detail']['OWNER_USERNAME'];
+        print v_detail
         
         par1 = TorCfg.getParam(dict, 'OWNER_USERNAME')
         print par1
