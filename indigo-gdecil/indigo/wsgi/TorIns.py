@@ -21,6 +21,7 @@ class TornadoInsert(object):
         dict = escape.json_decode(request)
         print dict
         par1 = TorCfg.getParam(dict, 'OWNER_USERNAME')
+        print par1
         par2 = TorCfg.getParam(dict, 'page')
         par3 = TorCfg.getParam(dict, 'enumVal')
         return "finito"
