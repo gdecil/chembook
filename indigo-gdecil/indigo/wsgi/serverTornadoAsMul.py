@@ -213,7 +213,7 @@ class Reaction(tornado.web.RequestHandler):
             future_result = yield self.executor.submit( self.dao.get_checkReaEnum,
                                                          notebook = par1, 
                                                          page =par2)    
-            self.write(future_result) 
+            self.write(str(future_result)) 
         elif param1 == 'GetExperiment':
             par1 = getParam(dict, 'notebook')
             par2 = getParam(dict, 'page')
