@@ -138,6 +138,7 @@ class TornadoSelect(object):
                                                     
             my_query = query_db(sql)
             dict = my_query[0]
+            print dict['count']
             return dict['count']
     
         except:
