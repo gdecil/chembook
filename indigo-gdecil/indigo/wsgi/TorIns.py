@@ -18,7 +18,7 @@ class TornadoInsert(object):
         con = TorCfg.con
 
     def insert_detail(self, request):
-        dict = tornado.escape.json_decode(request)
+        dict = escape.json_decode(request)
         print dict
         par1 = TorCfg.getParam(dict, 'OWNER_USERNAME')
         par2 = TorCfg.getParam(dict, 'page')
