@@ -9,6 +9,7 @@ import os
 from concurrent.futures import ThreadPoolExecutor
 from tornado_cors import CorsMixin
 from TorSel import TornadoSelect
+from TorIns import TornadoInsert
 import momoko
 import psycopg2 
  
@@ -48,7 +49,8 @@ def getParam(dict, name):
             if key == name:
                 return value
 #             temp = [key,value]
-#             dictlist.append(temp)
+#             dictlist.append(temp)        self.dao = TornadoSelect()
+
 #         print dictlist[0][1]
 
 class TestHandler(tornado.web.RequestHandler): 
@@ -73,6 +75,7 @@ class TestHandler(tornado.web.RequestHandler):
             self.write('closing cursor')
             cursor.close()
         self.finish()
+        self.dao = TornadoSelect()
 
 class TestArg(tornado.web.RequestHandler):    
     def post(self):
@@ -183,6 +186,7 @@ class Reaction(tornado.web.RequestHandler):
     def initialize(self, executor):
         self.executor = executor 
         self.dao = TornadoSelect()
+        self.daoI = TornadoInsert()
 
     @gen.coroutine
     def get(self, param1): 

@@ -9,11 +9,13 @@ import psycopg2
 from bingoCfg import conn, _platform, query_db
 from psycopg2.extensions import SQL_IN
 import base64
+import TorCfg
 
 class TornadoSelect(object):
     def __init__(self):
         global con 
-        con = psycopg2.connect(host='localhost', database='postgres', user='postgres', password='postgres', port=5432)
+        con = TorCfg.con
+#         con = psycopg2.connect(host='localhost', database='postgres', user='postgres', password='postgres', port=5432)
 
     def getListpg(self):
         cur = con.cursor()
