@@ -11,7 +11,7 @@ from tornado_cors import CorsMixin
 from TorSel import TornadoSelect
 from TorIns import TornadoInsert
 import TorCfg
-import utility
+from utility import *
 
 import momoko
 import psycopg2 
@@ -197,7 +197,7 @@ class Reaction(tornado.web.RequestHandler):
             future_result = yield self.executor.submit( self.dao.get_fullname )    
             self.write(future_result) 
         elif param1 == 'CheckReactionsEnumerated':
-            par1 = TorCfg.getParam(dict, 'notebook')
+            par1 = utility.getParam(dict, 'notebook')
             par2 = TorCfg.getParam(dict, 'page')
             future_result = yield self.executor.submit( self.dao.get_checkReaEnum,
                                                          notebook = par1, 
