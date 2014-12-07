@@ -108,7 +108,7 @@ class TornadoInsert(object):
     #                   '""" + j['detail']['YIELD'] + """',
     
         ret = json.dumps('{"ret":"' + id + '"}')
-        resp = Response(response=ret, status=200, mimetype="application/json")
+        resp = ret
     
         conn.commit()
         return resp
