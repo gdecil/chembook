@@ -109,6 +109,26 @@ class TornadoSelect(object):
         except:
             raise
 
+    def get_pagesnotebooks(notebook):
+        try:                
+            sql = "select distinct experiment  from CEN_PAGES where notebook ='" + notebook + \
+            "' order by experiment"  
+                    
+            my_query = query_db(sql)
+            if  len(my_query) > 0:            
+                json_output = json.dumps(my_query)
+                js ="["
+                for s in my_query:
+                    js = js + '{"title": "' + s['experiment'] + '", "isLazy": false },'
+                    
+                js= js[:-1] + "]"
+                return js
+            else:
+                return '{"title": "No Records", "isLazy": true }'
+                
+        except:
+            raise
+        
 def get_checkReaEnum():
     try:
         if request.method == 'POST':
@@ -132,36 +152,7 @@ def get_checkReaEnum():
         return Response(response=str(dict['count']), status=200, mimetype="application/json")
 
     except TemplateNotFound:
-        abort(404) 
-        
-
-        
-def get_pagesnotebooks():
-    try:
-        if request.method == 'POST':
-            ret1 = request.get_json(force=True, silent=True, cache=False)
-            j = json.loads(ret1)    
-            notebook = j['notebook'];
-        else:
-            notebook = request.args.get('notebook')
-            
-        sql = "select distinct experiment  from CEN_PAGES where notebook ='" + notebook + \
-        "' order by experiment"  
-                
-        my_query = query_db(sql)
-        if  len(my_query) > 0:            
-            json_output = json.dumps(my_query)
-            js ="["
-            for s in my_query:
-                js = js + '{"title": "' + s['experiment'] + '", "isLazy": false },'
-                
-            js= js[:-1] + "]"
-            return Response(response=js, status=200, mimetype="application/json")
-        else:
-            return Response(response='{"title": "No Records", "isLazy": true }', status=200, mimetype="application/json")
-            
-    except TemplateNotFound:
-        abort(404)
+        abort(404)                 
         
 def get_products():
     try:

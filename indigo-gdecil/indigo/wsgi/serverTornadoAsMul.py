@@ -216,6 +216,12 @@ class Reaction(tornado.web.RequestHandler):
                                                          page =par2, 
                                                          enumVal = par3)    
             self.write(future_result) 
+        elif param1 == "GetPagesNotebook":  
+            par1 = getParam(dict, 'notebook')
+            print par1
+            future_result = yield self.executor.submit( self.dao.get_pagesnotebooks,
+                                                        notebook = par1 )    
+            self.write(future_result) 
         elif param1 == 'getProjects':
             future_result = yield self.executor.submit( self.dao.get_projects )    
             self.write(future_result) 
@@ -230,6 +236,7 @@ class Reaction(tornado.web.RequestHandler):
             print "error 500"
             self.write_error(500) 
         self.finish()
+        
         
     def options(self, *args, **kwargs):
 #         print "SUPPORTED_METHODS"
