@@ -52,7 +52,7 @@ class TornadoSelect(object):
             
         return str1
 
-    def get_experiment(notebook, page, enumVal):
+    def get_experiment(self, notebook, page, enumVal):
         try: 
             if enumVal=="undefined":
                 sql="select * from pages_vw where notebook ='" + notebook \
@@ -109,7 +109,7 @@ class TornadoSelect(object):
         except:
             raise
 
-    def get_pagesnotebooks(notebook):
+    def get_pagesnotebooks(self, notebook):
         try:                
             sql = "select distinct experiment  from CEN_PAGES where notebook ='" + notebook + \
             "' order by experiment"  
