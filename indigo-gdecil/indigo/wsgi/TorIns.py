@@ -11,6 +11,7 @@ from psycopg2.extensions import SQL_IN
 import base64
 import TorCfg
 from tornado import escape
+from utility import *
 
 class TornadoInsert(object):
     def __init__(self):
