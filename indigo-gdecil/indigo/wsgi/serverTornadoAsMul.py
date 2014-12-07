@@ -198,22 +198,22 @@ class Reaction(tornado.web.RequestHandler):
             self.write(future_result) 
         elif param1 == 'CheckReactionsEnumerated':
             par1 = utility.getParam(dict, 'notebook')
-            par2 = TorCfg.getParam(dict, 'page')
+            par2 = utility.getParam(dict, 'page')
             future_result = yield self.executor.submit( self.dao.get_checkReaEnum,
                                                          notebook = par1, 
                                                          page =par2)    
             self.write(str(future_result)) 
         elif param1 == 'GetExperiment':
-            par1 = TorCfg.getParam(dict, 'notebook')
-            par2 = TorCfg.getParam(dict, 'page')
-            par3 = TorCfg.getParam(dict, 'enumVal')
+            par1 = utility.getParam(dict, 'notebook')
+            par2 = utility.getParam(dict, 'page')
+            par3 = utility.getParam(dict, 'enumVal')
             future_result = yield self.executor.submit( self.dao.get_experiment,
                                                          notebook = par1, 
                                                          page =par2, 
                                                          enumVal = par3)    
             self.write(future_result) 
         elif param1 == "GetPagesNotebook":  
-            par1 = TorCfg.getParam(dict, 'notebook')
+            par1 = utility.getParam(dict, 'notebook')
             print par1
             future_result = yield self.executor.submit( self.dao.get_pagesnotebooks,
                                                         notebook = par1 )    
@@ -222,7 +222,7 @@ class Reaction(tornado.web.RequestHandler):
             future_result = yield self.executor.submit( self.dao.get_projects )    
             self.write(future_result) 
         elif param1 == "GetUserNotebooks":  
-            par1 = TorCfg.getParam(dict, 'userFullname')
+            par1 = utility.getParam(dict, 'userFullname')
             print par1
             future_result = yield self.executor.submit( self.dao.get_usernotebooks,
                                                         userFullname = par1 )    
