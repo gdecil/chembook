@@ -433,8 +433,7 @@ function addNode(node) {
     }
     else if (level == 1) {
         if (node.data.icon.indexOf("PersonIcon") >= 0) {        	
-//        	data = JSON.stringify('{"cns":"","userFullname":"' +  node.data.title +  '"}', null, '\t')
-        	data = '{"cns":"","userFullname":"' +  node.data.title +  '"}'
+        	data = JSON.stringify('{"cns":"","userFullname":"' +  node.data.title +  '"}', null, '\t')
             node.appendAjax({
                 type: "POST",
                 url: server + "/Reaction.asmx/GetUserNotebooks",
