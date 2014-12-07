@@ -10,6 +10,7 @@ from bingoCfg import conn, _platform, query_db
 from psycopg2.extensions import SQL_IN
 import base64
 import TorCfg
+from tornado import escape
 
 class TornadoInsert(object):
     def __init__(self):
@@ -18,6 +19,7 @@ class TornadoInsert(object):
 
     def insert_detail(self, request):
         dict = tornado.escape.json_decode(request)
+        print dict
         par1 = TorCfg.getParam(dict, 'OWNER_USERNAME')
         par2 = TorCfg.getParam(dict, 'page')
         par3 = TorCfg.getParam(dict, 'enumVal')
