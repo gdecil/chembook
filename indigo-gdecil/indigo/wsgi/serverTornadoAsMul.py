@@ -231,7 +231,6 @@ class Reaction(tornado.web.RequestHandler):
             self.write_error(500) 
         self.finish()
         
-        get_experiment(notebook, page, enumVal)
     def options(self, *args, **kwargs):
 #         print "SUPPORTED_METHODS"
 #         tornado.web.RequestHandler.options(self, *args, **kwargs)
