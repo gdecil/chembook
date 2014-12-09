@@ -1,7 +1,7 @@
 var server = window.location.protocol + "//" + window.location.host;
 var serverWeb = window.location.protocol + "//" + window.location.host;
 if (server == "http://10.206.89.79"){
-	server = "http://10.206.89.79:5000"
+	server = "http://10.206.89.79:8889"
 }
 else if (server == "http://localhost"){
 	server = "http://10.0.2.15:8889"
