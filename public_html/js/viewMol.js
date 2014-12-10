@@ -1194,7 +1194,7 @@ function loadStoic(rxn, counter, mole) {
     else {
         if (counter != "") {
             var reagents = getReagentsIndigo(rxn)
-            var mydataR = $.parseJSON(reagents),
+            var mydataR = reagents[0],
             divGR = $("#gridR" + counter),
             divGP = $("#gridP" + counter),
             gridR = "#myReactant" + counter,
@@ -1210,13 +1210,13 @@ function loadStoic(rxn, counter, mole) {
 
             var products = getProductsIndigo(rxn)
 
-            var mydataP = $.parseJSON(products);
+            var mydataP = products[0]
 
         }
         else {
             var reagents = getReagentsIndigo(rxn)
 
-            var mydataR = $.parseJSON(reagents),
+            var mydataR = reagents[0],
                 divGR = $("#gridR"),
                 divGP = $("#gridP"),
                 gridR = "#myReactant",
@@ -1233,7 +1233,7 @@ function loadStoic(rxn, counter, mole) {
             var products = getProductsIndigo(rxn)
 
 
-            var mydataP = $.parseJSON(products);
+            var mydataP = products[0];
 
             var molecules = FromReactionToMolecules(rxn);
         }
