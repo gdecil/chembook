@@ -450,8 +450,10 @@ function getProductsIndigo(rxn) {
 }
 
 function getReagentsIndigo(rxn) {
-    var dataX = "{'rxn':'" + rxn + "'}";
-
+    var dataX = '{"rxn":"' + rxn + '"}';
+//    dataX = JSON.stringify(dataX)
+//    dataX = dataX.replace(/\n/g, "\\n")
+//    dataX = '{\"rxn\":\"Ugo\nPippo\"}'
     var ret = $.ajax({
         type: "POST",
         url: server + "/Reaction.asmx/GetReagentsIndigo",

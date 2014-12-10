@@ -7,11 +7,14 @@ import time
 from functools import partial
 import os
 from concurrent.futures import ThreadPoolExecutor
-from tornado_cors import CorsMixin
+from flask import json
+
+# from tornado_cors import CorsMixin
 from TorSel import TornadoSelect
 from TorIns import TornadoInsert
 import TorCfg
-from utility import *
+import utility
+# from utility  import *
 
 import momoko
 import psycopg2 
@@ -151,15 +154,22 @@ class Render(tornado.web.RequestHandler):
     @gen.coroutine
     def get(self): 
         smile=self.get_arguments("smile")
+        idReaction=self.get_arguments("idReaction")
 #         ugo=self.get_arguments("ugo")
 #         ugo=self.get_query_arguments("ugo")
 #         print smile[0]
 #         print ugo
-        future_result = yield self.executor.submit( self.dao.renderInd, 
-                                                    smile = smile[0], 
-                                                    typeInd ="mol"
-                                                    )                 
-        
+        if smile : 
+            print smile
+            future_result = yield self.executor.submit( self.dao.renderInd, 
+                                                        smile = smile[0], 
+                                                        typeInd ="mol"
+                                                        )                 
+        elif idReaction :
+            future_result = yield self.executor.submit( self.dao.get_reactionImage, 
+                                                        idReaction = idReaction[0] 
+                                                        )                 
+#         print future_result
         self.write(future_result.decode('base64'))
         self.set_header("Content-type", "image/png") 
         self.finish()
@@ -185,13 +195,29 @@ class Reaction(tornado.web.RequestHandler):
     def get(self, param1): 
 #         smile=self.get_arguments("smile")
 #         print smile[0]
-        print self.request.body
+#         print self.request.body
+#         print tornado.escape.json_decode(self.request.body)
+        
         if len(self.request.body) > 0:
             if param1 == 'InsertDetail':
                 a1= tornado.escape.json_decode(self.request.body)
+            elif param1 == 'GetReagentsIndigo':
+#                 a1= tornado.escape.json_decode(self.request.body)
+                a0 = self.request.body
+                print a0
+                a00= a0.replace('\n','\\n')
+                print a00
+                a1= tornado.escape.json_decode(a00)
+                print a1
+#                 return
             else:
+#                 print self.request.body
+                
                 a1= tornado.escape.json_decode(self.request.body)
-                dict = tornado.escape.json_decode(a1)
+#                 print a1['rxn']
+                dict = json.loads(a1)
+#                 print dict[0]
+#                 dict = tornado.escape.json_decode(a1)
             
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname )    
@@ -214,7 +240,7 @@ class Reaction(tornado.web.RequestHandler):
             self.write(future_result) 
         elif param1 == "GetPagesNotebook":  
             par1 = utility.getParam(dict, 'notebook')
-            print par1
+#             print par1
             future_result = yield self.executor.submit( self.dao.get_pagesnotebooks,
                                                         notebook = par1 )    
             self.write(future_result) 
@@ -223,9 +249,39 @@ class Reaction(tornado.web.RequestHandler):
             self.write(future_result) 
         elif param1 == "GetUserNotebooks":  
             par1 = utility.getParam(dict, 'userFullname')
-            print par1
+#             print par1
             future_result = yield self.executor.submit( self.dao.get_usernotebooks,
                                                         userFullname = par1 )    
+            self.write(future_result) 
+        elif param1 == 'GetProducts':
+            par1 = utility.getParam(dict, 'notebook')
+            par2 = utility.getParam(dict, 'page')
+            par3 = utility.getParam(dict, 'enumVal')
+            future_result = yield self.executor.submit( self.dao.get_products,
+                                                         notebook = par1, 
+                                                         page =par2, 
+                                                         enumVal = par3)    
+            self.write(future_result) 
+        elif param1 == 'GetReagentsIndigo':
+            future_result = yield self.executor.submit( self.dao.renderInd, 
+                                                        smile = a1['rxn'], 
+                                                        typeInd ="mol"
+                                                        )                 
+            self.write(future_result) 
+        elif param1 == 'GetReagents':
+            par1 = utility.getParam(dict, 'notebook')
+            par2 = utility.getParam(dict, 'page')
+            par3 = utility.getParam(dict, 'enumVal')
+            future_result = yield self.executor.submit( self.dao.get_reagents,
+                                                         notebook = par1, 
+                                                         page =par2, 
+                                                         enumVal = par3)    
+            self.write(future_result) 
+        elif param1 == "GetReaction":  
+            par1 = utility.getParam(dict, 'reactionId')
+#             print par1
+            future_result = yield self.executor.submit( self.dao.get_reaction,
+                                                        idReaction = par1 )    
             self.write(future_result) 
         elif param1 == "InsertDetail":  
             future_result = yield self.executor.submit( self.daoI.insert_detail ,
@@ -234,7 +290,7 @@ class Reaction(tornado.web.RequestHandler):
         else:
             print param1
             print "error MANCA LA FUNZIONE IN REACTION class"
-            self.write_error(500) 
+            return
         self.finish()
         
     def options(self, *args, **kwargs):
@@ -301,6 +357,7 @@ class Application(tornado.web.Application):
                     (r"/db1", DbHandler1, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/render", Render, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/testarg", TestArg),
+                    (r"/GetReaction.ashx", Render, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/Reaction.asmx/([A-Za-z]+)", Reaction, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     ]
  

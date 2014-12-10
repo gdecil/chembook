@@ -172,15 +172,16 @@ Experiment.prototype.RXN = function () {
         dataType: "json",
         async: false
     }).responseText;
-    var tmp = eval('(' + ret + ')');
-    if (tmp.ExceptionType != undefined) {
-        //alert(tmp.Message)
-        return "";
-    }
-    else {
-
-        return tmp[0].reaction;
-    } 
+    return ret
+//    var tmp = eval('(' + ret + ')');
+//    if (tmp.ExceptionType != undefined) {
+//        //alert(tmp.Message)
+//        return "";
+//    }
+//    else {
+//
+//        return tmp[0].reaction;
+//    } 
 };
 
 //indigo calculated data

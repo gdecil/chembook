@@ -32,11 +32,12 @@ class TornadoSelect(object):
         return result
     
     def renderInd(self, smile, typeInd):
+#         print smile
         indigo = Indigo()
         if typeInd == "rea":
             mol1 = indigo.loadReaction(smile)
         else:
-            print smile
+#             print smile
             mol1 = indigo.loadMolecule(smile)
     
         renderer = IndigoRenderer(indigo);
@@ -140,64 +141,75 @@ class TornadoSelect(object):
                                                     
             my_query = query_db(sql)
             dict = my_query[0]
-            print dict['count']
+#             print dict['count']
             return dict['count']
     
         except:
             raise
+
+    def get_reagents(self, notebook, page, enumVal):
+        try:                
+            if enumVal == "undefined":            
+                sql = "select * from batch_lev3_vw where notebook ='" + notebook + \
+                "' and experiment  = '" + page + \
+                "' and batch_type in ('SOLVENT' , 'REAGENT', 'REACTANT') and SYNTH_ROUTE_REF is null"  
+            else:
+                sql = "select * from batch_vw where notebook ='" + notebook + \
+                "' and experiment  = '" + page + \
+                "' and batch_type in ('SOLVENT' , 'REAGENT', 'REACTANT') and SYNTH_ROUTE_REF =" + enumVal
+    
+            my_query = query_db(sql)
+            
+            if  len(my_query) > 0:            
+                json_output = json.dumps(my_query)
+                return json_output
+            else:
+                return '{"ret": "0", "isLazy": true }'
                 
-def get_products():
-    try:
-        if request.method == 'POST':
-            ret1 = request.get_json(force=True, silent=True, cache=False)
-            j = json.loads(ret1)    
-            notebook = j['notebook'];
-            page = j['page'];
-            enumVal = j['enumVal'];   
-        else:
-            notebook = request.args.get('notebook')
-            page = request.args.get('page')
-            enumVal = request.args.get('enumVal')
-            
-        if enumVal == "undefined":            
-            sql = "select * from batch_lev3_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
-            "' and batch_type in ('PRODUCT' ,'INTENDED' , 'ACTUAL') and SYNTH_ROUTE_REF is null"  
-        else:
-            sql = "select * from batch_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
-            "' and batch_type in ('PRODUCT' ,'INTENDED' , 'ACTUAL') and SYNTH_ROUTE_REF =" + enumVal
-
-        my_query = query_db(sql)
+        except :
+            raise
         
-        if  len(my_query) > 0:            
-            json_output = json.dumps(my_query)
-            return Response(response=json_output, status=200, mimetype="application/json")
-        else:
-            return Response(response='{"ret": "0", "isLazy": true }', status=200, mimetype="application/json")
+    def get_reaction(self, idReaction):
+        try:     
+            sql = "SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = '" + idReaction + \
+            "'"
+            my_query = query_db(sql)
+#             print my_query[0]['reaction']
             
-    except TemplateNotFound:
-        abort(404)
+            return my_query[0]['reaction']
+#             return self.renderInd(my_query[0]['reaction'], "rea")
+    
+        except:
+            raise   
+                
+    def get_reactionImage(self, idReaction):
+        try:     
+            sql = "SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = '" + idReaction + \
+            "'"
+            my_query = query_db(sql)
+            return self.renderInd(my_query[0]['reaction'], "rea")
+    
+        except:
+            raise   
 
-def get_reaction():
-    try:
-        if request.method == 'POST':
-            ret1 = request.get_json(force=True, silent=True, cache=False)
-            j = json.loads(ret1)    
-            id = j['reactionId'];
-            c = j['cns'];
-            o = j['outType'];   
-        else:
-            id = request.args.get('reactionId')
-            c = request.args.get('cns')
-            o = request.args.get('outType')
- 
-        sql = "SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = '" + id + "'"
-        my_query = query_db(sql)
-
-        json_output = json.dumps(my_query)
-        return Response(response=json_output, status=200, mimetype="application/json")
-
-    except TemplateNotFound:
-        abort(404)   
+    def get_products(self, notebook, page, enumVal):
+        try:
+            if enumVal == "undefined":            
+                sql = "select * from batch_lev3_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
+                "' and batch_type in ('PRODUCT' ,'INTENDED' , 'ACTUAL') and SYNTH_ROUTE_REF is null"  
+            else:
+                sql = "select * from batch_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
+                "' and batch_type in ('PRODUCT' ,'INTENDED' , 'ACTUAL') and SYNTH_ROUTE_REF =" + enumVal
+    
+            my_query = query_db(sql)
+            
+            if  len(my_query) > 0:            
+                json_output = json.dumps(my_query)
+                return json_output
+            else:
+                return '{"ret": "0", "isLazy": true }'
+        except:
+            raise
 
 def get_reactionI():
     try:
@@ -217,37 +229,6 @@ def get_reactionI():
 
     except TemplateNotFound:
         abort(404)   
-
-def get_reagents():
-    try:
-        if request.method == 'POST':
-            ret1 = request.get_json(force=True, silent=True, cache=False)
-            j = json.loads(ret1)    
-            notebook = j['notebook'];
-            page = j['page'];
-            enumVal = j['enumVal'];   
-        else:
-            notebook = request.args.get('notebook')
-            page = request.args.get('page')
-            enumVal = request.args.get('enumVal')
-            
-        if enumVal == "undefined":            
-            sql = "select * from batch_lev3_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
-            "' and batch_type in ('SOLVENT' , 'REAGENT', 'REACTANT') and SYNTH_ROUTE_REF is null"  
-        else:
-            sql = "select * from batch_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
-            "' and batch_type in ('SOLVENT' , 'REAGENT', 'REACTANT') and SYNTH_ROUTE_REF =" + enumVal
-
-        my_query = query_db(sql)
-        
-        if  len(my_query) > 0:            
-            json_output = json.dumps(my_query)
-            return Response(response=json_output, status=200, mimetype="application/json")
-        else:
-            return Response(response='{"ret": "0", "isLazy": true }', status=200, mimetype="application/json")
-            
-    except TemplateNotFound:
-        abort(404)
                 
 def get_projects():
 #     ret = json.dumps('{"ret":"OK"}')
