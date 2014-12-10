@@ -427,7 +427,7 @@ function getReagents(notebook, page, enumVal) {
 }
 
 function getProductsIndigo(rxn) {
-    var dataX = "{'rxn':'" + rxn + "'}";
+    var dataX = '{"rxn":"' + rxn + '"}';
 
     var ret = $.ajax({
         type: "POST",
