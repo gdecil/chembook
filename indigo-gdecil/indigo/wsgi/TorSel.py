@@ -255,7 +255,7 @@ class TornadoSelect(object):
                 reag['COMPOUND']= item.molfile()
                 l.append(reag)
             print l
-            print json.dumps(l)
+            print json.dumps(l, sort_keys=False)
             return json.dumps(l)
     
         except:
