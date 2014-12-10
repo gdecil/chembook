@@ -279,7 +279,7 @@ class Reaction(tornado.web.RequestHandler):
             future_result = yield self.executor.submit( self.dao.GetReagentsIndigo, 
                                                         rxn = a1['rxn']
                                                         )
-            print future_result                 
+            self.set_header("Content-type", "application/json")
             self.write(future_result) 
         elif param1 == 'GetProductsIndigo':
             future_result = yield self.executor.submit( self.dao.GetProductsIndigo, 
