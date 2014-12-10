@@ -254,6 +254,7 @@ class TornadoSelect(object):
                 reag['USER_HAZARD_COMMENTS']= ""
                 reag['COMPOUND']= item.molfile()
                 l.append(reag)
+            print l
             print json.dumps(l)
             return json.dumps(l)
     
