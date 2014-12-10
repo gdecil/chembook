@@ -9,7 +9,7 @@ import psycopg2
 # from bingoCfg import conn, _platform, query_db
 from psycopg2.extensions import SQL_IN
 import base64
-import TorCfg
+from import TorCfg import *
 
 class TornadoSelect(object):
     def __init__(self):
