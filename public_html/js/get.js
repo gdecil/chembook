@@ -445,7 +445,7 @@ function getProductsIndigo(rxn) {
     }
     else {
 
-        return tmp.d;
+        return tmp;
     }
 }
 
@@ -470,7 +470,7 @@ function getReagentsIndigo(rxn) {
     }
     else {
 
-        return tmp.d;
+        return tmp;
     }
 }
 
