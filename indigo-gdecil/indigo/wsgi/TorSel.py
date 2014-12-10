@@ -215,7 +215,7 @@ class TornadoSelect(object):
                 reag['rxn']= item.molfile()
                 l.append(reag.copy())
 
-            return json.dumps(l)
+            return json.dumps(l, sort_keys=False)
     
         except:
             raise   
@@ -254,9 +254,9 @@ class TornadoSelect(object):
                 reag['USER_HAZARD_COMMENTS']= ""
                 reag['COMPOUND']= item.molfile()
                 l.append(reag)
-            print l
-            print json.dumps(l, sort_keys=False)
-            return json.dumps(l)
+#             print l
+#             print json.dumps(l, sort_keys=False)
+            return json.dumps(l, sort_keys=False)
     
         except:
             raise   
@@ -296,7 +296,7 @@ class TornadoSelect(object):
                 reag['COMPOUND']= item.molfile()
                 l.append(reag.copy())
 #             print json.dumps(l)
-            return json.dumps(l)
+            return json.dumps(l, sort_keys=False)
     
         except:
             raise   
