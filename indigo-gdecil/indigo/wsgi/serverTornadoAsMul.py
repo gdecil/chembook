@@ -208,7 +208,7 @@ class Reaction(tornado.web.RequestHandler):
                 a00= a0.replace('\n','\\n')
                 print a00
                 a1= tornado.escape.json_decode(a00)
-                print a1
+                print a1['rxn']
 #                 return
             else:
 #                 print self.request.body
