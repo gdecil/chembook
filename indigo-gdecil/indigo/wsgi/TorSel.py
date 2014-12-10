@@ -6,6 +6,8 @@ from tempfile import *
 from shutil import copyfileobj
 import uuid
 import psycopg2
+import collections
+
 # from bingoCfg import conn, _platform, query_db
 from psycopg2.extensions import SQL_IN
 import base64
@@ -199,7 +201,7 @@ class TornadoSelect(object):
 #             print rea
             l =[]
             count =0
-            reag = {}
+            reag = collections.OrderedDict()
             for item in rea.iterateReactants():
                 count = count +1
                 item.setName("Reactant"+str(count))
@@ -227,7 +229,7 @@ class TornadoSelect(object):
             count =0
             for item in rea.iterateReactants():
                 count = count +1
-                reag = {}
+                reag = collections.OrderedDict()
 
                 reag['id'] = count
                 reag['NOTEBOOK']= ""
@@ -267,7 +269,7 @@ class TornadoSelect(object):
             count =0
             for item in rea.iterateReactants():
                 count = count +1
-                reag = {}
+                reag = collections.OrderedDict()
 
                 reag['id'] = count
                 reag['NOTEBOOK']= ""
