@@ -1,5 +1,5 @@
 import psycopg2
-global con 
+global conn 
 conn_string = "host='127.0.0.1' dbname='postgres' user='postgres' password='postgres' port=5433"
 conn = psycopg2.connect(conn_string)
 
