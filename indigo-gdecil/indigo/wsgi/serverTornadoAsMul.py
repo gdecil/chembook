@@ -204,11 +204,11 @@ class Reaction(tornado.web.RequestHandler):
             elif param1 == 'GetReagentsIndigo':
 #                 a1= tornado.escape.json_decode(self.request.body)
                 a0 = self.request.body
-                print a0
+#                 print a0
                 a00= a0.replace('\n','\\n')
-                print a00
+#                 print a00
                 a1= tornado.escape.json_decode(a00)
-                print a1['rxn']
+#                 print a1['rxn']
 #                 return
             else:
 #                 print self.request.body
@@ -263,9 +263,8 @@ class Reaction(tornado.web.RequestHandler):
                                                          enumVal = par3)    
             self.write(future_result) 
         elif param1 == 'GetReagentsIndigo':
-            future_result = yield self.executor.submit( self.dao.renderInd, 
-                                                        smile = a1['rxn'], 
-                                                        typeInd ="rea"
+            future_result = yield self.executor.submit( self.dao.GetReagentsIndigo, 
+                                                        rxn = a1['rxn']
                                                         )                 
             self.write(future_result) 
         elif param1 == 'GetReagents':
