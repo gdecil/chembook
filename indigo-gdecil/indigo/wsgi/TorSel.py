@@ -232,6 +232,46 @@ class TornadoSelect(object):
         except:
             raise   
 
+    def GetProductsIndigo(self, rxn):
+        try:     
+            indigo = Indigo()
+            rea = indigo.loadReaction(rxn)
+            print rea
+            l =[]
+            count =0
+            for item in rea.iterateReactants():
+                count = count +1
+                reag = {}
+
+                reag['id'] = count
+                reag['NOTEBOOK']= ""
+                reag['EXPERIMENT']=""
+                reag['CHEMICAL_NAME']="Product" + str(count)
+                reag['BATCH_MW_VALUE']=str(item.molecularWeight()).replace(',', '.')
+                reag['MOLECULAR_FORMULA']= item.grossFormula()
+                reag['BATCH_TYPE']="REAGENT"
+                reag['MOLE_VALUE']=""
+                reag['MOLE_UNIT_CODE']=""
+                reag['PURITY_VALUE']=""
+                reag['PURITY_UNIT_CODE']=""
+                reag['VOLUME_VALUE']= ""
+                reag['VOLUME_UNIT_CODE']= ""
+                reag['MOLARITY_VALUE']= ""
+                reag['MOLARITY_UNIT_CODE']= ""
+                reag['DENSITY_VALUE']= ""
+                reag['DENSITY_UNIT_CODE']= ""
+                reag['WEIGHT_VALUE']= ""
+                reag['WEIGHT_UNIT_CODE']= ""
+                reag['CAS_NUMBER']= ""
+                reag['USER_HAZARD_COMMENTS']= ""
+                reag['COMPOUND']= item.molfile()
+                l.append(reag.copy())
+            print json.dumps(l)
+            return json.dumps(l)
+    
+        except:
+            raise   
+        
     def get_products(self, notebook, page, enumVal):
         try:
             if enumVal == "undefined":            
