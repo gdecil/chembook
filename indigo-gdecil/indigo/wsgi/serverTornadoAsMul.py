@@ -201,6 +201,10 @@ class Reaction(tornado.web.RequestHandler):
         if len(self.request.body) > 0:
             if param1 == 'InsertDetail':
                 a1= tornado.escape.json_decode(self.request.body)
+            elif param1 == 'FromReactionToMolecules':
+                a0 = self.request.body
+                a00= a0.replace('\n','\\n')
+                a1= tornado.escape.json_decode(a00)
             elif param1 == 'GetProductsIndigo':
                 a0 = self.request.body
                 a00= a0.replace('\n','\\n')
@@ -265,6 +269,11 @@ class Reaction(tornado.web.RequestHandler):
                                                          notebook = par1, 
                                                          page =par2, 
                                                          enumVal = par3)    
+            self.write(future_result)             
+        elif param1 == 'FromReactionToMolecules':
+            future_result = yield self.executor.submit( self.dao.FromReactionToMolecules, 
+                                                        rxn = a1['rxn']
+                                                        )                 
             self.write(future_result) 
         elif param1 == 'GetReagentsIndigo':
             future_result = yield self.executor.submit( self.dao.GetReagentsIndigo, 
