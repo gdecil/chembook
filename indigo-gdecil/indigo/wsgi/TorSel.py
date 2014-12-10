@@ -196,7 +196,7 @@ class TornadoSelect(object):
         try:     
             indigo = Indigo()
             rea = indigo.loadReaction(rxn)
-            print rea
+#             print rea
             l =[]
             count =0
             for item in rea.iterateReactants():
@@ -226,7 +226,7 @@ class TornadoSelect(object):
                 reag['USER_HAZARD_COMMENTS']= ""
                 reag['COMPOUND']= item.molfile()
                 l.append(reag.copy())
-            print json.dumps(l)
+#             print json.dumps(l)
             return json.dumps(l)
     
         except:
@@ -236,7 +236,7 @@ class TornadoSelect(object):
         try:     
             indigo = Indigo()
             rea = indigo.loadReaction(rxn)
-            print rea
+#             print rea
             l =[]
             count =0
             for item in rea.iterateReactants():
@@ -266,7 +266,7 @@ class TornadoSelect(object):
                 reag['USER_HAZARD_COMMENTS']= ""
                 reag['COMPOUND']= item.molfile()
                 l.append(reag.copy())
-            print json.dumps(l)
+#             print json.dumps(l)
             return json.dumps(l)
     
         except:
