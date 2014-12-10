@@ -51,7 +51,7 @@ class TornadoSelect(object):
         
         with open(datadir + unique_filename, 'rb') as imageFile:
             str1 = base64.b64encode(imageFile.read())
-            print str1
+#             print str1
             
         return str1
 
