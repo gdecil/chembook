@@ -192,6 +192,17 @@ class TornadoSelect(object):
         except:
             raise   
 
+    def GetReagentsIndigo(self, rxn):
+        try:     
+            indigo = Indigo()
+            rea = indigo.loadReaction(rxn)
+            for item in rea:
+                print item
+            return ""
+    
+        except:
+            raise   
+
     def get_products(self, notebook, page, enumVal):
         try:
             if enumVal == "undefined":            
