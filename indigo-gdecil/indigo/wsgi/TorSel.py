@@ -207,7 +207,7 @@ class TornadoSelect(object):
                 reag['NOTEBOOK']= ""
                 reag['EXPERIMENT']=""
                 reag['CHEMICAL_NAME']="Reactant" + str(count)
-                reag['BATCH_MW_VALUE']=str(item.molecularWeight()).Replace(',', '.')
+                reag['BATCH_MW_VALUE']=str(item.molecularWeight()).replace(',', '.')
                 reag['MOLECULAR_FORMULA']= item.grossFormula()
                 reag['BATCH_TYPE']="REAGENT"
                 reag['MOLE_VALUE']=""
