@@ -256,7 +256,8 @@ class TornadoSelect(object):
                 l.append(reag)
 #             print l
 #             print json.dumps(l, sort_keys=False)
-            return json.dumps(l, sort_keys=False)
+            return l
+#             return json.dumps(l, sort_keys=False)
     
         except:
             raise   
