@@ -192,6 +192,32 @@ class TornadoSelect(object):
         except:
             raise   
 
+    def FromReactionToMolecules(self, rxn):
+        try:     
+            indigo = Indigo()
+            rea = indigo.loadReaction(rxn)
+#             print rea
+            l =[]
+            count =0
+            reag = {}
+            for item in rea.iterateReactants():
+                count = count +1
+                item.setName("Reactant"+str(count))
+                reag['rxn']= item.molfile()
+                l.append(reag.copy())
+
+            count =0
+            for item in rea.iterateProducts():
+                count = count +1
+                item.setName("Product"+str(count))
+                reag['rxn']= item.molfile()
+                l.append(reag.copy())
+
+            return json.dumps(l)
+    
+        except:
+            raise   
+        
     def GetReagentsIndigo(self, rxn):
         try:     
             indigo = Indigo()
