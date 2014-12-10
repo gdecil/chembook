@@ -1240,37 +1240,37 @@ function loadStoic(rxn, counter, mole) {
     }
     if (rxn != "") {
         //prendo le densita da bottles
-        $.each(mydataP, function (n, v) {
-            var molData = getReactionsMolecules(v.COMPOUND)
-            var density = 0;
-            var purity = 0;
-            $.each($.parseJSON(molData), function (m, z) {
-                if (z.DATABASE == "Bottles") {
-                    density = z.DENSITY;
-                    purity = z.PURITY;
-                }
-            });
-            if (density != 0) {
-                this.DENSITY_VALUE = density;
-                this.PURITY_VALUE = purity;
-            }
-        });
-
-        $.each(mydataR, function (n, v) {
-            var molData = getReactionsMolecules(v.COMPOUND)
-            var density = 0;
-            var purity = 0;
-            $.each($.parseJSON(molData), function (m, z) {
-                if (z.DATABASE == "Bottles") {
-                    density = z.DENSITY;
-                    purity = z.PURITY;
-                }
-            });
-            if (density != 0) {
-                this.DENSITY_VALUE = density;
-                this.PURITY_VALUE = purity;
-            }
-        });
+//        $.each(mydataP, function (n, v) {
+//            var molData = getReactionsMolecules(v.COMPOUND)
+//            var density = 0;
+//            var purity = 0;
+//            $.each($.parseJSON(molData), function (m, z) {
+//                if (z.DATABASE == "Bottles") {
+//                    density = z.DENSITY;
+//                    purity = z.PURITY;
+//                }
+//            });
+//            if (density != 0) {
+//                this.DENSITY_VALUE = density;
+//                this.PURITY_VALUE = purity;
+//            }
+//        });
+//
+//        $.each(mydataR, function (n, v) {
+//            var molData = getReactionsMolecules(v.COMPOUND)
+//            var density = 0;
+//            var purity = 0;
+//            $.each($.parseJSON(molData), function (m, z) {
+//                if (z.DATABASE == "Bottles") {
+//                    density = z.DENSITY;
+//                    purity = z.PURITY;
+//                }
+//            });
+//            if (density != 0) {
+//                this.DENSITY_VALUE = density;
+//                this.PURITY_VALUE = purity;
+//            }
+//        });
     }
 
 
