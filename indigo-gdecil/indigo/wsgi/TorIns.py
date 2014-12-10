@@ -6,7 +6,7 @@ from tempfile import *
 from shutil import copyfileobj
 import uuid
 import psycopg2
-from bingoCfg import conn, _platform, query_db
+# from bingoCfg import conn, _platform, query_db
 from psycopg2.extensions import SQL_IN
 import base64
 import TorCfg
