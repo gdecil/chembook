@@ -197,7 +197,7 @@ class TornadoSelect(object):
             indigo = Indigo()
             rea = indigo.loadReaction(rxn)
             print rea
-            for item in rea:
+            for item in rea.iterateReactants():
                 print item
             return ""
     
