@@ -265,7 +265,7 @@ class Reaction(tornado.web.RequestHandler):
         elif param1 == 'GetReagentsIndigo':
             future_result = yield self.executor.submit( self.dao.renderInd, 
                                                         smile = a1['rxn'], 
-                                                        typeInd ="mol"
+                                                        typeInd ="rea"
                                                         )                 
             self.write(future_result) 
         elif param1 == 'GetReagents':
