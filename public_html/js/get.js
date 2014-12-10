@@ -493,7 +493,7 @@ function FromReactionToMolecules(rxn) {
     }
     else {
 
-        return tmp.d;
+        return tmp;
     }
 }
 
