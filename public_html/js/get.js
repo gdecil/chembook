@@ -475,7 +475,7 @@ function getReagentsIndigo(rxn) {
 }
 
 function FromReactionToMolecules(rxn) {
-    var dataX = "{'rxn':'" + rxn + "'}";
+    var dataX = '{"rxn":"' + rxn + '"}';
 
     var ret = $.ajax({
         type: "POST",
