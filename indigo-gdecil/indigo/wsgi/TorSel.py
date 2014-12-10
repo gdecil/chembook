@@ -226,6 +226,7 @@ class TornadoSelect(object):
                 reag['USER_HAZARD_COMMENTS']= ""
                 reag['COMPOUND']= item.molfile()
                 l.append(reag.copy())
+            print json.dumps(l)
             return json.dumps(l)
     
         except:
