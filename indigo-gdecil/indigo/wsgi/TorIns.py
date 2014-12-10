@@ -9,7 +9,7 @@ import psycopg2
 # from bingoCfg import conn, _platform, query_db
 from psycopg2.extensions import SQL_IN
 import base64
-from import TorCfg import *
+from TorCfg import *
 from tornado import escape
 from utility import *
 
