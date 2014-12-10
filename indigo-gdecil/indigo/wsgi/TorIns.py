@@ -16,7 +16,7 @@ from utility import *
 class TornadoInsert(object):
     def __init__(self):
         global con 
-        con = TorCfg.con
+        con = TorCfg.conn
 
     def insert_detail(self, request):
         dict = escape.json_decode(request)
