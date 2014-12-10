@@ -471,7 +471,7 @@ function getReagentsIndigo(rxn) {
     else {
 
         return tmp.d;
-    }
+    }adoA	
 }
 
 function FromReactionToMolecules(rxn) {
