@@ -23,7 +23,8 @@ class TornadoInsert(object):
 #         dict = escape.json_decode(request)
 #         print dict
 #         j = json.loads(request)
-        v_detail = j['detail']['OWNER_USERNAME'];
+        v_detail = request['detail']['OWNER_USERNAME'];
+        print v_detail 
         return
         cursor = conn.cursor()
         sql = "SELECT COUNT (NOTEBOOK) FROM CEN_NOTEBOOKS WHERE NOTEBOOK = '" + \
