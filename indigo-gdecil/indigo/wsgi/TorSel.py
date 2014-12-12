@@ -278,7 +278,7 @@ class TornadoSelect(object):
                 reag['CHEMICAL_NAME']="Product" + str(count)
                 reag['BATCH_MW_VALUE']=str(item.molecularWeight()).replace(',', '.')
                 reag['MOLECULAR_FORMULA']= item.grossFormula()
-                reag['BATCH_TYPE']="REAGENT"
+                reag['BATCH_TYPE']="PRODUCT"
                 reag['MOLE_VALUE']=""
                 reag['MOLE_UNIT_CODE']=""
                 reag['PURITY_VALUE']=""
