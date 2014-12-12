@@ -41,7 +41,7 @@ class TornadoInsert(object):
                 """', 'OPEN', xml('<?xml version="1.0" encoding="UTF-8"?><Notebook_Properties/>'),
                 LOCALTIMESTAMP)""")
     
-        sql = "SELECT id FROM cen_pages WHERE notebook ='" + \
+        sql = "SELECT page_key FROM cen_pages WHERE notebook ='" + \
                 j['detail']['NOTEBOOK']  + "' AND experiment = '" + j['detail']['EXPERIMENT']  +"'" 
                        
         my_query = query_db(sql)
