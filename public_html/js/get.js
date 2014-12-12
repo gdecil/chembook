@@ -429,43 +429,43 @@ function getReagents(notebook, page, enumVal) {
 function getProductsIndigo(rxn) {
     var dataX = '{"rxn":"' + rxn + '"}';
 
-    $.ajax({
-        type: "POST",
-        url: server + "/Reaction.asmx/GetProductsIndigo",
-        data: dataX,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: Success,
-        error: Error,
-        async: false
-    });
-
-	function Success(data, status) {
-	    return data
-	}
-	
-	function Error(request, status, error) {
-	    alert(request.statusText);
-	}
-
-//	var ret = $.ajax({
+//    $.ajax({
 //        type: "POST",
 //        url: server + "/Reaction.asmx/GetProductsIndigo",
 //        data: dataX,
 //        contentType: "application/json; charset=utf-8",
-//        processData: false,
 //        dataType: "json",
+//        success: Success,
+//        error: Error,
 //        async: false
-//    }).responseText;
-//    var tmp = eval('(' + ret + ')');
-//    if (tmp.ExceptionType != undefined) {
-//        alert(tmp.Message)
-//        return tmp;
-//    }
-//    else {
+//    });
 //
-//        return tmp;
-//    }
+//	function Success(data, status) {
+//	    return data
+//	}
+//	
+//	function Error(request, status, error) {
+//	    alert(request.statusText);
+//	}
+
+	var ret = $.ajax({
+        type: "POST",
+        url: server + "/Reaction.asmx/GetProductsIndigo",
+        data: dataX,
+        contentType: "application/json; charset=utf-8",
+        processData: false,
+        dataType: "json",
+        async: false
+    }).responseText;
+    var tmp = eval('(' + ret + ')');
+    if (tmp.ExceptionType != undefined) {
+        alert(tmp.Message)
+        return tmp;
+    }
+    else {
+
+        return tmp;
+    }
 }
 
 function getReagentsIndigo(rxn) {
