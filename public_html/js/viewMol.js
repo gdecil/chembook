@@ -1210,7 +1210,7 @@ function loadStoic(rxn, counter, mole) {
 
             var products = getProductsIndigo(rxn)
 
-            var mydataP = products[0]
+            var mydataP = products
 
         }
         else {
