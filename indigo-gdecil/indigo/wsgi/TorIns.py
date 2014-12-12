@@ -19,6 +19,7 @@ class TornadoInsert(object):
         con = conn
 
     def insert_detail(self, request):
+        print request
         dict = escape.json_decode(request)
         print dict
         j = json.loads(request)
