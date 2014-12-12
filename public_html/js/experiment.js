@@ -238,10 +238,8 @@ Experiment.prototype.updateDetail = function () {
     if (!this.checkOwnership()) {
         return;
     }
-
-    var dataX = '{"detail":"' + JSON.stringify(this.GeneralDataReaction)
-        + '"}"';
-    //return;
+    var dataX = '{"detail":' + JSON.stringify(this.GeneralDataReaction)
+    + '}';
 
     var ret = $.ajax({
         type: "POST",
