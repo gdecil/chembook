@@ -436,7 +436,8 @@ function getProductsIndigo(rxn) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: Success,
-        error: Error
+        error: Error,
+        async: false
     });
 
 	function Success(data, status) {
