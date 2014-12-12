@@ -48,7 +48,7 @@ class TornadoInsert(object):
         countExp = my_query[0]
         
         if len(countExp) ==1:
-            resp = countExp
+            update_detail(countExp, j)
             return resp
         
         id = id_generator(40)
@@ -117,56 +117,32 @@ class TornadoInsert(object):
 
     def update_detail(self, id, request):
         cursor = conn.cursor()
-        cursor.execute("""update CEN_PAGES page_key,
-                                               SITE_CODE,
-                                               NOTEBOOK,
-                                               EXPERIMENT,
-                                               USERNAME,
-                                               OWNER_USERNAME,
-                                               LOOK_N_FEEL,
-                                               PAGE_STATUS,
-                                               CREATION_DATE,
-                                               MODIFIED_DATE,
-                                               XML_METADATA,
-                                               PROCEDURE,
-                                               PAGE_VERSION,
-                                               LATEST_VERSION,
-                                               TA_CODE,
-                                               PROJECT_CODE,
-                                               LITERATURE_REF,
-                                               SUBJECT,
-                                               MIGRATED_TO_PCEN,
-                                               BATCH_OWNER,
-                                               BATCH_CREATOR,
-                                               NBK_REF_VERSION,
-                                               VERSION,
-                                               YIELD,
-                                               ISSUCCESSFUL)
-              VALUES ('""" + id +"""',
-                      'SITE1',
-                      '""" + j['detail']['NOTEBOOK']  +"""',
-                      '""" + j['detail']['EXPERIMENT'] +"""',
-                      '""" + j['detail']['OWNER_USERNAME']  +"""',
-                      '""" + j['detail']['OWNER_USERNAME']  +"""',
-                      'MED-CHEM',
-                      'OPEN',
-                      LOCALTIMESTAMP,
-                      LOCALTIMESTAMP,
-                      xml('<?xml version="1.0" encoding="UTF-8"?><Page_Properties><Meta_Data><Archive_Date/><Signature_Url/><Table_Properties/><Ussi_Key>0</Ussi_Key><Auto_Calc_On>true</Auto_Calc_On><Cen_Version></Cen_Version><Completion_Date></Completion_Date><Continued_From_Rxn> </Continued_From_Rxn><Continued_To_Rxn> </Continued_To_Rxn><Project_Alias> </Project_Alias><DSP><Comments/><Description/><Procedure_Width>0</Procedure_Width><designUsers/><ScreenPanels/><Scale><Calculated>true</Calculated><Default_Value>0.0</Default_Value><Unit><Code></Code><Description></Description></Unit><Value>0</Value></Scale><PrototypeLeasdIDs/><DesignSite/><DesignCreationDate></DesignCreationDate><PID/><SummaryPID>null</SummaryPID><VrxnID/></DSP><ConceptionKeyWords/><ConceptorNames/></Meta_Data></Page_Properties>'),
-                      'procedure',
-                      1,
-                      'Y',
-                      'XX',
-                      '""" + j['detail']['PROJECT_CODE'] +"""',
-                      '""" + j['detail']['LITERATURE_REF'] +"""',
-                      '""" + j['detail']['SUBJECT'] +"""',
-                      'N',
-                      '""" + j['detail']['OWNER_USERNAME']  +"""',
-                      '""" + j['detail']['OWNER_USERNAME']  +"""',
-                      '""" + j['detail']['NOTEBOOK']  + "-" + j['detail']['EXPERIMENT'] + "-1" + """',
-                      1,
-                      '""" + yieldd + """',
-                      '""" + j['detail']['ISSUCCESSFUL'] + """')""")        
+        cursor.execute("""update CEN_PAGES set 
+                                SITE_CODE = 'SITE1',
+                                NOTEBOOK = '""" + j['detail']['NOTEBOOK']  +"""',
+                                EXPERIMENT = '""" + j['detail']['EXPERIMENT'] +"""',
+                                USERNAME = '""" + j['detail']['OWNER_USERNAME']  +"""',
+                                OWNER_USERNAME = '""" + j['detail']['OWNER_USERNAME']  +"""',
+                                LOOK_N_FEEL = 'MED-CHEM',
+                                PAGE_STATUS = 'OPEN',
+                                CREATION_DATE = LOCALTIMESTAMP,
+                                MODIFIED_DATE = LOCALTIMESTAMP,
+                                XML_METADATA =xml('<?xml version="1.0" encoding="UTF-8"?><Page_Properties><Meta_Data><Archive_Date/><Signature_Url/><Table_Properties/><Ussi_Key>0</Ussi_Key><Auto_Calc_On>true</Auto_Calc_On><Cen_Version></Cen_Version><Completion_Date></Completion_Date><Continued_From_Rxn> </Continued_From_Rxn><Continued_To_Rxn> </Continued_To_Rxn><Project_Alias> </Project_Alias><DSP><Comments/><Description/><Procedure_Width>0</Procedure_Width><designUsers/><ScreenPanels/><Scale><Calculated>true</Calculated><Default_Value>0.0</Default_Value><Unit><Code></Code><Description></Description></Unit><Value>0</Value></Scale><PrototypeLeasdIDs/><DesignSite/><DesignCreationDate></DesignCreationDate><PID/><SummaryPID>null</SummaryPID><VrxnID/></DSP><ConceptionKeyWords/><ConceptorNames/></Meta_Data></Page_Properties>'),
+                                PROCEDURE = 'procedure',
+                                PAGE_VERSION = 1,
+                                LATEST_VERSION = 'Y',
+                                TA_CODE= 'XX',
+                                PROJECT_CODE ='""" + j['detail']['PROJECT_CODE'] +"""',
+                                LITERATURE_REF='""" + j['detail']['LITERATURE_REF'] +"""',
+                                SUBJECT ='""" + j['detail']['SUBJECT'] +"""',
+                                MIGRATED_TO_PCEN = 'N',
+                                BATCH_OWNER ='""" + j['detail']['OWNER_USERNAME']  +"""',
+                                BATCH_CREATOR = '""" + j['detail']['OWNER_USERNAME']  +"""',
+                                NBK_REF_VERSION ='""" + j['detail']['NOTEBOOK']  + "-" + j['detail']['EXPERIMENT'] + "-1" + """',
+                                VERSION = 1,
+                                YIELD='""" + yieldd + """',
+                                ISSUCCESSFUL = '""" + j['detail']['ISSUCCESSFUL'] + """'
+                            where page_key = '""" + id )
         conn.commit()
         return '1'
 
