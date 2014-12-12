@@ -285,6 +285,7 @@ class Reaction(tornado.web.RequestHandler):
             future_result = yield self.executor.submit( self.dao.GetProductsIndigo, 
                                                         rxn = a1['rxn']
                                                         )                 
+            print future_result
             self.write(future_result) 
         elif param1 == 'GetReagents':
             par1 = utility.getParam(dict, 'notebook')
