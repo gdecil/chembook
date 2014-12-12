@@ -20,11 +20,11 @@ class TornadoInsert(object):
 
     def insert_detail(self, request):
         print request
-        dict = escape.json_decode(request)
-        print dict
-        j = json.loads(request)
+#         dict = escape.json_decode(request)
+#         print dict
+#         j = json.loads(request)
         v_detail = j['detail']['OWNER_USERNAME'];
-        
+        return
         cursor = conn.cursor()
         sql = "SELECT COUNT (NOTEBOOK) FROM CEN_NOTEBOOKS WHERE NOTEBOOK = '" + \
                        j['detail']['NOTEBOOK'] + "'" 
