@@ -239,8 +239,8 @@ Experiment.prototype.updateDetail = function () {
         return;
     }
 
-    var dataX = "{'detail':'" + JSON.stringify(this.GeneralDataReaction)
-        + "'}";
+    var dataX = '{"detail":"' + JSON.stringify(this.GeneralDataReaction)
+        + '"}"';
     //return;
 
     var ret = $.ajax({
