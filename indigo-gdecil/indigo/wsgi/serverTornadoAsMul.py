@@ -199,7 +199,7 @@ class Reaction(tornado.web.RequestHandler):
 #         print tornado.escape.json_decode(self.request.body)
         
         if len(self.request.body) > 0:
-            if param1 == 'InsertDetail':
+            if param1 == ('InsertDetail' or 'UpdateDetail'):
                 a1= tornado.escape.json_decode(self.request.body)
             elif param1 == 'FromReactionToMolecules':
                 a0 = self.request.body
