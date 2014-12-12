@@ -785,8 +785,10 @@ function cgProductsReagentsSave(mydata, gridn, pager, caption, mole, type) {
         };
 
     grid.jqGrid({
-        datatype: 'local',
+        datatype: 'jsonstring',
         data: mydata,
+//        datatype: 'local',
+//        data: mydata,
         colNames: ['id', '', 'Batch Name', 'Chemical Name', 'MolWeight', 'MolFormula', 'Rxn Role', 'Mol', 'Mol Unit', 'Purity %', 'Purity Unit', 'Volume', 'Vol Unit', 'Molarity', 'Molarity Unit', 'Density g/ml', 'Density Unit', 'Weight', 'Weigth Unit', 'Theo. Weight', 'Theo. W. Unit', 'Yield %', 'CAS Number', 'HazardComment'],
         colModel: [
             { name: 'id', index: 'id', editable: false, edittype: 'text', width: 20, align: "center", hidden: true },
