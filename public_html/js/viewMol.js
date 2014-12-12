@@ -1194,7 +1194,7 @@ function loadStoic(rxn, counter, mole) {
     else {
         if (counter != "") {
             var reagents = getReagentsIndigo(rxn)
-            var mydataR = reagents[0],
+            var mydataR = reagents,
             divGR = $("#gridR" + counter),
             divGP = $("#gridP" + counter),
             gridR = "#myReactant" + counter,
@@ -1216,7 +1216,7 @@ function loadStoic(rxn, counter, mole) {
         else {
             var reagents = getReagentsIndigo(rxn)
 
-            var mydataR = reagents[0],
+            var mydataR = reagents,
                 divGR = $("#gridR"),
                 divGP = $("#gridP"),
                 gridR = "#myReactant",
