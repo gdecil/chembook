@@ -786,7 +786,7 @@ function cgProductsReagentsSave(mydata, gridn, pager, caption, mole, type) {
 
     grid.jqGrid({
         datatype: 'jsonstring',
-        data: mydata,
+        datastr: mydata,
 //        datatype: 'local',
 //        data: mydata,
         colNames: ['id', '', 'Batch Name', 'Chemical Name', 'MolWeight', 'MolFormula', 'Rxn Role', 'Mol', 'Mol Unit', 'Purity %', 'Purity Unit', 'Volume', 'Vol Unit', 'Molarity', 'Molarity Unit', 'Density g/ml', 'Density Unit', 'Weight', 'Weigth Unit', 'Theo. Weight', 'Theo. W. Unit', 'Yield %', 'CAS Number', 'HazardComment'],
@@ -926,6 +926,22 @@ function cgProductsReagentsSave(mydata, gridn, pager, caption, mole, type) {
         caption: caption,
         height: '100%',
         editurl: 'clientArray.html',
+        jsonReader: {
+        	repeatitems: false,
+        	id: "0",
+        	root: function(obj){
+        		return obj;
+        	},
+        	records: function(obj){
+        		return obj.length;
+        	},
+        	page: function(){
+        		return 1;
+        	},
+        	total: function(){
+        		return 1;
+        	}
+        },
         ondblClickRow: function (rowid, ri, ci) {
             var p = grid[0].p;
             if (p.selrow !== rowid) {
