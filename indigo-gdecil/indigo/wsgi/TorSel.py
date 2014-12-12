@@ -268,7 +268,7 @@ class TornadoSelect(object):
 #             print rea
             l =[]
             count =0
-            for item in rea.iterateReactants():
+            for item in rea.iterateProducts():
                 count = count +1
                 reag = collections.OrderedDict()
 
