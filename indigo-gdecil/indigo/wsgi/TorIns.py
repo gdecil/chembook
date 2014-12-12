@@ -48,7 +48,7 @@ class TornadoInsert(object):
         countExp = my_query[0]
         
         if len(countExp) ==1:
-            update_detail(countExp, j)
+            self.update_detail(countExp, j)
             return resp
         
         id = id_generator(40)
