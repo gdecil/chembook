@@ -25,7 +25,7 @@ class TornadoInsert(object):
 #         print dict
 #         j = json.loads(request)
         v_detail = j['detail']['OWNER_USERNAME'];
-        return
+
         cursor = conn.cursor()
         sql = "SELECT COUNT (NOTEBOOK) FROM CEN_NOTEBOOKS WHERE NOTEBOOK = '" + \
                        j['detail']['NOTEBOOK'] + "'" 
@@ -41,14 +41,14 @@ class TornadoInsert(object):
                 """', 'OPEN', xml('<?xml version="1.0" encoding="UTF-8"?><Notebook_Properties/>'),
                 LOCALTIMESTAMP)""")
     
-        sql = "SELECT COUNT (notebook) FROM cen_pages WHERE notebook ='" + \
+        sql = "SELECT id FROM cen_pages WHERE notebook ='" + \
                 j['detail']['NOTEBOOK']  + "' AND experiment = '" + j['detail']['EXPERIMENT']  +"'" 
                        
         my_query = query_db(sql)
-        countExp = my_query[0]['count']
-    
-        if countExp ==1:
-            resp = Response(response=json.dumps('{"ret":"-1"}'), status=200, mimetype="application/json")
+        countExp = my_query[0]
+        
+        if len(countExp) ==1:
+            resp = countExp
             return resp
         
         id = id_generator(40)
@@ -114,7 +114,62 @@ class TornadoInsert(object):
     
         conn.commit()
         return resp
-     
+
+    def update_detail(self, id, request):
+        cursor = conn.cursor()
+        cursor.execute("""update CEN_PAGES page_key,
+                                               SITE_CODE,
+                                               NOTEBOOK,
+                                               EXPERIMENT,
+                                               USERNAME,
+                                               OWNER_USERNAME,
+                                               LOOK_N_FEEL,
+                                               PAGE_STATUS,
+                                               CREATION_DATE,
+                                               MODIFIED_DATE,
+                                               XML_METADATA,
+                                               PROCEDURE,
+                                               PAGE_VERSION,
+                                               LATEST_VERSION,
+                                               TA_CODE,
+                                               PROJECT_CODE,
+                                               LITERATURE_REF,
+                                               SUBJECT,
+                                               MIGRATED_TO_PCEN,
+                                               BATCH_OWNER,
+                                               BATCH_CREATOR,
+                                               NBK_REF_VERSION,
+                                               VERSION,
+                                               YIELD,
+                                               ISSUCCESSFUL)
+              VALUES ('""" + id +"""',
+                      'SITE1',
+                      '""" + j['detail']['NOTEBOOK']  +"""',
+                      '""" + j['detail']['EXPERIMENT'] +"""',
+                      '""" + j['detail']['OWNER_USERNAME']  +"""',
+                      '""" + j['detail']['OWNER_USERNAME']  +"""',
+                      'MED-CHEM',
+                      'OPEN',
+                      LOCALTIMESTAMP,
+                      LOCALTIMESTAMP,
+                      xml('<?xml version="1.0" encoding="UTF-8"?><Page_Properties><Meta_Data><Archive_Date/><Signature_Url/><Table_Properties/><Ussi_Key>0</Ussi_Key><Auto_Calc_On>true</Auto_Calc_On><Cen_Version></Cen_Version><Completion_Date></Completion_Date><Continued_From_Rxn> </Continued_From_Rxn><Continued_To_Rxn> </Continued_To_Rxn><Project_Alias> </Project_Alias><DSP><Comments/><Description/><Procedure_Width>0</Procedure_Width><designUsers/><ScreenPanels/><Scale><Calculated>true</Calculated><Default_Value>0.0</Default_Value><Unit><Code></Code><Description></Description></Unit><Value>0</Value></Scale><PrototypeLeasdIDs/><DesignSite/><DesignCreationDate></DesignCreationDate><PID/><SummaryPID>null</SummaryPID><VrxnID/></DSP><ConceptionKeyWords/><ConceptorNames/></Meta_Data></Page_Properties>'),
+                      'procedure',
+                      1,
+                      'Y',
+                      'XX',
+                      '""" + j['detail']['PROJECT_CODE'] +"""',
+                      '""" + j['detail']['LITERATURE_REF'] +"""',
+                      '""" + j['detail']['SUBJECT'] +"""',
+                      'N',
+                      '""" + j['detail']['OWNER_USERNAME']  +"""',
+                      '""" + j['detail']['OWNER_USERNAME']  +"""',
+                      '""" + j['detail']['NOTEBOOK']  + "-" + j['detail']['EXPERIMENT'] + "-1" + """',
+                      1,
+                      '""" + yieldd + """',
+                      '""" + j['detail']['ISSUCCESSFUL'] + """')""")        
+        conn.commit()
+        return '1'
+
 def insert_reactionP(): 
     ret1 = request.get_json(force=True, silent=True, cache=False)
     j = json.loads(ret1)    
