@@ -48,7 +48,7 @@ class TornadoInsert(object):
         countExp = my_query[0]
         
         if len(countExp) ==1:
-            self.update_detail(countExp, j)
+            resp = self.update_detail(countExp, j)
             return resp
         
         id = id_generator(40)
@@ -115,7 +115,7 @@ class TornadoInsert(object):
         conn.commit()
         return resp
 
-    def update_detail(self, id, request):
+    def update_detail(self, id, j):
         cursor = conn.cursor()
         cursor.execute("""update CEN_PAGES set 
                                 SITE_CODE = 'SITE1',
@@ -140,9 +140,9 @@ class TornadoInsert(object):
                                 BATCH_CREATOR = '""" + j['detail']['OWNER_USERNAME']  +"""',
                                 NBK_REF_VERSION ='""" + j['detail']['NOTEBOOK']  + "-" + j['detail']['EXPERIMENT'] + "-1" + """',
                                 VERSION = 1,
-                                YIELD='""" + yieldd + """',
+                                YIELD='""" + j['detail']['YIELD']  + """',
                                 ISSUCCESSFUL = '""" + j['detail']['ISSUCCESSFUL'] + """'
-                            where page_key = '""" + id )
+                            where page_key = '""" + id['page_key'] + """'""")
         conn.commit()
         return '1'
 
