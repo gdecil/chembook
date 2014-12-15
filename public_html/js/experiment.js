@@ -256,7 +256,7 @@ Experiment.prototype.updateDetail = function () {
         return tmp;
     }
     else {
-        if (tmp.d > 0) {
+        if (tmp=1) {
             expCurrent.isDetailChanged = false;
             alert("Experiment Updated");
         }
