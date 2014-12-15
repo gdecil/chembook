@@ -310,6 +310,14 @@ class Reaction(tornado.web.RequestHandler):
             future_result = yield self.executor.submit( self.daoI.insert_detail ,
                                                         request = a1 )    
             self.write(future_result) 
+        elif param1 == 'UpdateSchema':
+            future_result = yield self.executor.submit( self.dao.UpdateSchema, 
+                                                        rxn = a1['rxn'],
+                                                        notebook = a1['notebook'],
+                                                        page = a1['page'],
+                                                        enumVal = a1['enumVal']
+                                                        )                 
+            self.write(future_result) 
         else:
             print param1
             print "error MANCA LA FUNZIONE IN REACTION class"
