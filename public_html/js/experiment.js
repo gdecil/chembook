@@ -327,7 +327,7 @@ Experiment.prototype.updateSchema = function () {
         return tmp;
     }
     else {
-        if (JSON.parse(tmp).ret.length == 40) {
+        if (tmp.length == 40) {
             this.isSchemeChanged = false;
             alert("Scheme updated");
         }
