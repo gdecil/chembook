@@ -212,7 +212,7 @@ class Reaction(tornado.web.RequestHandler):
             else:
                 a1= tornado.escape.json_decode(self.request.body)
                 dict = json.loads(a1)
-                print a1
+                print self.request.body)
 
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname )    
