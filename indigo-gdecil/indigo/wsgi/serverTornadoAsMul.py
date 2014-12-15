@@ -311,7 +311,7 @@ class Reaction(tornado.web.RequestHandler):
                                                         request = a1 )    
             self.write(future_result) 
         elif param1 == 'UpdateSchema':
-            future_result = yield self.executor.submit( self.dao.UpdateSchema, 
+            future_result = yield self.executor.submit( self.daoI.UpdateSchema, 
                                                         rxn = a1['rxn'],
                                                         notebook = a1['notebook'],
                                                         page = a1['page'],
