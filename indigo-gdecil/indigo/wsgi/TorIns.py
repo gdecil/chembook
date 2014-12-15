@@ -146,6 +146,34 @@ class TornadoInsert(object):
         conn.commit()
         return '1'
 
+    def update_schema(self, rxn, notebook, page, enumVal): 
+        v_struct = rxn
+        if len(v_struct) < 120:
+            return '{"ret":"Empty Reaction"}'
+        
+        if (enumVal =='' or enumVal =='undefined'):
+            sql = "select RXN_SCHEME_KEY,  PAGE_KEY from PAGES_VW where NOTEBOOK = '" + notebook + \
+            "' and EXPERIMENT = '" + page + "'"
+        else:
+            sql = "select RXN_SCHEME_KEY , PAGE_KEY from PAGES_VW where NOTEBOOK = '" + notebook + \
+            "' and EXPERIMENT = '" + page + "' and SYNTH_ROUTE_REF = " + enumVal 
+        
+        my_query = query_db(sql)
+        dict = my_query[0]
+        
+        if dict['rxn_scheme_key']== None:
+            id = insert_reaction (dict['page_key'] ,v_struct , 'INTENDED', None)
+        else:
+            print dict['rxn_scheme_key']
+            cursor = conn.cursor()    
+            cursor.execute("""UPDATE cen_reaction_schemes
+                 SET native_rxn_sketch = BINGO.COMPACTREACTION ('""" + v_struct +"""', true)
+                   WHERE RXN_SCHEME_KEY = '""" + dict['rxn_scheme_key'] +"""'""")
+            id =dict['rxn_scheme_key']
+            conn.commit()                     
+            
+        return '{"ret":"' + id + '"}'
+
 def insert_reactionP(): 
     ret1 = request.get_json(force=True, silent=True, cache=False)
     j = json.loads(ret1)    
@@ -290,43 +318,3 @@ def insert_for():
 #     resp = Response(response=ret, status=200, mimetype="application/json")
     return request.form['fname']
 
-def update_schema(): 
-    ret1 = request.get_json(force=True, silent=True, cache=False)
-    j = json.loads(ret1)    
-    v_struct = j['rxn'];
-    notebook = j['notebook'];
-    page = j['page'];
-    enumVal = j['enumVal'];   
-    if len(v_struct) < 120:
-        return Response(response=json.dumps('{"ret":"Empty Reaction"}'), status=200, mimetype="application/json")
-    
-    if (enumVal =='' or enumVal =='undefined'):
-        sql = "select RXN_SCHEME_KEY,  PAGE_KEY from PAGES_VW where NOTEBOOK = '" + notebook + \
-        "' and EXPERIMENT = '" + page + "'"
-    else:
-        sql = "select RXN_SCHEME_KEY , PAGE_KEY from PAGES_VW where NOTEBOOK = '" + notebook + \
-        "' and EXPERIMENT = '" + page + "' and SYNTH_ROUTE_REF = " + enumVal 
-    
-    my_query = query_db(sql)
-    dict = my_query[0]
-#     print dict
-#     print dict['page_key']
-#     return ""
-
-    
-#     sql = "SELECT coalesce(RXN_SCHEME_KEY, 'true') into isNull  from PAGES_VW where NOTEBOOK = '" + notebook + \
-#         "' and EXPERIMENT = '" + page + "'"
-    
-    if dict['rxn_scheme_key']== None:
-        id = insert_reaction (dict['page_key'] ,v_struct , 'INTENDED', None)
-    else:
-        print dict['rxn_scheme_key']
-        cursor = conn.cursor()    
-        cursor.execute("""UPDATE cen_reaction_schemes
-             SET native_rxn_sketch = BINGO.COMPACTREACTION ('""" + v_struct +"""', true)
-               WHERE RXN_SCHEME_KEY = '""" + dict['rxn_scheme_key'] +"""'""")
-        id =dict['rxn_scheme_key']
-        conn.commit()                     
-
-    
-    return Response(response=json.dumps('{"ret":"' + id + '"}'), status=200, mimetype="application/json")
