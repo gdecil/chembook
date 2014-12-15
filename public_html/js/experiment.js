@@ -346,7 +346,8 @@ Experiment.prototype.updateStoic = function () {
         return;
     }
 
-    var dataX = '{"Reagents":"' + JSON.stringify(this.Reagents).replace(/null/g, "\"\"") + '", "Products":"' + JSON.stringify(this.Products).replace(/null/g, "\"\"") + '","username":"' + $.session.get("username").toUpperCase() + '","notebook":"' + this.notebook + '", "page":"' + this.page + '"}"';
+//    var dataX = '{"Reagents":"' + JSON.stringify(this.Reagents).replace(/null/g, "\"\"") + '", "Products":"' + JSON.stringify(this.Products).replace(/null/g, "\"\"") + '","username":"' + $.session.get("username").toUpperCase() + '","notebook":"' + this.notebook + '", "page":"' + this.page + '"}"';
+    var dataX = '{"Reagents":"' + this.Reagents + '", "Products":"' + this.Products + '","username":"' + $.session.get("username").toUpperCase() + '","notebook":"' + this.notebook + '", "page":"' + this.page + '"}';
 
     var ret = $.ajax({
         type: "POST",
