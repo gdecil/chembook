@@ -315,7 +315,7 @@ Experiment.prototype.updateSchema = function () {
     var ret = $.ajax({
         type: "POST",
         url: server + "/Reaction.asmx/UpdateSchema",
-        data: JSON.stringify(dataX),
+        data: dataX,
         contentType: "application/json; charset=utf-8",
         processData: false,
         dataType: "json",
