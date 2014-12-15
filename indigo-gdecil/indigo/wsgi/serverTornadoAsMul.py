@@ -205,22 +205,15 @@ class Reaction(tornado.web.RequestHandler):
                 a0 = self.request.body
                 a00= a0.replace('\n','\\n')
                 a1= tornado.escape.json_decode(a00)
-                print a0
-                print a1
             elif param1 == 'GetProductsIndigo' or param1 == 'GetReagentsIndigo':
                 a0 = self.request.body
                 a00= a0.replace('\n','\\n')
                 a1= tornado.escape.json_decode(a00)
-#                 print a1
             else:
-#                 print self.request.body
-                
                 a1= tornado.escape.json_decode(self.request.body)
-#                 print a1['rxn']
                 dict = json.loads(a1)
-#                 print dict[0]
-#                 dict = tornado.escape.json_decode(a1)
-            
+                print a1
+
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname )    
             self.write(future_result) 
