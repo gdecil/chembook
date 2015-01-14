@@ -199,21 +199,35 @@ class Reaction(tornado.web.RequestHandler):
 #         print tornado.escape.json_decode(self.request.body)
         
         if len(self.request.body) > 0:
-            if param1 == 'InsertDetail' or param1 =='UpdateDetail':
+            if param1 == 'InsertDetail' or param1 =='UpdateDetail' or param1 =='UpdateStoic':
+#                 print self.request.body
                 a1= tornado.escape.json_decode(self.request.body)
+#                 print a1
+#                 return
             elif param1 == 'FromReactionToMolecules' or param1 == 'UpdateSchema':
+                a0 = self.request.body
+                a00= a0.replace('\n','\\n')
+                a1= tornado.escape.json_decode(a00)
+            elif param1 == 'UpdateProcedura':
                 a0 = self.request.body
                 a00= a0.replace('\n','\\n')
                 a1= tornado.escape.json_decode(a00)
             elif param1 == 'GetProductsIndigo' or param1 == 'GetReagentsIndigo':
                 a0 = self.request.body
+#                 print a0
                 a00= a0.replace('\n','\\n')
                 a1= tornado.escape.json_decode(a00)
+#             elif param1 =='UpdateStoic':
+#                 print self.request.body
+#                 a1= tornado.escape.json_decode(self.request.body)
+#                 print a1
+#                 print a1['Reagents'];
+#                 print a1['Reagents']['CHEMICAL_NAME'];
+#                 return
             else:
-                print self.request.body
+#                 print self.request.body
                 a1= tornado.escape.json_decode(self.request.body)
-                print a1
-                print a1['Reagents']
+                
                 dict = json.loads(a1)
 
         if param1 == 'GetUsersFullname':
@@ -295,6 +309,15 @@ class Reaction(tornado.web.RequestHandler):
             future_result = yield self.executor.submit( self.daoI.insert_detail ,
                                                         request = a1 )    
             self.write(future_result) 
+        elif param1 == "UpdateStoic":  
+            future_result = yield self.executor.submit( self.daoI.update_stoic ,
+                                                        notebook = a1['notebook'],
+                                                        page = a1['page'],
+                                                        Reagents = a1['Reagents'], 
+                                                        Products = a1['Products'], 
+                                                        username =a1['username']
+                                                         )    
+            self.write(future_result) 
         elif param1 == "UpdateDetail":  
             future_result = yield self.executor.submit( self.daoI.insert_detail ,
                                                         request = a1 )    
@@ -305,6 +328,13 @@ class Reaction(tornado.web.RequestHandler):
                                                         notebook = a1['notebook'],
                                                         page = a1['page'],
                                                         enumVal = a1['enumVal']
+                                                        )                 
+            self.write(future_result) 
+        elif param1 == 'UpdateProcedura':
+            future_result = yield self.executor.submit( self.daoI.update_procedura, 
+                                                        notebook = a1['notebook'],
+                                                        page = a1['page'],
+                                                        procedura = a1['procedura']
                                                         )                 
             self.write(future_result) 
         else:

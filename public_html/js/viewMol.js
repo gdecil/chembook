@@ -1352,7 +1352,7 @@ function openExperiment(notebook, page, self) {
 
     var grid = $("#myReactant");
     grid.jqGrid('GridUnload');
-    var Mydata = $.parseJSON(expCurrent.getReagents());
+    var Mydata = expCurrent.getReagents();
     if (Mydata != null) {
         var gridR = "#myReactant",
             pagerR = '#reactantspager',
@@ -1362,7 +1362,7 @@ function openExperiment(notebook, page, self) {
 
     var grid = $("#myProducts");
     grid.jqGrid('GridUnload');
-    var Mydata = $.parseJSON(expCurrent.getProducts())
+    var Mydata = expCurrent.getProducts()
     if (Mydata != null) {
         var gridR = "#myProducts",
             pagerR = '#Productspager',

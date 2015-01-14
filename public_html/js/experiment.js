@@ -102,7 +102,7 @@ Experiment.prototype.getReagents = function () {
     }
     else {
 
-        return tmp.d;
+        return tmp;
     }
 };
 
@@ -126,7 +126,7 @@ Experiment.prototype.getProducts = function () {
     }
     else {
 
-        return tmp.d;
+        return tmp;
     }
 };
 
@@ -274,7 +274,7 @@ Experiment.prototype.updateProcedura = function () {
     if (!this.checkOwnership()) {
         return;
     }
-    var dataX = "{'procedura':'" + this.WorkUp + "', 'notebook':'" + this.notebook + "', 'page':'" + this.page + "'}";
+    var dataX = '{"procedura":"' + this.WorkUp + '", "notebook":"' + this.notebook + '", "page":"' + this.page + '"}';
 
     var ret = $.ajax({
         type: "POST",
@@ -291,14 +291,14 @@ Experiment.prototype.updateProcedura = function () {
         return tmp;
     }
     else {
-        if (tmp.d > 0) {
+        if (tmp > 0) {
             this.isProcedureChanged = false;
             alert("Procedure updated");
         }
         else {
             alert("Error updating procedure");
         }
-        return tmp.d;
+        return tmp;
     }
 };
 
@@ -347,7 +347,10 @@ Experiment.prototype.updateStoic = function () {
     }
 
 //    var dataX = '{"Reagents":"' + JSON.stringify(this.Reagents).replace(/null/g, "\"\"") + '", "Products":"' + JSON.stringify(this.Products).replace(/null/g, "\"\"") + '","username":"' + $.session.get("username").toUpperCase() + '","notebook":"' + this.notebook + '", "page":"' + this.page + '"}"';
-    var dataX = '{"Reagents":"' + JSON.stringify(this.Reagents) + '", "Products":"' + this.Products + '","username":"' + $.session.get("username").toUpperCase() + '","notebook":"' + this.notebook + '", "page":"' + this.page + '"}';
+    var dataX = '{"Reagents":' + JSON.stringify(this.Reagents) + ', "Products":' + JSON.stringify(this.Products) + ',"username":"' + $.session.get("username").toUpperCase() + '","notebook":"' + this.notebook + '", "page":"' + this.page + '"}';
+//    var dataY = '{"detail":' + JSON.stringify(this.GeneralDataReaction)
+//    + '}';
+//    var dataZ = '{"Reagents":' + JSON.stringify(this.Reagents[0]) + '}';
 
     var ret = $.ajax({
         type: "POST",
@@ -364,14 +367,14 @@ Experiment.prototype.updateStoic = function () {
         return tmp;
     }
     else {
-        if (tmp.d > 0) {
+        if (tmp > 0) {
             this.isStoichChanged = false;
             alert("Stoichiometry updated");
         }
         else {
             alert("Error updating Stoichiometry");
         }
-        return tmp.d;
+        return tmp
     }
 };
 

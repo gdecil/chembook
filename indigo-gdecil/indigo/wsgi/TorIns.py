@@ -19,7 +19,7 @@ class TornadoInsert(object):
         con = conn
 
     def insert_detail(self, request):
-        print request
+#         print request
         j=request
 #         dict = escape.json_decode(request)
 #         print dict
@@ -115,6 +115,165 @@ class TornadoInsert(object):
         conn.commit()
         return resp
 
+    def insert_batches(self, batches, pageKey, username, notebook, page):
+        print batches
+#         print batches[0]['CHEMICAL_NAME']
+        
+        v_nr = len(batches)
+#         print len(batches)
+        if  v_nr < 1:
+            return 'No batches to register'
+
+        for item in batches:
+#             print item['CHEMICAL_NAME']
+#             print item['BATCH_MW_VALUE'] + item['CAS_NUMBER']
+#             return ""
+            batchKey = id_generator(40)
+            structKey = id_generator(40)
+            sql = "SELECT page_key FROM cen_pages WHERE notebook ='" + notebook + \
+            "' and EXPERIMENT = '" + page + "'"
+            
+            my_query = query_db(sql)
+            pageKey = my_query[0]['page_key']
+            
+            cursor = conn.cursor()
+            sql = """INSERT INTO CEN_STRUCTURES 
+                ( STRUCT_KEY,
+                  PAGE_KEY,
+                  XML_METADATA,
+                  CHEMICAL_NAME,
+                  MOLECULAR_WEIGHT,
+                  BOILING_PT_VALUE,
+                  BOILING_PT_UNIT_CODE,
+                  MELTING_PT_VALUE,
+                  MELTING_PT_UNIT_CODE,
+                  CREATED_BY_NOTEBOOK,
+                  EXACT_MASS,
+                  CAS_NUMBER,
+                  USER_HAZARD_COMMENTS,
+                  VERSION,
+                  VIRTUAL_COMPOUND_ID,
+                  LAST_MODIFIED)
+                VALUES ('""" + structKey +"""',
+                        '""" + pageKey + """',
+                        xml('<?xml version="1.0" encoding="UTF-8"?><Structure_Properties>   <Meta_Data>   </Meta_Data></Structure_Properties>'),
+                        '""" + item['CHEMICAL_NAME'] + """',
+                        '""" + item['BATCH_MW_VALUE'] + """',
+                        0,
+                        'C',
+                        0,
+                        'C',
+                        'N',
+                        0,
+                        '""" + item['CAS_NUMBER'] + """',
+                        '""" + item['CHEMICAL_NAME'] + """',
+                        0,
+                       '""" + str(item['id']) + """',                  
+                        LOCALTIMESTAMP )"""
+#             print sql
+            cursor.execute(sql)
+#         return "1"
+
+            sql = """INSERT INTO CEN_BATCHES (
+                       BATCH_KEY,
+                       PAGE_KEY,
+                       BATCH_NUMBER,
+                       STRUCT_KEY,
+                       XML_METADATA,
+                       STEP_KEY,
+                       BATCH_TYPE,
+                       MOLECULAR_FORMULA,
+                       SALT_CODE,
+                       SALT_EQUIVS,
+                       LIST_KEY,
+                       BATCH_MW_VALUE,
+                       BATCH_MW_UNIT_CODE,
+                       BATCH_MW_IS_CALC,
+                       BATCH_MW_SIG_DIGITS,
+                       BATCH_MW_SIG_DIGITS_SET,
+                       BATCH_MW_USER_PREF_FIGS,
+                       IS_LIMITING,
+                       AUTO_CALC,
+                       SYNTHSZD_BY,
+                       INTD_ADDITION_ORDER,
+                       IS_CHLORACNEGEN,
+                       TESTED_FOR_CHLORACNEGEN,
+                       VERSION,
+                       LAST_MODIFIED)
+                VALUES ('""" + batchKey +"""',
+                        '""" + pageKey + """',
+                        '""" + str(item['id']) + """',
+                        '""" + structKey +"""',
+                        xml('<?xml version="1.0" encoding="UTF-8"?><Batch_Properties><Meta_Data><Owner></Owner><Comments></Comments><Container_Barcode></Container_Barcode><Stoich_Comments></Stoich_Comments><Stoic_Label>null</Stoic_Label><Reactants_For_Product></Reactants_For_Product><Analytical_Purity_List></Analytical_Purity_List><Precursors></Precursors><Analytical_Comment></Analytical_Comment><Screen_Panels></Screen_Panels><Enumeration_Sequence>0</Enumeration_Sequence></Meta_Data></Batch_Properties>'),
+                        NULL,
+                        '""" + item['BATCH_TYPE'] + """',
+                        '""" + item['MOLECULAR_FORMULA'] + """',
+                        '00',
+                        0,
+                        NULL,
+                        '""" + str(item['BATCH_MW_VALUE']) + """',
+                        'SCAL',
+                        'Y',
+                        3,
+                        'Y',
+                        -1,
+                        'N',
+                        'Y',
+                        '""" + username + """',
+                        0,
+                        'N',
+                        'Y',
+                        0,
+                        LOCALTIMESTAMP ) """
+
+            cursor.execute(sql)
+#             print type(item['PURITY_UNIT_CODE'])
+            sql = """INSERT INTO CEN_BATCH_AMOUNTS (
+                BATCH_KEY,
+                PAGE_KEY,
+                WEIGHT_VALUE,
+                WEIGHT_UNIT_CODE,
+                THEO_WT_VALUE,
+                THEO_WT_UNIT_CODE,
+                THEO_YLD_PCNT_VALUE,
+                VOLUME_VALUE,
+                VOLUME_UNIT_CODE,
+                MOLARITY_VALUE,
+                MOLARITY_UNIT_CODE,
+                MOLE_VALUE,
+                MOLE_UNIT_CODE,
+                DENSITY_VALUE,
+                DENSITY_UNIT_CODE,
+                PURITY_VALUE,
+                PURITY_UNIT_CODE,
+                VERSION,
+                LAST_MODIFIED)
+           VALUES (
+                '""" + batchKey +"""',
+                '""" + pageKey + """',
+                """ + item['BATCH_MW_VALUE'] + """,
+                0,
+                0,
+                0,
+                0,
+                """ + str(int(item['VOLUME_VALUE'] or 0)) + """,
+                """ + str(int(item['VOLUME_UNIT_CODE'] or 0)) + """,
+                """ + str(int(item['MOLARITY_VALUE'] or 0)) + """,
+                """ + str(int(item['MOLARITY_UNIT_CODE'] or 0)) + """,
+                """ + str(int(item['MOLE_VALUE'] or 0)) + """,
+                """ + str(int(item['MOLE_UNIT_CODE'] or 0)) + """,
+                """ + str(int(item['DENSITY_VALUE'] or 0)) + """,
+                """ + str(int(item['DENSITY_UNIT_CODE'] or 0)) + """,
+                """ + str(int(item['PURITY_VALUE'] or 0)) + """,
+                """ + str(int(item['PURITY_UNIT_CODE'] or 0)) + """,
+                   0,
+                   LOCALTIMESTAMP) """
+#             print sql
+#             return "ci"
+            cursor.execute(sql)
+            
+        return "1"
+      
     def update_detail(self, id, j):
         cursor = conn.cursor()
         cursor.execute("""update CEN_PAGES set 
@@ -174,6 +333,43 @@ class TornadoInsert(object):
             
         return '{"ret":"' + id + '"}'
 
+    def update_stoic(self, notebook, page, Reagents, Products, username): 
+#         print Reagents
+
+        sql = "SELECT page_key FROM cen_pages WHERE notebook ='" + notebook + \
+        "' and EXPERIMENT = '" + page + "'"
+        
+        my_query = query_db(sql)
+#         print my_query[0]['page_key']
+        pageKey = my_query[0]['page_key']
+        cursor = conn.cursor()
+        cursor.execute("delete from CEN_BATCH_AMOUNTS where PAGE_KEY = '" + pageKey + "'")
+        cursor.execute("delete from CEN_BATCHES where PAGE_KEY = '" + pageKey + "'")
+
+        retBatch = self.insert_batches(Reagents, pageKey, username, notebook, page)
+
+        if retBatch <> "1":
+            return 'Cannot insert reagents'
+
+        retBatch = self.insert_batches (Products, pageKey, username, notebook, page)
+        
+        if retBatch <> "1":
+            return 'Cannot insert products'
+
+        conn.commit()
+        
+        return '1'
+      
+    def update_procedura(self, notebook, page, procedura ):
+        try:
+            cursor = conn.cursor()
+            cursor.execute("update cen_pages set procedure  = '" + procedura + "' WHERE notebook = '" + notebook + \
+                           "' and EXPERIMENT = '" + page + "'")
+            conn.commit()
+            return '1';
+        except:
+            raise
+              
 def insert_reactionP(): 
     ret1 = request.get_json(force=True, silent=True, cache=False)
     j = json.loads(ret1)    
@@ -302,19 +498,3 @@ def insert_page():
     conn.commit()
     return resp
      
-def insert_pageG(data):
-    try:
-        json = data        
-        return json
-#         return jsonify(json)
-    except TemplateNotFound:
-        abort(404)
-        
-def insert_for():
-#     print(request.json)m
-#     ret = json.dumps(request.json)     
-    #ret = '{"data": "JSON string example"}'
-
-#     resp = Response(response=ret, status=200, mimetype="application/json")
-    return request.form['fname']
-

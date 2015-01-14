@@ -154,19 +154,24 @@ class TornadoSelect(object):
             if enumVal == "undefined":            
                 sql = "select * from batch_lev3_vw where notebook ='" + notebook + \
                 "' and experiment  = '" + page + \
-                "' and batch_type in ('SOLVENT' , 'REAGENT', 'REACTANT') and SYNTH_ROUTE_REF is null"  
+                "' and batch_type in ('SOLVENT' , 'REAGENT', 'REACTANT') and SYNTH_ROUTE_REF = ''"  
             else:
                 sql = "select * from batch_vw where notebook ='" + notebook + \
                 "' and experiment  = '" + page + \
                 "' and batch_type in ('SOLVENT' , 'REAGENT', 'REACTANT') and SYNTH_ROUTE_REF =" + enumVal
-    
+#             print sql
             my_query = query_db(sql)
             
-            if  len(my_query) > 0:            
-                json_output = json.dumps(my_query)
+            x = []
+            for row in my_query:                
+                x.append(dict((k.upper(), v) for k, v in row.iteritems())) 
+#             print x
+            if  len(x) > 0:            
+                json_output = json.dumps(x)
                 return json_output
             else:
                 return '{"ret": "0", "isLazy": true }'
+
                 
         except :
             raise
@@ -305,15 +310,18 @@ class TornadoSelect(object):
         try:
             if enumVal == "undefined":            
                 sql = "select * from batch_lev3_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
-                "' and batch_type in ('PRODUCT' ,'INTENDED' , 'ACTUAL') and SYNTH_ROUTE_REF is null"  
+                "' and batch_type in ('PRODUCT' ,'INTENDED' , 'ACTUAL') and SYNTH_ROUTE_REF = ''"  
             else:
                 sql = "select * from batch_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
                 "' and batch_type in ('PRODUCT' ,'INTENDED' , 'ACTUAL') and SYNTH_ROUTE_REF =" + enumVal
     
             my_query = query_db(sql)
-            
-            if  len(my_query) > 0:            
-                json_output = json.dumps(my_query)
+            x = []
+            for row in my_query:                
+                x.append(dict((k.upper(), v) for k, v in row.iteritems())) 
+#             print x
+            if  len(x) > 0:            
+                json_output = json.dumps(x)
                 return json_output
             else:
                 return '{"ret": "0", "isLazy": true }'
