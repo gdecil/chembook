@@ -7,7 +7,7 @@ import time
 from functools import partial
 import os
 from concurrent.futures import ThreadPoolExecutor
-from flask import json
+from flask import json, request
 
 # from tornado_cors import CorsMixin
 from TorSel import TornadoSelect
@@ -147,12 +147,21 @@ class DbHandler1(tornado.web.RequestHandler):
         self.finish()
         
 class Render(tornado.web.RequestHandler): 
+    SUPPORTED_METHODS = ("GET", "HEAD", "POST", "DELETE", "PATCH", "PUT", "OPTIONS")
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Credentials", "true")
+        self.set_header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
+        self.set_header("Access-Control-Allow-Headers",
+            "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control")
+    
     def initialize(self, executor):
         self.executor = executor 
         self.dao = TornadoSelect()
 
     @gen.coroutine
     def get(self): 
+        print 'sono qua 1'
         smile=self.get_arguments("smile")
         idReaction=self.get_arguments("idReaction")
 #         ugo=self.get_arguments("ugo")
@@ -196,14 +205,15 @@ class Reaction(tornado.web.RequestHandler):
 #         smile=self.get_arguments("smile")
 #         print smile[0]
 #         print self.request.body
+#         print len(self.request.body)
 #         print tornado.escape.json_decode(self.request.body)
+        print self.request.body
+        print type(self.request.body);
+        print self.request.body[0];
         
         if len(self.request.body) > 0:
-            if param1 == 'InsertDetail' or param1 =='UpdateDetail' or param1 =='UpdateStoic':
-#                 print self.request.body
+            if param1 =='UpdateDetail' or param1 =='UpdateStoic':
                 a1= tornado.escape.json_decode(self.request.body)
-#                 print a1
-#                 return
             elif param1 == 'FromReactionToMolecules' or param1 == 'UpdateSchema':
                 a0 = self.request.body
                 a00= a0.replace('\n','\\n')
@@ -212,27 +222,37 @@ class Reaction(tornado.web.RequestHandler):
                 a0 = self.request.body
                 a00= a0.replace('\n','\\n')
                 a1= tornado.escape.json_decode(a00)
-            elif param1 == 'GetProductsIndigo' or param1 == 'GetReagentsIndigo':
+            elif param1 == 'GetProductsIndigo' or param1 == 'GetReagentsIndigo' or param1 == 'MatchBingoReaction':
                 a0 = self.request.body
-#                 print a0
                 a00= a0.replace('\n','\\n')
                 a1= tornado.escape.json_decode(a00)
-#             elif param1 =='UpdateStoic':
-#                 print self.request.body
-#                 a1= tornado.escape.json_decode(self.request.body)
-#                 print a1
-#                 print a1['Reagents'];
-#                 print a1['Reagents']['CHEMICAL_NAME'];
-#                 return
-            else:
-#                 print self.request.body
+            elif param1 == 'SearchUsers':
+                dict = json.loads(self.request.body)
                 a1= tornado.escape.json_decode(self.request.body)
-                
-                dict = json.loads(a1)
+            else:
+                if self.request.body[0] == '"':
+                    a1= tornado.escape.json_decode(self.request.body)                
+                    dict = json.loads(a1)
+                else:
+                    a1 = json.loads(self.request.body)
+                    dict= tornado.escape.json_decode(self.request.body)
+                    
 
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname )    
             self.write(future_result) 
+        elif param1 == "SearchUsers":  
+            par1 = utility.getParam(dict, 'name')
+            par2 = utility.getParam(dict, 'id')
+            if par2 is None and len(par1) > 0:
+                future_result = yield self.executor.submit( self.dao.get_userByName,
+                                                        name = par1 )    
+                self.write(future_result) 
+            elif par1 is None and len(par2) > 0:
+                future_result = yield self.executor.submit( self.dao.get_userById,
+                                      id = par2 )    
+                self.write(future_result) 
+                
         elif param1 == 'CheckReactionsEnumerated':
             par1 = utility.getParam(dict, 'notebook')
             par2 = utility.getParam(dict, 'page')
@@ -251,7 +271,6 @@ class Reaction(tornado.web.RequestHandler):
             self.write(future_result) 
         elif param1 == "GetPagesNotebook":  
             par1 = utility.getParam(dict, 'notebook')
-#             print par1
             future_result = yield self.executor.submit( self.dao.get_pagesnotebooks,
                                                         notebook = par1 )    
             self.write(future_result) 
@@ -260,10 +279,15 @@ class Reaction(tornado.web.RequestHandler):
             self.write(future_result) 
         elif param1 == "GetUserNotebooks":  
             par1 = utility.getParam(dict, 'userFullname')
-#             print par1
-            future_result = yield self.executor.submit( self.dao.get_usernotebooks,
+            par2 = utility.getParam(dict, 'id')
+            if par2 is None and len(par1) > 0:
+                future_result = yield self.executor.submit( self.dao.get_usernotebooks,
                                                         userFullname = par1 )    
-            self.write(future_result) 
+                self.write(future_result) 
+            elif par1 is None and len(par2) > 0:
+                future_result = yield self.executor.submit( self.dao.get_usernotebooksbyId,
+                                      id = par2 )    
+                self.write(future_result) 
         elif param1 == 'GetProducts':
             par1 = utility.getParam(dict, 'notebook')
             par2 = utility.getParam(dict, 'page')
@@ -290,6 +314,11 @@ class Reaction(tornado.web.RequestHandler):
                                                         )                 
 #             print future_result
             self.write(future_result) 
+        elif param1 == 'MatchBingoReaction':
+            future_result = yield self.executor.submit( self.dao.match_reaction, 
+                                                        rxn = a1
+                                                        )                 
+            self.write(future_result) 
         elif param1 == 'GetReagents':
             par1 = utility.getParam(dict, 'notebook')
             par2 = utility.getParam(dict, 'page')
@@ -307,7 +336,7 @@ class Reaction(tornado.web.RequestHandler):
             self.write(future_result) 
         elif param1 == "InsertDetail":  
             future_result = yield self.executor.submit( self.daoI.insert_detail ,
-                                                        request = a1 )    
+                                                        request = dict )    
             self.write(future_result) 
         elif param1 == "UpdateStoic":  
             future_result = yield self.executor.submit( self.daoI.update_stoic ,
@@ -426,7 +455,7 @@ class Application(tornado.web.Application):
  
 def main():
     application = Application()
-    application.listen(8889)
+    application.listen(8080)
  
     tornado.ioloop.IOLoop.instance().start()
  
@@ -439,7 +468,9 @@ to the same URL which makes it look like your program isn't working.
 
 Assuming curl is installed and is on your path, you would type this:
 
-$ curl -i http://localhost:8888/bar
+$ curl -i http://localhost:8080/Reaction.asmx/GetUsersFullname
+
+http://localhost:8080/render?smile=c1ccccc1
 
 Good luck!
 """

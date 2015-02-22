@@ -1,0 +1,1 @@
+sudo cp -R /home/gdecil/source/chembook/public_html/* /var/www/html

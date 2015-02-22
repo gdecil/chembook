@@ -125,14 +125,14 @@ function appendMain(page) {
             });
         });
         if (server.indexOf("localhost") == -1) {
-        	var dataOb = getProjects()
-            var mydata = [];
-            dataOb.forEach(function (item) {
-                mydata.push(item.NAME);
-            })
+//        	var dataOb = getProjects()
+//            var mydata = [];
+//            dataOb.forEach(function (item) {
+//                mydata.push(item.NAME);
+//            })
         }
         
-        createAutocompleteList('txtProject', mydata);
+//        createAutocompleteList('txtProject', mydata);
 
         //$(function () {
         //    $('#txtProject').momboBox({
@@ -1017,14 +1017,14 @@ function toolbarSearch() {
             }
             else if (event.target == "View Selected") {
                 var grid = $("#myGrid");
-                var notebook = getCellValueSelected(grid, 'NOTEBOOK');
-                var page = getCellValueSelected(grid, 'PAGE');
+                var notebook = getCellValueSelected(grid, 'notebook');
+                var page = getCellValueSelected(grid, 'page');
                 viewExperiment(notebook, page, false);
             }
             else if (event.target == "Update Selected") {
                 var grid = $("#myGrid");
-                var notebook = getCellValueSelected(grid, 'NOTEBOOK');
-                var page = getCellValueSelected(grid, 'PAGE');
+                var notebook = getCellValueSelected(grid, 'notebook');
+                var page = getCellValueSelected(grid, 'page');
                 openUpdate(notebook, page, false);
                 //updateExperiment(notebook, page, false);
             }

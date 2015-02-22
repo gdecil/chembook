@@ -20,35 +20,43 @@ class TornadoInsert(object):
 
     def insert_detail(self, request):
 #         print request
+#         print request['detail'];
         j=request
 #         dict = escape.json_decode(request)
 #         print dict
 #         j = json.loads(request)
         v_detail = j['detail']['OWNER_USERNAME'];
-
+        
         cursor = conn.cursor()
         sql = "SELECT COUNT (NOTEBOOK) FROM CEN_NOTEBOOKS WHERE NOTEBOOK = '" + \
                        j['detail']['NOTEBOOK'] + "'" 
                        
         my_query = query_db(sql)
+        
         c = my_query[0]['count']
             
-    #     print c
+        print str(c);
     
         if str(c) == '0':
-            cursor.execute("""INSERT INTO CEN_NOTEBOOKS (SITE_CODE, USERNAME, NOTEBOOK, STATUS, XML_METADATA, LAST_MODIFIED) 
+            sql = """INSERT INTO CEN_NOTEBOOKS (SITE_CODE, USERNAME, NOTEBOOK, STATUS, XML_METADATA, LAST_MODIFIED) 
                 VALUES ('SITE1', '""" + j['detail']['OWNER_USERNAME']  + """', '""" + j['detail']['NOTEBOOK'] + \
                 """', 'OPEN', xml('<?xml version="1.0" encoding="UTF-8"?><Notebook_Properties/>'),
-                LOCALTIMESTAMP)""")
+                LOCALTIMESTAMP)""";
+            print sql;
+            cursor.execute(sql)
+        else:
+            print 'ugo';
     
         sql = "SELECT page_key FROM cen_pages WHERE notebook ='" + \
                 j['detail']['NOTEBOOK']  + "' AND experiment = '" + j['detail']['EXPERIMENT']  +"'" 
-                       
-        my_query = query_db(sql)
-        countExp = my_query[0]
         
-        if len(countExp) ==1:
-            resp = self.update_detail(countExp, j)
+        print sql;               
+        my_query = query_db(sql)
+        countExp = len(my_query)
+        print countExp;
+        
+        if countExp ==1:
+            resp = self.update_detail(my_query[0]['page_key'], j)
             return resp
         
         id = id_generator(40)
@@ -301,7 +309,7 @@ class TornadoInsert(object):
                                 VERSION = 1,
                                 YIELD='""" + j['detail']['YIELD']  + """',
                                 ISSUCCESSFUL = '""" + j['detail']['ISSUCCESSFUL'] + """'
-                            where page_key = '""" + id['page_key'] + """'""")
+                            where page_key = '""" + id + """'""")
         conn.commit()
         return '1'
 
@@ -340,9 +348,10 @@ class TornadoInsert(object):
         "' and EXPERIMENT = '" + page + "'"
         
         my_query = query_db(sql)
-#         print my_query[0]['page_key']
+        print my_query[0]['page_key']
         pageKey = my_query[0]['page_key']
         cursor = conn.cursor()
+        print "delete from CEN_BATCH_AMOUNTS where PAGE_KEY = '" + pageKey + "'"
         cursor.execute("delete from CEN_BATCH_AMOUNTS where PAGE_KEY = '" + pageKey + "'")
         cursor.execute("delete from CEN_BATCHES where PAGE_KEY = '" + pageKey + "'")
 

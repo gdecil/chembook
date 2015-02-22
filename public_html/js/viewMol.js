@@ -1,13 +1,23 @@
 var server = window.location.protocol + "//" + window.location.host;
 var serverWeb = window.location.protocol + "//" + window.location.host;
-if (server == "http://10.206.89.79"){
-	server = "http://10.206.89.79:8889"
+
+if (server == "http://10.16.1.1"){				//produzione da interno
+	server = "http://10.16.1.1:8080"
 }
-else if (server == "http://localhost"){
-	server = "http://10.0.2.15:8889"
+else if (server == "http://10.206.84.170"){		//sviluppo da nms
+	server = "http://10.206.84.170:8080"
 }
-else if (server == "http://127.0.0.1"){
-	server = "http://10.0.2.15:8889"
+else if (server == "http://localhost"){			//sviluppo da casa
+	server = "http://localhost:8080"
+}
+else if (server == "http://192.168.122.1"){		//sviluppo da casa
+	server = "http://192.168.122.1:8080"
+}
+else if (server == "http://217.220.17.147"){	//produzione da esterno
+	server = "http://217.220.17.147:8080"
+}
+else if (server == "http://127.0.0.1"){			//sviluppo da casa
+	server = "http://10.0.2.15:8080"
 }
 else {
 	server = "http://indigo-gdecil.rhcloud.com"

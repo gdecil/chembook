@@ -1,3 +1,4 @@
+# sono io
 from flask import json
 from os import remove
 from indigo import *
@@ -48,11 +49,11 @@ class TornadoSelect(object):
         datadir = ""
             
         unique_filename= str(uuid.uuid4()) + ".png"
-    
         renderer.renderToFile(mol1, datadir + unique_filename);
         
         with open(datadir + unique_filename, 'rb') as imageFile:
             str1 = base64.b64encode(imageFile.read())
+            os.remove(unique_filename)
 #             print str1
             
         return str1
@@ -89,6 +90,53 @@ class TornadoSelect(object):
         except:
             raise
 
+    def get_userByName(self, name):        
+        try:
+            sql = "select * from CEN_USERS where site_code = 'SITE1' and upper(fullname) like upper('%%" + name + "%%') order by username"          
+#             sql = "select * from CEN_USERS where site_code = 'SITE1' and upper(fullname) like upper('%" + name + "%') order by username"          
+            my_query = query_db(sql)
+            json_output = json.dumps(my_query)
+            if  len(my_query) == 0:  
+                js=""
+                return js
+                
+            js ="["
+            count = 0
+            for s in my_query:
+                count = count +1
+                a = s['fullname'].split(',')
+                js = js + '{"id": "' + s['password'] + '", "firstName": "' + a[0] + \
+                '", "lastName": "' + a[1] + '" },'
+                
+            js= js[:-1] + "]"
+            return js
+    
+        except:
+            raise
+        
+    def get_userById(self, id):        
+        try:
+            sql = "select * from CEN_USERS where site_code = 'SITE1' and password = '" + id + "'"          
+            my_query = query_db(sql)
+            json_output = json.dumps(my_query)
+            if  len(my_query) == 0:  
+                js=""
+                return js
+                
+            js ="["
+            count = 0
+            for s in my_query:
+                count = count +1
+                a = s['fullname'].split(',')
+                js = js + '{"id": "' + s['password'] + '", "firstName": "' + a[0] + \
+                '", "lastName": "' + a[1] + '", "email": "' + s['email'] + '", "status": "' + s['status'] + '" },'
+                
+            js= js[:-1] + "]"
+            return js
+    
+        except:
+            raise
+
     def get_projects(self):
         json_output = '[{"NAME":"PR1"}, {"NAME":"PR2"}]'                        
         return json_output
@@ -98,6 +146,26 @@ class TornadoSelect(object):
             print userFullname
             sql = "select distinct notebook from CEN_PAGES where owner_username =(select "  + \
             "username from CEN_USERS where fullname = '" + userFullname \
+            + "' and site_code = 'SITE1') order by notebook"          
+            my_query = query_db(sql)
+            if  len(my_query) > 0:            
+                json_output = json.dumps(my_query)
+                js ="["
+                for s in my_query:
+                    js = js + '{"title": "' + s['notebook'] + '", "isLazy": true },'
+                    
+                js= js[:-1] + "]"
+                return js
+            else:
+                return '{"title": "No Records", "isLazy": true }'
+                
+        except:
+            raise
+
+    def get_usernotebooksbyId(self, id):
+        try:
+            sql = "select distinct notebook from CEN_PAGES where owner_username =(select "  + \
+            "username from CEN_USERS where password = '" + id \
             + "' and site_code = 'SITE1') order by notebook"          
             my_query = query_db(sql)
             if  len(my_query) > 0:            
@@ -124,7 +192,7 @@ class TornadoSelect(object):
                 json_output = json.dumps(my_query)
                 js ="["
                 for s in my_query:
-                    js = js + '{"title": "' + s['experiment'] + '", "isLazy": false },'
+                    js = js + '{"notebook": "' + notebook + '","title": "' + s['experiment'] + '", "isLazy": false },'
                     
                 js= js[:-1] + "]"
                 return js
@@ -328,6 +396,55 @@ class TornadoSelect(object):
         except:
             raise
 
+    def match_reaction(self, rxn):
+        try:
+            dict1 = json.loads(rxn)
+            compound = dict1['compound'];
+            c = dict1['cns'];
+            o = dict1['searchType'];   
+                
+            sql ="SELECT RXN_SCHEME_KEY, " + \
+                 "      (SELECT fullname " +\
+                 "        FROM cen_users" +\
+                 "       WHERE username = (SELECT username" +\
+                 "                           FROM cen_pages" +\
+                 "                          WHERE page_key = r.page_key))" +\
+                 "        AS username," +\
+                 "      (SELECT notebook" +\
+                 "        FROM cen_pages" +\
+                 "       WHERE page_key = r.page_key)" +\
+                 "        AS notebook," +\
+                 "      (SELECT experiment" +\
+                 "        FROM cen_pages" +\
+                 "       WHERE page_key = r.page_key)" +\
+                 "        AS page," +\
+                 "      (SELECT creation_date" +\
+                 "        FROM cen_pages" +\
+                 "       WHERE page_key = r.page_key)" +\
+                 "        AS creation_date," +\
+                 "      (SELECT subject" +\
+                 "        FROM cen_pages" +\
+                 "       WHERE page_key = r.page_key)" +\
+                 "        AS subject "
+            
+            if o == 'SSS':            
+                sql = sql + " from cen_reaction_schemes r where native_rxn_sketch  @ ('" + compound + "', '')::bingo.rsub"
+            else:
+                sql = sql + " from cen_reaction_schemes r where native_rxn_sketch  @ ('" + compound + "', '')::bingo.rexact"
+                
+            my_query = query_db(sql)
+            x = []
+            for row in my_query:                
+                x.append(dict((k.lower(), v) for k, v in row.iteritems())) 
+
+            if  len(x) > 0:            
+                json_output = json.dumps(x)
+                return json_output
+            else:
+                return '{"ret": "0", "isLazy": true }'    
+        except: 
+            raise
+        
 def get_reactionI():
     try:
         id = request.args.get('idReaction')
@@ -401,55 +518,6 @@ def get_mol_bingo1(id):
     response.headers['Content-Type'] = 'image/png'
     response.headers['Content-Disposition'] = 'attachment; filename=mol.png'
     return response
-
-def match_reaction():
-    try:
-        if request.method == 'POST':
-            ret1 = request.get_json(force=True, silent=True, cache=False)
-            j = json.loads(ret1)    
-            compound = j['compound'];
-            c = j['cns'];
-            o = j['searchType'];   
-        else:
-            compound = request.args.get('compound')
-            c = request.args.get('cns')
-            o = request.args.get('searchType')
-            
-        sql ="SELECT RXN_SCHEME_KEY, " + \
-             "      (SELECT fullname " +\
-             "        FROM cen_users" +\
-             "       WHERE username = (SELECT username" +\
-             "                           FROM cen_pages" +\
-             "                          WHERE page_key = r.page_key))" +\
-             "        AS username," +\
-             "      (SELECT notebook" +\
-             "        FROM cen_pages" +\
-             "       WHERE page_key = r.page_key)" +\
-             "        AS notebook," +\
-             "      (SELECT experiment" +\
-             "        FROM cen_pages" +\
-             "       WHERE page_key = r.page_key)" +\
-             "        AS page," +\
-             "      (SELECT creation_date" +\
-             "        FROM cen_pages" +\
-             "       WHERE page_key = r.page_key)" +\
-             "        AS creation_date," +\
-             "      (SELECT subject" +\
-             "        FROM cen_pages" +\
-             "       WHERE page_key = r.page_key)" +\
-             "        AS subject "
-        
-        if o == 'SSS':            
-            sql = sql + " from cen_reaction_schemes r where native_rxn_sketch  @ ('" + compound + "', '')::bingo.rsub"
-        else:
-            sql = sql + " from cen_reaction_schemes r where native_rxn_sketch  @ ('" + compound + "', '')::bingo.rexact"
-            
-        my_query = query_db(sql)
-        json_output = json.dumps(my_query)
-        return Response(response=json_output, status=200, mimetype="application/json")
-
-    except TemplateNotFound:
-        abort(404)   
 
 def view_bingo(id):
     try:
