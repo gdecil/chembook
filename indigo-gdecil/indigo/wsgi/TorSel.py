@@ -89,7 +89,21 @@ class TornadoSelect(object):
     
         except:
             raise
-
+    def get_fullnameAng(self):        
+        try:
+            sql = "select fullname, password from CEN_USERS where site_code = 'SITE1' order by username"          
+            my_query = query_db(sql)
+            json_output = json.dumps(my_query)
+            js ="["
+            count=0
+            for s in my_query:
+                count = count + 1
+                js = js + '{"userid": "' + s['password'] + '", "label": "' + s['fullname'] + '", "id": "role' + str(count) + '", "children" : [], "collapsed": false},'
+                
+            js= js[:-1] + "]"
+            return js    
+        except:
+            raise
     def get_userByName(self, name):        
         try:
             sql = "select * from CEN_USERS where site_code = 'SITE1' and upper(fullname) like upper('%%" + name + "%%') order by username"          

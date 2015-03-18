@@ -241,6 +241,9 @@ class Reaction(tornado.web.RequestHandler):
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname )    
             self.write(future_result) 
+        elif param1 == 'GetUsersFullnameAng':
+            future_result = yield self.executor.submit( self.dao.get_fullnameAng )    
+            self.write(future_result) 
         elif param1 == "SearchUsers":  
             par1 = utility.getParam(dict, 'name')
             par2 = utility.getParam(dict, 'id')
@@ -468,8 +471,8 @@ to the same URL which makes it look like your program isn't working.
 
 Assuming curl is installed and is on your path, you would type this:
 
-$ curl -i http://localhost:8080/Reaction.asmx/GetUsersFullname
-
+curl -i http://localhost:8080/Reaction.asmx/GetUsersFullname
+curl -X POST http://10.16.1.1:8080/Reaction.asmx/SearchUsers -d '{"name":"a"}'
 http://localhost:8080/render?smile=c1ccccc1
 
 Good luck!
