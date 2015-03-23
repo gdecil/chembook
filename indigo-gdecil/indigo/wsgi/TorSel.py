@@ -74,6 +74,29 @@ class TornadoSelect(object):
         except:
             raise   
         
+    def get_experimentTreeview(self, notebook, page, enumVal):
+        try: 
+            if enumVal=="undefined":
+                sql="select * from pages_vw where notebook ='" + notebook \
+                + "' and experiment  = '" + page + "' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)";                    
+            else:
+                sql = "select * from pages_vw where notebook ='" + notebook \
+                + "' and experiment  = '" + page + "' and SYNTH_ROUTE_REF =" + enumVal;
+             
+            my_query = query_db(sql)
+            json_output = json.dumps(my_query)            
+            js ="["
+            count=0
+            for s in my_query:
+                count = count + 1
+                js = js + '{"userid": "' + s['user_id'] + '", "label": "' + s['fullname'] + '", "id": "role' + str(count)+ '", "children" : [{"id" : "' + s['notebook'] + '", "label" : "' + s['notebook'] + '", "notebook" : "' + s['notebook'] + '","collapsed": false, "children" : [{"id": "' + s['notebook'] + '","label": "' + page + '", "collapsed": false}]}], "collapsed": false},'
+                
+            js= js[:-1] + "]"
+            return js    
+    
+        except:
+            raise   
+
     def get_fullname(self):        
         try:
             sql = "select fullname from CEN_USERS where site_code = 'SITE1' order by username"          

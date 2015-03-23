@@ -237,12 +237,20 @@ class Reaction(tornado.web.RequestHandler):
                     a1 = json.loads(self.request.body)
                     dict= tornado.escape.json_decode(self.request.body)
                     
-
         if param1 == 'GetUsersFullname':
             future_result = yield self.executor.submit( self.dao.get_fullname )    
             self.write(future_result) 
         elif param1 == 'GetUsersFullnameAng':
             future_result = yield self.executor.submit( self.dao.get_fullnameAng )    
+            self.write(future_result) 
+        elif param1 == 'GetExperimentTreeView':
+            par1 = utility.getParam(dict, 'notebook')
+            par2 = utility.getParam(dict, 'page')
+            par3 = utility.getParam(dict, 'enumVal')
+            future_result = yield self.executor.submit( self.dao.get_experimentTreeview,
+                                                         notebook = par1, 
+                                                         page =par2, 
+                                                         enumVal = par3)    
             self.write(future_result) 
         elif param1 == "SearchUsers":  
             par1 = utility.getParam(dict, 'name')
