@@ -16458,4 +16458,844 @@ select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYN
 "{\"notebook\":\"00000001\",\"page\":\"1\"}"
 <type 'str'>
 "
-SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+sono qua 1
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{"id":"e16e2c12a4999a6e3a7f80a41b64c10d"}
+<type 'str'>
+{
+select distinct notebook from CEN_PAGES where owner_username =(select username from CEN_USERS where password = 'e16e2c12a4999a6e3a7f80a41b64c10d' and site_code = 'SITE1') order by notebook
+{"notebook":"00000001"}
+<type 'str'>
+{
+select distinct experiment  from CEN_PAGES where notebook ='00000001' order by experiment
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"compound\":\"$RXN\\n\\n\\n\\n  0  1  0\\n$MOL\\n\\n  Ketcher 03231521212D 1   1.00000     0.00000     0\\n\\n  6  6  0     0  0            999 V2000\\n    6.3250   -3.9250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\\n    7.1910   -4.4250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\\n    7.1910   -5.4250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\\n    6.3250   -5.9250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\\n    5.4590   -5.4250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\\n    5.4590   -4.4250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\\n  1  2  1  0     0  0\\n  2  3  2  0     0  0\\n  3  4  1  0     0  0\\n  4  5  2  0     0  0\\n  5  6  1  0     0  0\\n  6  1  2  0     0  0\\nM  END\\n\", \"searchType\":\"SSS\", \"cns\":\"\"}"
+<type 'str'>
+"
+SELECT RXN_SCHEME_KEY,       (SELECT fullname         FROM cen_users       WHERE username = (SELECT username                           FROM cen_pages                          WHERE page_key = r.page_key))        AS username,      (SELECT notebook        FROM cen_pages       WHERE page_key = r.page_key)        AS notebook,      (SELECT experiment        FROM cen_pages       WHERE page_key = r.page_key)        AS page,      (SELECT creation_date        FROM cen_pages       WHERE page_key = r.page_key)        AS creation_date,      (SELECT subject        FROM cen_pages       WHERE page_key = r.page_key)        AS subject  from cen_reaction_schemes r where native_rxn_sketch  @ ('$RXN
+
+
+
+  0  1  0
+$MOL
+
+  Ketcher 03231521212D 1   1.00000     0.00000     0
+
+  6  6  0     0  0            999 V2000
+    6.3250   -3.9250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.1910   -4.4250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    7.1910   -5.4250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    6.3250   -5.9250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.4590   -5.4250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    5.4590   -4.4250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0     0  0
+  2  3  2  0     0  0
+  3  4  1  0     0  0
+  4  5  2  0     0  0
+  5  6  1  0     0  0
+  6  1  2  0     0  0
+M  END
+', '')::bingo.rsub
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'FD0EOQLG4PXRE6E0G8N9SL82Q4XB23Y6MIRYHG8N'
+{"notebook":"00000002", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000002' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+{"notebook":"00000002", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000002' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000002\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000002' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000002\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000002'  and experiment  = '1') 
+"{\"reactionId\":\"FD0EOQLG4PXRE6E0G8N9SL82Q4XB23Y6MIRYHG8N\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'FD0EOQLG4PXRE6E0G8N9SL82Q4XB23Y6MIRYHG8N'
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'FD0EOQLG4PXRE6E0G8N9SL82Q4XB23Y6MIRYHG8N'
+"{\"notebook\":\"00000002\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000002' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000002\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000002'  and experiment  = '1') 
+"{\"reactionId\":\"FD0EOQLG4PXRE6E0G8N9SL82Q4XB23Y6MIRYHG8N\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'FD0EOQLG4PXRE6E0G8N9SL82Q4XB23Y6MIRYHG8N'
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes Starting server.
+
+To test, use multiple invocations of curl. Browsers sometimes queue up requests
+to the same URL which makes it look like your program isn't working.
+
+Assuming curl is installed and is on your path, you would type this:
+
+curl -i http://localhost:8080/Reaction.asmx/GetUsersFullname
+curl -X POST http://10.16.1.1:8080/Reaction.asmx/SearchUsers -d '{"name":"a"}'
+http://localhost:8080/render?smile=c1ccccc1
+
+Good luck!
+
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{"id":"e16e2c12a4999a6e3a7f80a41b64c10d"}
+<type 'str'>
+{
+select distinct notebook from CEN_PAGES where owner_username =(select username from CEN_USERS where password = 'e16e2c12a4999a6e3a7f80a41b64c10d' and site_code = 'SITE1') order by notebook
+{"notebook":"00000001"}
+<type 'str'>
+{
+select distinct experiment  from CEN_PAGES where notebook ='00000001' order by experiment
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{}
+<type 'str'>
+{
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{}
+<type 'str'>
+{
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{}
+<type 'str'>
+{
+{}
+<type 'str'>select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+sono qua 1
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+ SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{}
+<type 'str'>
+{
+select fullname, password from CEN_USERS where site_code = 'SITE1' order by username
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROERROR:tornado.application:Uncaught exception POST /Reaction.asmx/UpdateDetail (127.0.0.1)
+HTTPServerRequest(protocol='http', host='localhost:8080', method='POST', uri='/Reaction.asmx/UpdateDetail', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Origin': 'http://127.0.0.1:52305', 'Content-Length': '634', 'Accept-Language': 'en-US,en;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Host': 'localhost:8080', 'Accept': 'application/json, text/javascript, */*; q=0.01', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/41.0.2272.76 Chrome/41.0.2272.76 Safari/537.36', 'Connection': 'keep-alive', 'Referer': 'http://127.0.0.1:52305/chembookAng/app/index.html', 'Content-Type': 'application/json; charset=UTF-8'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/tornado/web.py", line 1334, in _execute
+    result = yield result
+  File "/usr/local/lib/python2.7/dist-packages/tornado/gen.py", line 628, in run
+    value = future.result()
+  File "/usr/local/lib/python2.7/dist-packages/tornado/concurrent.py", line 109, in result
+    raise_exc_info(self._exc_info)
+  File "/usr/local/lib/python2.7/dist-packages/tornado/gen.py", line 631, in run
+    yielded = self.gen.throw(*sys.exc_info())
+  File "/home/gdecil/source/chembook/indigo-gdecil/indigo/wsgi/serverTornadoAsMul.py", line 363, in get
+    request = a1 )
+  File "/usr/local/lib/python2.7/dist-packages/tornado/gen.py", line 628, in run
+    value = future.result()
+  File "/usr/local/lib/python2.7/dist-packages/concurrent/futures/_base.py", line 400, in result
+    return self.__get_result()
+  File "/usr/local/lib/python2.7/dist-packages/concurrent/futures/_base.py", line 359, in __get_result
+    reraise(self._exception, self._traceback)
+  File "/usr/local/lib/python2.7/dist-packages/concurrent/futures/_compat.py", line 107, in reraise
+    exec('raise exc_type, exc_value, traceback', {}, locals_)
+  File "/usr/local/lib/python2.7/dist-packages/concurrent/futures/thread.py", line 61, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/home/gdecil/source/chembook/indigo-gdecil/indigo/wsgi/TorIns.py", line 28, in insert_detail
+    v_detail = j['detail']['OWNER_USERNAME'];
+TypeError: list indices must be integers, not str
+ERROR:tornado.access:500 POST /Reaction.asmx/UpdateDetail (127.0.0.1) 119.77ms
+M cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+{"notebook":"00000001", "page":"1","enumVal":"undefined"}
+<type 'str'>
+{
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+sono qua 1
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+"{\"notebook\":\"00000001\",\"page\":\"1\",\"enumVal\":\"undefined\"}"
+<type 'str'>
+"
+select * from pages_vw where notebook ='00000001' and experiment  = '1' and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)
+"{\"notebook\":\"00000001\",\"page\":\"1\"}"
+<type 'str'>
+"
+SELECT count(*) FROM cen_reaction_schemes r      WHERE reaction_type = 'ENUMERATED' and length(r.native_rxn_sketch) > 0      and page_key = (select page_key from CEN_PAGES where notebook ='00000001'  and experiment  = '1') 
+"{\"reactionId\":\"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ\",\"cns\":\"\" , \"outType\":\"\"}"
+<type 'str'>
+"
+SELECT bingo.rxnfile(r.native_rxn_sketch) as reaction FROM cen_reaction_schemes r WHERE RXN_SCHEME_KEY = 'N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ'
+{"detail":[{"batch_creator":"De Cillis, Gianpiero","batch_owner":"De Cillis, Gianpiero","continued_from_rxn":"{\" \"}","continued_to_rxn":"{\" \"}","creation_date":"Wed, 18 Feb 2015 20:06:41 GMT","experiment":"1","fullname":"De Cillis, Gianpiero","issuccessful":"","literature_ref":"","notebook":"00000001","owner_username":"DECILGI0","page_key":"8SHIKJNXN499YYAVYIIHQBRT66N00HD8DJVWNTLK","page_status":"OPEN","procedure":"procedure","project_alias":"{\" \"}","project_code":"","rxn_scheme_key":"N8RD53HSOBWIQSDH6NS1ZGJ6N54TI6P3O4HTN3RZ","subject":"test1","synth_route_ref":"","user_id":"e16e2c12a4999a6e3a7f80a41b64c10d","yield":1}]}
+<type 'str'>
+{
+{"detail":[{"batch_creator":"De Cillis, Gianpiero","batch_owner":"De Cillis, Gianpiero","continued_from_rxn":"{\" \"}","continued_to_rxn":"{\" \"}","creation_date":"Wed, 18 Feb 2015 20:06:41 GMT","experiment":"1","fullname":"De Cillis, Gianpiero","issuccessful":"","literature_ref":"","notebook":"00000001","owner_username":"DECILGI0","page_key":"8SHIKJNXN499YYAVYIIHQBRT66NERROR:tornado.application:Uncaught exception POST /Reaction.asmx/UpdateDetail (127.0.0.1)
+HTTPServerRequest(protocol='http', host='localhost:8080', method='POST', uri='/Reaction.asmx/UpdateDetail', version='HTTP/1.1', remote_ip='127.0.0.1', headers={'Origin': 'http://127.0.0.1:52305', 'Content-Length': '634', 'Accept-Language': 'en-US,en;q=0.8', 'Accept-Encoding': 'gzip, deflate', 'Host': 'localhost:8080', 'Accept': 'application/json, text/javascript, */*; q=0.01', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/41.0.2272.76 Chrome/41.0.2272.76 Safari/537.36', 'Connection': 'keep-alive', 'Referer': 'http://127.0.0.1:52305/chembookAng/app/index.html', 'Content-Type': 'application/json; charset=UTF-8'})
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/tornado/web.py", line 1334, in _execute
+    result = yield result
+  File "/usr/local/lib/python2.7/dist-packages/tornado/gen.py", line 628, in run
+    value = future.result()
+  File "/usr/local/lib/python2.7/dist-packages/tornado/concurrent.py", line 109, in result
+    raise_exc_info(self._exc_info)
+  File "/usr/local/lib/python2.7/dist-packages/tornado/gen.py", line 631, in run
+    yielded = self.gen.throw(*sys.exc_info())
+  File "/home/gdecil/source/chembook/indigo-gdecil/indigo/wsgi/serverTornadoAsMul.py", line 363, in get
+    request = a1 )
+  File "/usr/local/lib/python2.7/dist-packages/tornado/gen.py", line 628, in run
+    value = future.result()
+  File "/usr/local/lib/python2.7/dist-packages/concurrent/futures/_base.py", line 400, in result
+    return self.__get_result()
+  File "/usr/local/lib/python2.7/dist-packages/concurrent/futures/_base.py", line 359, in __get_result
+    reraise(self._exception, self._traceback)
+  File "/usr/local/lib/python2.7/dist-packages/concurrent/futures/_compat.py", line 107, in reraise
+    exec('raise exc_type, exc_value, traceback', {}, locals_)
+  File "/usr/local/lib/python2.7/dist-packages/concurrent/futures/thread.py", line 61, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/home/gdecil/source/chembook/indigo-gdecil/indigo/wsgi/TorIns.py", line 28, in insert_detail
+    v_detail = j['detail']['OWNER_USERNAME'];
+TypeError: list indices must be integers, not str
+ERROR:tornado.access:500 POST /Reaction.asmx/UpdateDetail (127.0.0.1) 2.54ms

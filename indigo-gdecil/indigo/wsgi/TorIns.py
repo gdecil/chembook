@@ -20,16 +20,15 @@ class TornadoInsert(object):
 
     def insert_detail(self, request):
 #         print request
-#         print request['detail'];
+#         print request['detail'][0];
         j=request
 #         dict = escape.json_decode(request)
-#         print dict
-#         j = json.loads(request)
-        v_detail = j['detail']['OWNER_USERNAME'];
+        print j['detail'][0]['OWNER_USERNAME'];
+        v_detail = j['detail'][0]['OWNER_USERNAME'];
         
         cursor = conn.cursor()
-        sql = "SELECT COUNT (NOTEBOOK) FROM CEN_NOTEBOOKS WHERE NOTEBOOK = '" + \
-                       j['detail']['NOTEBOOK'] + "'" 
+        sql = "SELECT COUNT (NOTEBOOK) as \"count\" FROM CEN_NOTEBOOKS WHERE NOTEBOOK = '" + \
+                       j['detail'][0]['NOTEBOOK'] + "'" 
                        
         my_query = query_db(sql)
         
@@ -39,7 +38,7 @@ class TornadoInsert(object):
     
         if str(c) == '0':
             sql = """INSERT INTO CEN_NOTEBOOKS (SITE_CODE, USERNAME, NOTEBOOK, STATUS, XML_METADATA, LAST_MODIFIED) 
-                VALUES ('SITE1', '""" + j['detail']['OWNER_USERNAME']  + """', '""" + j['detail']['NOTEBOOK'] + \
+                VALUES ('SITE1', '""" + j['detail'][0]['OWNER_USERNAME']  + """', '""" + j['detail'][0]['NOTEBOOK'] + \
                 """', 'OPEN', xml('<?xml version="1.0" encoding="UTF-8"?><Notebook_Properties/>'),
                 LOCALTIMESTAMP)""";
             print sql;
@@ -47,20 +46,18 @@ class TornadoInsert(object):
         else:
             print 'ugo';
     
-        sql = "SELECT page_key FROM cen_pages WHERE notebook ='" + \
-                j['detail']['NOTEBOOK']  + "' AND experiment = '" + j['detail']['EXPERIMENT']  +"'" 
+        sql = "SELECT page_key as \"page_key\" FROM cen_pages WHERE notebook ='" + \
+                j['detail'][0]['NOTEBOOK']  + "' AND experiment = '" + j['detail'][0]['EXPERIMENT']  +"'" 
         
-        print sql;               
         my_query = query_db(sql)
         countExp = len(my_query)
-        print countExp;
         
         if countExp ==1:
             resp = self.update_detail(my_query[0]['page_key'], j)
             return resp
         
         id = id_generator(40)
-        yieldd = j['detail']['YIELD']
+        yieldd = j['detail'][0]['YIELD']
         if  yieldd == "":
              yieldd = '0'
             
@@ -91,10 +88,10 @@ class TornadoInsert(object):
                                                ISSUCCESSFUL)
               VALUES ('""" + id +"""',
                       'SITE1',
-                      '""" + j['detail']['NOTEBOOK']  +"""',
-                      '""" + j['detail']['EXPERIMENT'] +"""',
-                      '""" + j['detail']['OWNER_USERNAME']  +"""',
-                      '""" + j['detail']['OWNER_USERNAME']  +"""',
+                      '""" + j['detail'][0]['NOTEBOOK']  +"""',
+                      '""" + j['detail'][0]['EXPERIMENT'] +"""',
+                      '""" + j['detail'][0]['OWNER_USERNAME']  +"""',
+                      '""" + j['detail'][0]['OWNER_USERNAME']  +"""',
                       'MED-CHEM',
                       'OPEN',
                       LOCALTIMESTAMP,
@@ -104,18 +101,18 @@ class TornadoInsert(object):
                       1,
                       'Y',
                       'XX',
-                      '""" + j['detail']['PROJECT_CODE'] +"""',
-                      '""" + j['detail']['LITERATURE_REF'] +"""',
-                      '""" + j['detail']['SUBJECT'] +"""',
+                      '""" + j['detail'][0]['PROJECT_CODE'] +"""',
+                      '""" + j['detail'][0]['LITERATURE_REF'] +"""',
+                      '""" + j['detail'][0]['SUBJECT'] +"""',
                       'N',
-                      '""" + j['detail']['OWNER_USERNAME']  +"""',
-                      '""" + j['detail']['OWNER_USERNAME']  +"""',
-                      '""" + j['detail']['NOTEBOOK']  + "-" + j['detail']['EXPERIMENT'] + "-1" + """',
+                      '""" + j['detail'][0]['OWNER_USERNAME']  +"""',
+                      '""" + j['detail'][0]['OWNER_USERNAME']  +"""',
+                      '""" + j['detail'][0]['NOTEBOOK']  + "-" + j['detail'][0]['EXPERIMENT'] + "-1" + """',
                       1,
-                      '""" + yieldd + """',
-                      '""" + j['detail']['ISSUCCESSFUL'] + """')""")
+                      '""" + yieldd  + """',
+                      '""" + j['detail'][0]['ISSUCCESSFUL'] + """')""")
         
-    #                   '""" + j['detail']['YIELD'] + """',
+    #                   '""" + j['detail'][0]['YIELD'] + """',
     
         ret = json.dumps('{"ret":"' + id + '"}')
         resp = ret
@@ -128,7 +125,7 @@ class TornadoInsert(object):
 #         print batches[0]['CHEMICAL_NAME']
         
         v_nr = len(batches)
-#         print len(batches)
+#         print len(batches)owner_username
         if  v_nr < 1:
             return 'No batches to register'
 
@@ -283,34 +280,35 @@ class TornadoInsert(object):
         return "1"
       
     def update_detail(self, id, j):
+        yieldd = j['detail'][0]['YIELD']
+        if  not yieldd :
+             yieldd = '0'
+                    
         cursor = conn.cursor()
-        cursor.execute("""update CEN_PAGES set 
-                                SITE_CODE = 'SITE1',
-                                NOTEBOOK = '""" + j['detail']['NOTEBOOK']  +"""',
-                                EXPERIMENT = '""" + j['detail']['EXPERIMENT'] +"""',
-                                USERNAME = '""" + j['detail']['OWNER_USERNAME']  +"""',
-                                OWNER_USERNAME = '""" + j['detail']['OWNER_USERNAME']  +"""',
-                                LOOK_N_FEEL = 'MED-CHEM',
-                                PAGE_STATUS = 'OPEN',
-                                CREATION_DATE = LOCALTIMESTAMP,
-                                MODIFIED_DATE = LOCALTIMESTAMP,
-                                XML_METADATA =xml('<?xml version="1.0" encoding="UTF-8"?><Page_Properties><Meta_Data><Archive_Date/><Signature_Url/><Table_Properties/><Ussi_Key>0</Ussi_Key><Auto_Calc_On>true</Auto_Calc_On><Cen_Version></Cen_Version><Completion_Date></Completion_Date><Continued_From_Rxn> </Continued_From_Rxn><Continued_To_Rxn> </Continued_To_Rxn><Project_Alias> </Project_Alias><DSP><Comments/><Description/><Procedure_Width>0</Procedure_Width><designUsers/><ScreenPanels/><Scale><Calculated>true</Calculated><Default_Value>0.0</Default_Value><Unit><Code></Code><Description></Description></Unit><Value>0</Value></Scale><PrototypeLeasdIDs/><DesignSite/><DesignCreationDate></DesignCreationDate><PID/><SummaryPID>null</SummaryPID><VrxnID/></DSP><ConceptionKeyWords/><ConceptorNames/></Meta_Data></Page_Properties>'),
-                                PROCEDURE = 'procedure',
-                                PAGE_VERSION = 1,
-                                LATEST_VERSION = 'Y',
-                                TA_CODE= 'XX',
-                                PROJECT_CODE ='""" + j['detail']['PROJECT_CODE'] +"""',
-                                LITERATURE_REF='""" + j['detail']['LITERATURE_REF'] +"""',
-                                SUBJECT ='""" + j['detail']['SUBJECT'] +"""',
-                                MIGRATED_TO_PCEN = 'N',
-                                BATCH_OWNER ='""" + j['detail']['OWNER_USERNAME']  +"""',
-                                BATCH_CREATOR = '""" + j['detail']['OWNER_USERNAME']  +"""',
-                                NBK_REF_VERSION ='""" + j['detail']['NOTEBOOK']  + "-" + j['detail']['EXPERIMENT'] + "-1" + """',
-                                VERSION = 1,
-                                YIELD='""" + j['detail']['YIELD']  + """',
-                                ISSUCCESSFUL = '""" + j['detail']['ISSUCCESSFUL'] + """'
-                            where page_key = '""" + id + """'""")
-        conn.commit()
+        try:
+            cursor.execute("""update CEN_PAGES set 
+                                    TA_CODE= 'XX',
+                                    PROJECT_CODE ='""" + j['detail'][0]['PROJECT_CODE'] +"""',
+                                    LITERATURE_REF='""" + j['detail'][0]['LITERATURE_REF'] +"""',
+                                    SUBJECT ='""" + j['detail'][0]['SUBJECT'] +"""',
+                                    YIELD='""" + yieldd  + """',
+                                    ISSUCCESSFUL = '""" + j['detail'][0]['ISSUCCESSFUL'] + """'
+                                where page_key = '""" + id + """'""")
+
+            if db=='ora':
+                sql = "UPDATE CEN_PAGES SET XML_METADATA = UPDATEXML (XML_METADATA, '/Page_Properties/Meta_Data/Continued_From_Rxn/text()',' " + j['detail'][0]['CONTINUED_FROM_RXN'] + "') WHERE page_key ='" + id + "'"
+                print sql
+                cursor.execute(sql)
+                sql = "UPDATE CEN_PAGES SET XML_METADATA = UPDATEXML (XML_METADATA, '/Page_Properties/Meta_Data/Continued_From_Rxn/text()',' " + j['detail'][0]['CONTINUED_FROM_RXN'] + "') WHERE page_key ='" + id + "'"
+                print sql
+                cursor.execute(sql)
+                sql = "UPDATE CEN_PAGES SET XML_METADATA = UPDATEXML (XML_METADATA, '/Page_Properties/Meta_Data/Project_Alias/text()',' " + j['detail'][0]['PROJECT_ALIAS'] + "') WHERE page_key ='" + id + "'"
+                print sql
+                cursor.execute(sql)
+            conn.commit()
+        except:
+            conn.rollback()
+            raise
         return '1'
 
     def update_schema(self, rxn, notebook, page, enumVal): 
@@ -319,10 +317,10 @@ class TornadoInsert(object):
             return '{"ret":"Empty Reaction"}'
         
         if (enumVal =='' or enumVal =='undefined'):
-            sql = "select RXN_SCHEME_KEY,  PAGE_KEY from PAGES_VW where NOTEBOOK = '" + notebook + \
+            sql = "select RXN_SCHEME_KEY \"rxn_scheme_key\",  PAGE_KEY \"page_key\" from PAGES_VW where NOTEBOOK = '" + notebook + \
             "' and EXPERIMENT = '" + page + "'"
         else:
-            sql = "select RXN_SCHEME_KEY , PAGE_KEY from PAGES_VW where NOTEBOOK = '" + notebook + \
+            sql = "select RXN_SCHEME_KEY \"rxn_scheme_key\", PAGE_KEY \"page_key\" from PAGES_VW where NOTEBOOK = '" + notebook + \
             "' and EXPERIMENT = '" + page + "' and SYNTH_ROUTE_REF = " + enumVal 
         
         my_query = query_db(sql)
@@ -332,10 +330,17 @@ class TornadoInsert(object):
             id = insert_reaction (dict['page_key'] ,v_struct , 'INTENDED', None)
         else:
             print dict['rxn_scheme_key']
-            cursor = conn.cursor()    
-            cursor.execute("""UPDATE cen_reaction_schemes
-                 SET native_rxn_sketch = BINGO.COMPACTREACTION ('""" + v_struct +"""', true)
-                   WHERE RXN_SCHEME_KEY = '""" + dict['rxn_scheme_key'] +"""'""")
+            cursor = conn.cursor()
+            if db=='ora':
+                sql ="UPDATE cen_reaction_schemes SET native_rxn_sketch = BINGO.COMPACTREACTION ('" + v_struct + "', 1) WHERE RXN_SCHEME_KEY = '" + dict['rxn_scheme_key'] + "'"
+                cursor.execute(sql)
+            else:
+                sql ="UPDATE cen_reaction_schemes SET native_rxn_sketch = BINGO.COMPACTREACTION ('" + v_struct + "', true) WHERE RXN_SCHEME_KEY = '" + dict['rxn_scheme_key'] + "'"
+                cursor.execute(sql)
+
+#            cursor.execute("""UPDATE cen_reaction_schemes
+#                 SET native_rxn_sketch = BINGO.COMPACTREACTION ('""" + v_struct +"""', true)
+#                   WHERE RXN_SCHEME_KEY = '""" + dict['rxn_scheme_key'] +"""'""")
             id =dict['rxn_scheme_key']
             conn.commit()                     
             

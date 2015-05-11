@@ -12,6 +12,8 @@ from flask import json, request
 # from tornado_cors import CorsMixin
 from TorSel import TornadoSelect
 from TorIns import TornadoInsert
+from TorSel import ChemLinkD
+
 import TorCfg
 import utility
 # from utility  import *
@@ -146,7 +148,129 @@ class DbHandler1(tornado.web.RequestHandler):
         print future_result
         self.finish()
         
+class Chemlink(tornado.web.RequestHandler): 
+    SUPPORTED_METHODS = ("GET", "HEAD", "POST", "DELETE", "PATCH", "PUT", "OPTIONS")
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Credentials", "true")
+        self.set_header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
+        self.set_header("Access-Control-Allow-Headers",
+            "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control")
+    
+    def initialize(self, executor):
+        self.executor = executor 
+        self.dao = ChemLinkD()
+
+    @gen.coroutine
+    def get(self): 
+        quest=self.get_arguments("quest")
+        print quest
+        if quest[0] == "getAllData" :
+            a1=self.get_arguments("batch")
+            print a1
+            future_result = yield self.executor.submit( self.dao.get_batch_all, 
+                                                    batch = a1[0]
+                                                    )                 
+            self.write(future_result) 
+        elif quest[0] == "getStrid" :
+            a1=self.get_arguments("batch")
+            print a1
+            future_result = yield self.executor.submit( self.dao.get_stridFromBatch, 
+                                                    batch = a1[0]
+                                                    )                 
+            self.write(future_result) 
+
+        self.finish()
+
+        
 class Render(tornado.web.RequestHandler): 
+    SUPPORTED_METHODS = ("GET", "HEAD", "POST", "DELETE", "PATCH", "PUT", "OPTIONS")
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Credentials", "true")
+        self.set_header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
+        self.set_header("Access-Control-Allow-Headers",
+            "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control")
+    
+    def initialize(self, executor):
+        self.executor = executor 
+        self.dao = TornadoSelect()
+        self.daoC = ChemLinkD()
+        
+    @gen.coroutine
+    def get(self): 
+        print 'sono qua render'
+        smile=self.get_arguments("smile")
+        idReaction=self.get_arguments("idReaction")
+        strid=self.get_arguments("strid")
+#         ugo=self.get_arguments("ugo")
+#         ugo=self.get_query_arguments("ugo")
+#         print smile[0]
+#         print ugo
+        if smile : 
+            
+            future_result = yield self.executor.submit( self.dao.renderInd, 
+                                                        smile = smile[0], 
+                                                        typeInd ="mol"
+                                                        )                 
+        elif idReaction :
+            future_result = yield self.executor.submit( self.dao.get_reactionImage, 
+                                                        idReaction = idReaction[0] 
+                                                        )
+        elif strid :
+            print strid
+            future_result = yield self.executor.submit( self.daoC.get_moleculeImage, 
+                                                        strId = strid[0] 
+                                                        )
+        else:
+            return
+#            self.write("ciao pippo")
+#            self.set_header("Content-type", "text/xml") 
+#            self.finish()
+#            return
+            
+#         print future_result
+        self.write(future_result.decode('base64'))
+        self.set_header("Content-type", "image/png") 
+        self.finish()
+
+class Convert(tornado.web.RequestHandler): 
+    SUPPORTED_METHODS = ("GET", "HEAD", "POST", "DELETE", "PATCH", "PUT", "OPTIONS")
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Credentials", "true")
+        self.set_header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
+        self.set_header("Access-Control-Allow-Headers",
+            "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, X-Requested-By, If-Modified-Since, X-File-Name, Cache-Control")
+    
+    def initialize(self, executor):
+        self.executor = executor 
+        self.dao = TornadoSelect()
+
+    @gen.coroutine
+    def get(self, param1): 
+        if len(self.request.body) > 0:
+            a0 = self.request.body
+            a00= a0.replace('\n','\\n')
+            a1= tornado.escape.json_decode(a00)
+            if param1 =='molToSmile':
+                future_result = yield self.executor.submit( self.dao.convertMolToSmile, 
+                                                        mol0 = a1,
+                                                        typeInd ="mol"
+                                                        )                 
+            elif param1 =='molToInchi':
+                future_result = yield self.executor.submit( self.dao.convertMolToInchi, 
+                                                        mol0 = a1,
+                                                        typeInd ="mol"
+                                                        )                 
+            self.write(future_result) 
+
+        self.finish()
+    def options(self, *args, **kwargs):
+        self.finish()
+    post = get    
+
+class Mirror(tornado.web.RequestHandler): 
     SUPPORTED_METHODS = ("GET", "HEAD", "POST", "DELETE", "PATCH", "PUT", "OPTIONS")
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
@@ -161,28 +285,23 @@ class Render(tornado.web.RequestHandler):
 
     @gen.coroutine
     def get(self): 
-        print 'sono qua 1'
-        smile=self.get_arguments("smile")
-        idReaction=self.get_arguments("idReaction")
-#         ugo=self.get_arguments("ugo")
-#         ugo=self.get_query_arguments("ugo")
-#         print smile[0]
-#         print ugo
-        if smile : 
-            print smile
-            future_result = yield self.executor.submit( self.dao.renderInd, 
-                                                        smile = smile[0], 
-                                                        typeInd ="mol"
-                                                        )                 
-        elif idReaction :
-            future_result = yield self.executor.submit( self.dao.get_reactionImage, 
-                                                        idReaction = idReaction[0] 
-                                                        )                 
-#         print future_result
-        self.write(future_result.decode('base64'))
-        self.set_header("Content-type", "image/png") 
-        self.finish()
+        print 'sono qua mirror'
+        quest=self.get_arguments("quest")
+        print quest
+        if quest[0] == "getToxnet" :
+            a1=self.get_arguments("cas")
+            print a1
+            future_result = yield self.executor.submit( self.dao.get_toxnet, 
+                                                    cas = a1[0]
+                                                    )         
+                    
+        self.write(future_result) 
 
+        self.finish()
+    def options(self, *args, **kwargs):
+        self.finish()
+    post = get    
+    
 class Reaction(tornado.web.RequestHandler): 
 #     SUPPORTED_METHODS = tornado.web.RequestHandler.SUPPORTED_METHODS + ('OPTIONS',)
 #     SUPPORTED_METHODS = ("CONNECT", "GET", "HEAD", "POST", "DELETE", "PATCH", "PUT", "OPTIONS")
@@ -343,7 +462,7 @@ class Reaction(tornado.web.RequestHandler):
             par1 = utility.getParam(dict, 'reactionId')
 #             print par1
             future_result = yield self.executor.submit( self.dao.get_reaction,
-                                                        idReaction = par1 )    
+                                                        idReaction = par1 )
             self.write(future_result) 
         elif param1 == "InsertDetail":  
             future_result = yield self.executor.submit( self.daoI.insert_detail ,
@@ -449,6 +568,9 @@ class Application(tornado.web.Application):
                     (r"/testarg", TestArg),
                     (r"/GetReaction.ashx", Render, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/Reaction.asmx/([A-Za-z]+)", Reaction, dict(executor=ThreadPoolExecutor(max_workers=10))),
+                    (r"/Convert/([A-Za-z]+)", Convert, dict(executor=ThreadPoolExecutor(max_workers=10))),
+                    (r"/Mirror", Mirror, dict(executor=ThreadPoolExecutor(max_workers=10))),
+                    (r"/Chemlink", Chemlink, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     ]
  
 #  ?P<param1>[^\/] (^[A-Za-z]+$)
