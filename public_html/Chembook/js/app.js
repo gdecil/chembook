@@ -8,6 +8,9 @@ if (server == "http://10.16.1.1"){				//produzione da interno
 else if (server.indexOf("http://127.0.0.1") >= 0 ){		//sviluppo da nms
 	server = "http://localhost:8080"
 }
+else if (server == "http://10.206.89.79"){		//sviluppo da nms
+	server = "http://10.206.89.79:8080"
+}
 else if (server == "http://10.206.84.170"){		//sviluppo da nms
 	server = "http://10.206.84.170:8080"
 }
