@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="vendor/ketcher/chem/|vendor/ckeditor/plugins/table/dialogs/|vendor/ckeditor/|vendor/jqGrid 4.6.0/plugins/|vendor/ckeditor/samples/plugins/htmlwriter/assets/outputforflash/|vendor/ckeditor/samples/|vendor/ckeditor/plugins/specialchar/dialogs/lang/|vendor/ckeditor/plugins/image/dialogs/|vendor/ketcher/util/|vendor/jqGrid 4.6.0/src/|vendor/ckeditor/samples/plugins/dialog/assets/|vendor/ckeditor/samples/assets/uilanguages/|vendor/ketcher/reaxys/|vendor/jquery.dynatree/|vendor/ckeditor/plugins/find/dialogs/|vendor/gridGallery/|vendor/ckeditor/plugins/div/dialogs/|vendor/jqGrid 4.6.0/src/i18n/|vendor/ketcher/ui/|vendor/ckeditor/plugins/flash/dialogs/|vendor/ckeditor/plugins/smiley/dialogs/|vendor/ckeditor/plugins/wsc/dialogs/|vendor/imageGallery/|vendor/jqGrid 4.6.0/js/i18n/|vendor/jquery-ui-plugin/lib/|vendor/ckeditor/plugins/liststyle/dialogs/|vendor/|vendor/ckeditor/plugins/iframe/dialogs/|vendor/ckeditor/plugins/scayt/dialogs/|vendor/ckeditor/plugins/clipboard/dialogs/|vendor/css/smoothness/|vendor/jquery-ui-plugin/minified/|vendor/ckeditor/plugins/forms/dialogs/|vendor/jqGrid 4.6.0/js/|vendor/ckeditor/plugins/dialog/|vendor/ckeditor/plugins/a11yhelp/dialogs/|vendor/jqgrid/i18n/|vendor/jquery-ui-plugin/|vendor/ckeditor/plugins/about/dialogs/|vendor/ckeditor/plugins/templates/templates/|vendor/ckeditor/adapters/|vendor/jqgrid/|vendor/ketcher/|vendor/jquery-ui-plugin/minified/lib/|vendor/ckeditor/plugins/a11yhelp/dialogs/lang/|vendor/ckeditor/plugins/pastefromword/filter/|vendor/ckeditor/plugins/colordialog/dialogs/|vendor/ketcher/rnd/|vendor/ckeditor/plugins/tabletools/dialogs/|vendor/ckeditor/plugins/specialchar/dialogs/|vendor/w2ui/|vendor/ckeditor/plugins/link/dialogs/|vendor/smartWizard/|vendor/ckeditor/plugins/templates/dialogs/|vendor/ckeditor/lang/|vendor/jqgrid/old/|vendor/jqgrid/old/i18n/" kind="src" path="js"/>
+	<classpathentry excluding="ketcher/chem/|ckeditor/plugins/table/dialogs/|ckeditor/|jqGrid 4.6.0/plugins/|ckeditor/samples/plugins/htmlwriter/assets/outputforflash/|ckeditor/samples/|ckeditor/plugins/specialchar/dialogs/lang/|ckeditor/plugins/image/dialogs/|ketcher/util/|jqGrid 4.6.0/src/|ckeditor/samples/plugins/dialog/assets/|ckeditor/samples/assets/uilanguages/|ketcher/reaxys/|jquery.dynatree/|ckeditor/plugins/find/dialogs/|gridGallery/|ckeditor/plugins/div/dialogs/|jqGrid 4.6.0/src/i18n/|ketcher/ui/|ckeditor/plugins/flash/dialogs/|ckeditor/plugins/smiley/dialogs/|ckeditor/plugins/wsc/dialogs/|imageGallery/|jqGrid 4.6.0/js/i18n/|jquery-ui-plugin/lib/|ckeditor/plugins/liststyle/dialogs/|ckeditor/plugins/iframe/dialogs/|ckeditor/plugins/scayt/dialogs/|ckeditor/plugins/clipboard/dialogs/|css/smoothness/|jquery-ui-plugin/minified/|ckeditor/plugins/forms/dialogs/|jqGrid 4.6.0/js/|ckeditor/plugins/dialog/|ckeditor/plugins/a11yhelp/dialogs/|jqgrid/i18n/|jquery-ui-plugin/|ckeditor/plugins/about/dialogs/|ckeditor/plugins/templates/templates/|ckeditor/adapters/|jqgrid/|ketcher/|jquery-ui-plugin/minified/lib/|ckeditor/plugins/a11yhelp/dialogs/lang/|ckeditor/plugins/pastefromword/filter/|ckeditor/plugins/colordialog/dialogs/|ketcher/rnd/|ckeditor/plugins/tabletools/dialogs/|ckeditor/plugins/specialchar/dialogs/|w2ui/|ckeditor/plugins/link/dialogs/|smartWizard/|ckeditor/plugins/templates/dialogs/|ckeditor/lang/|jqgrid/old/|jqgrid/old/i18n/" kind="src" path="js/vendor"/>
+	<classpathentry excluding="plugins/table/dialogs/|samples/plugins/htmlwriter/assets/outputforflash/|samples/|plugins/specialchar/dialogs/lang/|plugins/image/dialogs/|samples/plugins/dialog/assets/|samples/assets/uilanguages/|plugins/find/dialogs/|plugins/div/dialogs/|plugins/flash/dialogs/|plugins/smiley/dialogs/|plugins/wsc/dialogs/|plugins/liststyle/dialogs/|plugins/iframe/dialogs/|plugins/scayt/dialogs/|plugins/clipboard/dialogs/|plugins/forms/dialogs/|plugins/dialog/|plugins/a11yhelp/dialogs/|plugins/about/dialogs/|plugins/templates/templates/|adapters/|plugins/a11yhelp/dialogs/lang/|plugins/pastefromword/filter/|plugins/colordialog/dialogs/|plugins/tabletools/dialogs/|plugins/specialchar/dialogs/|plugins/link/dialogs/|plugins/templates/dialogs/|lang/" kind="src" path="js/vendor/ckeditor"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/adapters"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/lang"/>
+	<classpathentry excluding="lang/" kind="src" path="js/vendor/ckeditor/plugins/a11yhelp/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/a11yhelp/dialogs/lang"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/about/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/clipboard/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/colordialog/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/dialog"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/div/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/find/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/flash/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/forms/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/iframe/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/image/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/link/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/liststyle/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/pastefromword/filter"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/scayt/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/smiley/dialogs"/>
+	<classpathentry excluding="lang/" kind="src" path="js/vendor/ckeditor/plugins/specialchar/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/specialchar/dialogs/lang"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/table/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/tabletools/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/templates/dialogs"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/templates/templates"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/plugins/wsc/dialogs"/>
+	<classpathentry excluding="plugins/htmlwriter/assets/outputforflash/|plugins/dialog/assets/|assets/uilanguages/" kind="src" path="js/vendor/ckeditor/samples"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/samples/assets/uilanguages"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/samples/plugins/dialog/assets"/>
+	<classpathentry kind="src" path="js/vendor/ckeditor/samples/plugins/htmlwriter/assets/outputforflash"/>
+	<classpathentry kind="src" path="js/vendor/css/smoothness"/>
+	<classpathentry kind="src" path="js/vendor/gridGallery"/>
+	<classpathentry kind="src" path="js/vendor/imageGallery"/>
+	<classpathentry excluding="i18n/|old/|old/i18n/" kind="src" path="js/vendor/jqgrid"/>
+	<classpathentry excluding="i18n/" kind="src" path="js/vendor/jqGrid 4.6.0/js"/>
+	<classpathentry kind="src" path="js/vendor/jqGrid 4.6.0/js/i18n"/>
+	<classpathentry kind="src" path="js/vendor/jqGrid 4.6.0/plugins"/>
+	<classpathentry excluding="i18n/" kind="src" path="js/vendor/jqGrid 4.6.0/src"/>
+	<classpathentry kind="src" path="js/vendor/jqGrid 4.6.0/src/i18n"/>
+	<classpathentry kind="src" path="js/vendor/jqgrid/i18n"/>
+	<classpathentry excluding="i18n/" kind="src" path="js/vendor/jqgrid/old"/>
+	<classpathentry kind="src" path="js/vendor/jqgrid/old/i18n"/>
+	<classpathentry excluding="lib/|minified/|minified/lib/" kind="src" path="js/vendor/jquery-ui-plugin"/>
+	<classpathentry kind="src" path="js/vendor/jquery-ui-plugin/lib"/>
+	<classpathentry excluding="lib/" kind="src" path="js/vendor/jquery-ui-plugin/minified"/>
+	<classpathentry kind="src" path="js/vendor/jquery-ui-plugin/minified/lib"/>
+	<classpathentry kind="src" path="js/vendor/jquery.dynatree"/>
+	<classpathentry excluding="chem/|util/|reaxys/|ui/|rnd/" kind="src" path="js/vendor/ketcher"/>
+	<classpathentry kind="src" path="js/vendor/ketcher/chem"/>
+	<classpathentry kind="src" path="js/vendor/ketcher/reaxys"/>
+	<classpathentry kind="src" path="js/vendor/ketcher/rnd"/>
+	<classpathentry kind="src" path="js/vendor/ketcher/ui"/>
+	<classpathentry kind="src" path="js/vendor/ketcher/util"/>
+	<classpathentry kind="src" path="js/vendor/smartWizard"/>
+	<classpathentry kind="src" path="js/vendor/w2ui"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

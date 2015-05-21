@@ -1,0 +1,119 @@
+{
+  "schema": {
+    "type": "object",
+    "title": "Comment",    
+    "properties": {
+      "batch_creator":  {
+        "title": "Batch Creator",
+        "type": "string"
+      },
+      "continued_from_rxn":  {
+        "title": "Continued from reaction",
+        "type": "string"
+      },
+      "continued_to_rxn": {
+        "title": "Continued to reaction",
+        "type": "string"
+      },
+      "creation_date": {
+        "title": "Creation date",
+        "type": "string"
+      },
+      "experiment": {
+        "title": "Page",
+        "type": "string"
+      },
+      "notebook": {
+        "title": "Notebook",
+        "type": "string"
+      },
+      "yield": {
+        "title": "Yield",
+        "type": "string"
+      },
+      "title": {
+        "title": "Title",
+        "type": "string"
+      }
+    },
+    "required": ["notebook","experiment","title"]
+  },
+  "form": [
+    {
+      "type": "help",
+      "helpvalue": "<div class=\"alert alert-info\">Reaction</div>"
+    },
+    {
+      "type": "section",
+      "htmlClass": "row",
+      "items": [
+        {
+          "type": "section",
+          "htmlClass": "col-xs-6",
+          "items": ["title"]
+        },
+        {
+          "type": "section",
+          "htmlClass": "col-xs-6",
+          "items": ["yield"]
+        },
+        {
+          "type": "section",
+          "htmlClass": "col-xs-6",
+          "items": ["notebook"]
+        },
+        {
+          "type": "section",
+          "htmlClass": "col-xs-6",
+          "items": ["experiment"],
+          "onChange": "updated(modelValue,form)"
+        }
+      ]
+    },
+    {
+      "title": "Literature",
+      "key": "comment",
+      "type": "textarea",
+      "placeholder": "",
+      "onChange": "function(modelValue,form)"
+    }
+  ],
+  "formR": [
+    {
+      "type": "help",
+      "helpvalue": "<div class=\"alert alert-info\">Detail</div>"
+    },
+    {
+      "type": "section",
+      "htmlClass": "row",
+      "items": [
+        {
+          "type": "section",
+          "htmlClass": "col-xs-6",
+          "items": ["batch_creator"]
+        },
+        {
+          "type": "section",
+          "htmlClass": "col-xs-6",
+          "items": ["creation_date"]
+        },
+        {
+          "type": "section",
+          "htmlClass": "col-xs-6",
+          "items": ["continued_from_rxn"]
+        },
+        {
+          "type": "section",
+          "htmlClass": "col-xs-6",
+          "items": ["continued_to_rxn"]
+        }
+      ]
+    },
+    {
+      "title": "",
+      "key": "comment",
+      "type": "section",
+      "placeholder": ""
+    }
+  ]
+}

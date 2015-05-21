@@ -1,0 +1,119 @@
+     <div class = "layout" ui-layout  >
+       <div ui-layout-container size="50px" class=" html-back" >
+            <div class = "navbarfloat" >
+                <angled-navbar1 affixed='affixed' brand='brand' inverse='inverse' menus='menus' navfn='navfn(action)' search='search' searchfn='searchfn()'></angled-navbar1>
+            </div>
+      </div>
+      
+       <div ui-layout-container> 
+        <div ui-layout="{flow : 'column'}" >
+          <div ui-layout-container class=" html-back1" size="200px">
+            <ang-accordion>
+                  <collapsible-item title="Notebooks">
+                  </collapsible-item>
+            </ang-accordion>
+            <div 
+                    data-angular-treeview="true"
+                    data-tree-id="abc"
+                    data-tree-model="treedata"
+                    data-node-id="id"
+                    data-node-label="label"
+                    data-node-children="children" 
+                   id = "angtree1">
+            </div>          
+          </div>
+          
+          <div ui-layout-container class=" js-back" >
+            <table width="100%">
+              <tr>
+                <td>
+                  <form class="form-horizontal" name="form.ctrl" novalidate dirty-form1>
+                    <legend>Reaction Detail
+                    </legend>
+                    <div class="row">
+                      <div class="form-group col-xs-6 col-sm-3 " >
+                        <label for="inputTitle" class="col-sm-10">Title</label>
+                        <div class="col-sm-10">
+                          <input type="textarea" class="form-control" id="inputTitle" placeholder="" ng-model="form.input.title" ng-required="true" disabled>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label for="inputYield" class="col-sm-10">Yield</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputYield" placeholder="" ng-model="form.input.yield" disabled>
+                        </div>
+                      </div>
+                      <div class="fdisabledorm-group col-xs-6 col-sm-3">
+                        <label for="inputBatchCreator" class="col-sm-10">Batch Creator</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputBatchCreator" placeholder="" ng-model="form.input.batch_creator" disabled>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label for="inputCreationDate" class="col-sm-10">Creation Date</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputCreationDate" placeholder="" ng-model="form.input.creation_date" disabled>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="lastNamerow">
+                    <div class="form-group col-xs-6 col-sm-3" >
+                      <label for="inputNotebook" class="col-sm-10">Notebook</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputNotebook" placeholder="" ng-model="form.input.notebook" ng-required="true" disabled>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-xs-6 col-sm-3">
+                      <label for="inputPage" class="col-sm-10">Page</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputPage" placeholder="" ng-model="form.input.experiment" disabled>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group continued_from_rxncol-xs-6 col-sm-3">
+                      <label for="inputFromReac" class="col-sm-12">Continued from reaction</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputFromReac" placeholder="" ng-model="form.input.continued_from_rxn" disabled>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group col-xs-6 col-sm-3">
+                      <label for="inputToReac" class="col-sm-12">Continued to reaction</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputToReac" placeholder="" ng-model="form.input.continued_to_rxn" disabled>
+                      </div>
+                    </div>
+                    </div>
+                  </form>                    
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="height: 750px; width: 100%; margin: 0;">
+                      <ang-accordion>
+                            <collapsible-item title="Reaction Scheme">
+                              <div formpippo id="containerReaction" style="min-width:800px;min-height:200px;width:100%;;border-style:none" disabled>
+                                
+                              </div>
+
+                            </collapsible-item>
+                            <collapsible-item title="Stoichiometry">
+                            </collapsible-item>
+                        </ang-accordion>
+                  </div>        
+                </td>
+              </tr>
+            </table>
+          </div>
+          
+          <div ui-layout-container class=" css-back" size="200px"></div>
+        </div>
+      </div>
+    
+       <div ui-layout-container size="50px" class=" css-back" >
+       </div>       
+     </div>

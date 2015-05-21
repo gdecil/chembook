@@ -1,0 +1,48 @@
+<div class="container" ng-controller="View1Ctrl">
+
+  <h1>View 1</h1>
+
+  <!-- Expose the form controller by setting the name -->
+
+  <form class="form-horizontal" name="form.ctrl" novalidate dirty-form>
+    <legend>Example Form 1
+      <span class="pull-right">
+        <span ng-if="form.ctrl.$pristine" class="label label-success">Pristine</span>
+      <span ng-if="form.ctrl.$dirty" class="label label-warning">Dirty</span>
+      <span ng-if="form.ctrl.$valid" class="label label-success">Valid</span>
+      <span ng-if="form.ctrl.$invalid" class="label label-danger">Invalid</span>
+      <span ng-if="form.ctrl.$submitted" class="label label-info">Submitted</span>
+      </span>
+    </legend>
+
+    <div class="form-group">
+      <label for="inputFirstname" class="col-sm-2 control-label">Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputFirstname" placeholder="First name (required)" ng-model="form.input.name" ng-required="true">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputLastname" class="col-sm-2 control-label">Last name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputLastname" placeholder="Last name" ng-model="form.input.lastName">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="form.input.remember">Remember me
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default" ng-disabled="form.ctrl.$invalid" ng-click="save()">Save</button>
+      </div>
+    </div>
+  </form>
+</div>

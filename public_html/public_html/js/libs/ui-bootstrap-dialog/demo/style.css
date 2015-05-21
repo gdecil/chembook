@@ -1,0 +1,9 @@
+html {
+  overflow-y: scroll
+}
+
+.tab-content {
+  padding: 15px;
+  border: 1px solid #e5e5e5;
+  border-top: none;
+}

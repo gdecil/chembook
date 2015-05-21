@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="$close()" aria-hidden="true">×</button>
+  <h4 class="modal-title">{{ $dialog.title }}&nbsp;</h4>
+</div>
+<form>
+  <div class="modal-body">
+    <p>{{ $dialog.text }}</p>
+    <input type="text" class="form-control" dlg-focus ng-model="$dialog.defaultValue">
+  </div>
+  <div class="modal-footer">
+    <button type="submit" ng-click="$close($dialog.defaultValue)" class="btn btn-primary">{{ $config.text.ok }}</button>
+    <button ng-click="$dismiss('cancelled')" class="btn btn-default">{{ $config.text.cancel }}</button>
+  </div>
+</form>

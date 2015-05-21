@@ -1,0 +1,31 @@
+      <div ui-layout-container class=" html-back" ></div>
+      
+      <div ui-layout-container> 
+        <div ui-layout="{flow : 'column'}" >
+          <div ui-layout-container class=" html-back1" >
+              <div 
+                    data-angular-treeview="true"
+                    data-tree-id="abc"
+                    data-tree-model="treedata"
+                    data-node-id="id"
+                    data-node-label="label"
+                    data-node-children="children" >
+              </div>          
+          </div>
+          <div ui-layout-container class=" js-back" >
+              <div > 
+
+                <table>
+                  <tr ng-repeat="x in names">
+                    <td>{{ x.Name }}</td>
+                    <td>{{ x.Country }}</td>
+                  </tr>
+                </table>
+
+               </div>          
+          </div>
+          <div ui-layout-container class=" css-back" ></div>
+        </div>
+      </div>
+    
+      <div ui-layout-container class=" css-back" ></div>
