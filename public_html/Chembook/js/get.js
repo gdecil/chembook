@@ -1,4 +1,9 @@
 var getReactions = function (reaction, searchType, reactionId, gridId) {
+    if(reaction.indexOf("batch") >= 0){
+        var url= serverWeb + "/chemlinkangMob/www/?" + reaction
+        window.open(url, '_blank');          
+        return
+    }
     var dataX = '{"compound":' + JSON.stringify(reaction) + ', "searchType":"' + searchType + '", "cns":""}';
 
     var request = $.ajax({
