@@ -5,6 +5,9 @@
   if (server.indexOf("http://127.0.0.1") >= 0 ){		//sviluppo da nms con brackets
         server = "http://localhost:8080"
   }
+  else if (server.indexOf("http://10.206.89.79") >= 0){ //server test chemolinux
+    server = "http://10.206.89.79:8080"
+  }
   var service = new ChemlinkService(server);
   var data;
   var batchData;
