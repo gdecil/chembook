@@ -1,6 +1,6 @@
 var getReactions = function (reaction, searchType, reactionId, gridId) {
     if(reaction.indexOf("batch") >= 0){
-        var url= serverWeb + "/chemlinkangMob/www/?" + reaction
+        var url= serverWeb + "/chemlinkangMob/?" + reaction
         window.open(url, '_blank');          
         return
     }
