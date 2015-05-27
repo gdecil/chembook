@@ -298,7 +298,7 @@
       var batch
         $('#stolav').css( { "visibility": "visible"} )
         
-        if(b !=""){
+        if(b !=undefined){
           batch=b
         }
       else{
@@ -453,3 +453,4 @@
 })();
 
 
+pippo
