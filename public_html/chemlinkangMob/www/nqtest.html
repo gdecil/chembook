@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html data-ng-app="myApp" style="height:100%;">
+<head>
+      <link rel="stylesheet" href="lib/onsen/css/onsenui.css">  
+  <link rel="stylesheet" href="styles/app.css"/>
+  <link rel="stylesheet" href="styles/onsen-css-components-blue-basic-theme.css">  
+
+        <!-- Light package of effect.css It is optional -->
+        <link rel="stylesheet" href="js/quantumui/css/addon/effect-light.min.css">
+        <!-- Latest compiled and minified CSS on head of your page -->
+        <link rel="stylesheet" href="js/quantumui/css/quantumui.min.css">
+        <!-- VENDORS -->
+        <!-- Required for Datepicker Component -->
+        <script src="dist/js/moment.min.js"></script>
+        
+        <!-- ANGULARS -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-touch.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-sanitize.js"></script>
+  <script src="lib/onsen/js/onsenui.js"></script>    
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <!-- QuantumUI -->
+        <script src="js/quantumui/js/quantumui-nojq.min.js"></script>
+        <script src="js/app2.js"></script>
+        <script src="js/indexController.js"></script>
+</head>
+<body data-ng-controller="indexController as ctrl" style="height:100%; padding-top:55px;">
+  <div class="col-sm-2 col-xs-4" data-ng-init="rangeSliderVer = 20">
+          <input type="range" data-ng-model="rangeSliderVer" data-nq-slider="" data-direction="vertical" size="120">
+        </div>
+</body>
+</html>

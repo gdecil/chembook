@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <title>Chemlink Mobile</title>  
+  
+  <link rel="stylesheet" href="lib/onsen/css/onsenui.css">  
+  <link rel="stylesheet" href="styles/onsen-css-components-blue-basic-theme.css">  
+
+<!--  <script src="lib/onsen/js/angular/angular.js"></script>    -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-touch.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-sanitize.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.js"></script>
+  <script src="lib/onsen/js/onsenui.js"></script>    
+
+  <!--quantumui-->
+  <link rel="stylesheet" href="js/quantumui/css/addon/effect-light.min.css">
+  <link rel="stylesheet" href="js/quantumui/css/quantumui.min.css">
+  <script src="js/quantumui/js/quantumui-nojq.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+  
+  <!--nggrid-->
+  <script src="js/release/ui-grid-unstable.js"></script>
+  <link href='js/release/ui-grid-unstable.css' rel='stylesheet' type='text/css'>
+  
+  
+  <!--chart-->
+    <script src="http://code.highcharts.com/stock/highstock.src.js"></script>
+    <script src="js/highcharts-ng.js"></script>
+  
+  <script src="js/service.js"></script>
+  <script src="cordova.js"></script>  
+  <link rel="stylesheet" href="styles/app.css"/>
+  <script src="js/app.js"></script>  
+  <script>
+    ons.ready(function() {
+    });
+  </script>
+
+</head>
+
+<body ng-controller="AppController">    
+  var server = window.location.protocol + "//" + window.location.host;
+  if (server.indexOf("http://127.0.0.1") >= 0 ){		//sviluppo da nms con brackets
+        server = "http://localhost:8080"
+  }
+  var service = new ChemlinkService(server);
+  
+  <ons-navigator var="navi">
+    <ons-page ng-controller="MasterController">
+            <div id='stolav'> Please wait...
+              <br>
+            <img src="image/5Wits.gif" alt="wait" >
+          </div>
+      <ons-toolbar>
+        <div class="center">Get All Data</div>
+      </ons-toolbar>
+      <ons-row>
+        <section style="padding: 8px 8px 8px">
+          <input type="search" class="search-input" ng-model="searchText" placeholder="Batch"></input>
+        </section>
+
+      <ons-button class="search-button" modifier="cta" ng-click="search()" modifier="quit"><img src="image/glyphicons-28-search.png" alt="wait" > Search</ons-button>
+
+<!--      <button type="button" ng-click="search()" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+      </button>-->
+      
+      </ons-row> 
+      <div id="imgcont">
+        <div ng-click="slide()" class="col-sm-2 col-xs-4 vicini" data-ng-init="rangeSliderVer = 50" >
+          <input type="range" data-ng-model="rangeSliderVer" data-nq-slider="" data-direction="vertical" size="300" data-theme="success"> 
+        </div>
+      <ons-list class="">
+        <ons-list-item modifier="chevron" class="item" ng-repeat="item in items" ng-click="showDetail($index)">
+          <ons-row>
+            <ons-col width="60px"> 
+              <div class="item-thum"></div>
+            </ons-col>
+            <ons-col>
+              <header>
+                <span class="item-title">{{item.title}}</span>
+                <span class="item-label">{{item.label}}</span>
+              </header>
+              <p class="item-desc">{{item.desc}}</p>
+            </ons-col>
+          </ons-row>                          
+        </ons-list-item>
+      </ons-list>
+              </div>
+
+    </ons-page>
+  </ons-navigator>
+
+  <ons-template id="detail.html">
+    <ons-page ng-controller="DetailController">
+
+      <ons-toolbar>
+        <div class="left"><ons-back-button>Back</ons-back-button></div>
+        <div class="center">Details</div>
+      </ons-toolbar>
+
+      <ons-list modifier="inset" style="margin-top: 10px">
+        <ons-list-item class="item">
+          <ons-row>
+            <ons-col width="60px"> 
+              <div class="item-thum"></div>
+            </ons-col>
+            <ons-col>
+              <header>
+                <span class="item-title">{{table.title}}</span>
+                <span class="item-label">{{table.label}}</span>
+              </header>
+              <p class="item-desc">{{table.desc}}</p>
+            </ons-col>
+          </ons-row>
+        </ons-list-item>
+
+
+        <ons-list-item modifier="chevron" ng-click="doSomething()">
+          <ons-icon icon="ion-chatboxes" fixed-width="true" style="color: #ccc"></ons-icon>
+          Add a note
+        </ons-list-item>
+      </ons-list>
+      
+
+      <div id="grid1" ui-grid="gridOptions" ui-grid-edit class="grid" ui-grid-resize-columns></div>
+<!--
+      <div> pippo </div>
+      <ons-list style="margin-top: 10px">
+        <ons-list-item class="item" ng-repeat="item in items">
+          <header>
+            <span class="item-title">{{item.name}}</span>
+          </header>
+          <p class="item-desc">{{item.value}}</p>
+        </ons-list-item>
+      </ons-list>
+-->
+
+      <br>
+
+    </ons-page>      
+  </ons-template>
+  
+  <ons-template id="graph.html">
+    <ons-page ng-controller="ChartController">
+
+      <ons-toolbar>
+        <div class="left"><ons-back-button>Back</ons-back-button></div>
+        <div class="center">KSS Activity Profile</div>
+      </ons-toolbar>
+      <highchart id="chart1" config="chartConfig" class="span9" style="margin:0 auto;" ></highchart>
+      
+    </ons-page>      
+  </ons-template>
+  
+  <ons-template id="proliferation.html">
+    <ons-page ng-controller="ProliferationController">
+
+      <ons-toolbar>
+        <div class="left"><ons-back-button>Back</ons-back-button></div>
+        <div class="center">Proliferation Activity Profile</div>
+      </ons-toolbar>
+      <highchart id="chart1" config="chartConfig" class="span9" style="margin:0 auto;" ></highchart>
+      
+    </ons-page>      
+  </ons-template>
+
+  </body>  
+</html>
