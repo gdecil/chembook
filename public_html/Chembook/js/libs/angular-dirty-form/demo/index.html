@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+  <link rel="stylesheet" href="../bower_components/bootstrap-css/css/bootstrap.css">
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="../bower_components/angular-route/angular-route.js"></script>
+  <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="../bower_components/ui-bootstrap-dialog/dist/ui-bootstrap-dialog.min.js"></script>
+  <link rel="stylesheet" href="../bower_components/angular-inform/dist/angular-inform.min.css">
+  <script src="../bower_components/angular-inform/dist/angular-inform.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="../src/angular-dirty-form.js"></script>
+  <script src="script.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#/">Angular Dirty Form</a>
+      </div>
+      <ul class="nav navbar-nav">
+       <li ng-repeat="route in routes" ng-class="{ active: isActiveRoute(route) }">
+         <a ng-href="#{{ route.originalPath }}">{{ route.text }}</a>
+       </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-class="{ active: config.visible }">
+          <a href="" ng-click="config.visible = !config.visible"><i class="glyphicon glyphicon-cog"></i> Config</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  <div ng-view></div>
+
+  <div inform class="inform-fixed inform-shadow inform-center inform-animate"></div>
+</body>
+
+</html>

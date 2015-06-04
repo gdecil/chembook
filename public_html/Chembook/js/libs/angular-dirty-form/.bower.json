@@ -1,0 +1,51 @@
+{
+  "name": "angular-dirty-form",
+  "main": "dist/angular-dirty-form.min.js",
+  "version": "0.0.1",
+  "authors": [
+    "Null McNull <nospam@nowhere.com>"
+  ],
+  "description": "Prompt the user to save changes before leaving the page.",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "prompt",
+    "form",
+    "leave page",
+    "angular",
+    "ui",
+    "bootstrap"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.0"
+  },
+  "devDependencies": {
+    "bootstrap-css": "~3.2.0",
+    "angular-mocks": "~1.2.0",
+    "angular-bootstrap": "~0.12.1",
+    "angular-route": "~1.2.0",
+    "angular-inform": "~0.0.18",
+    "angular-animate": "~1.2.0",
+    "ui-bootstrap-dialog": "~0.0.2"
+  },
+  "homepage": "https://github.com/McNull/angular-dirty-form",
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.1",
+    "commit": "a02ce2a3fbf03a24ec746cf78f19e2a701777800"
+  },
+  "_source": "git://github.com/McNull/angular-dirty-form.git",
+  "_target": "~0.0.1",
+  "_originalSource": "angular-dirty-form",
+  "_direct": true
+}

@@ -1,0 +1,129 @@
+     <div class = "layout" ui-layout  >
+      <div id="nord" ui-layout-container size="50px" class=" html-back" >
+            <div class = "navbarfloat" >
+                <angled-navbar1 affixed='affixed' brand='brand' inverse='inverse' menus='menus' navfn='navfn(action)' searchfn='searchfn()'></angled-navbar1>
+            </div>
+
+       </div>
+      
+      <div id="medium" ui-layout-container> 
+        <div ui-layout="{flow : 'column'}" >
+          <div id ="east" ui-layout-container class=" html-back1" size="200px">
+            <ang-accordion>
+                  <collapsible-item title="Notebooks">
+                  </collapsible-item>
+            </ang-accordion>
+            <div 
+                  data-angular-treeview="true"
+                  data-tree-id="abc"
+                  data-tree-model="treedata"
+                  data-node-id="id"
+                  data-node-label="label"
+                  data-node-children="children" >
+            </div>          
+            
+          </div>
+          <div id ="center" ui-layout-container class=" js-back" >
+            <table width="100%">
+              <tr>
+                <td>
+                  <form class="form-horizontal" name="form.ctrl" novalidate dirty-form>
+                    <legend>Reaction Detail
+                      <span class="pull-right">
+                      <span ng-if="form.ctrl.$pristine" class="label label-success">Pristine</span>
+                      <span ng-if="form.ctrl.$dirty" class="label label-warning">Dirty</span>
+                      <span ng-if="form.ctrl.$valid" class="label label-success">Valid</span>
+                      <span ng-if="form.ctrl.$invalid" class="label label-danger">Invalid</span>
+                      <span ng-if="form.ctrl.$submitted" class="label label-info">Submitted</span>
+                      </span>
+                    </legend>
+                    <div class="row">
+                      <div class="form-group col-xs-6 col-sm-3 " >
+                        <label for="inputTitle" class="col-sm-10">Title</label>
+                        <div class="col-sm-10">
+                          <input type="textarea" class="form-control" id="inputTitle" placeholder="Title (required)" ng-model="form.input.title" ng-required="true">
+                        </div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label for="inputYield" class="col-sm-10">Yield</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputYield" placeholder="Yield %" ng-model="form.input.yield">
+                        </div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label for="inputBatchCreator" class="col-sm-10">Batch Creator</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputBatchCreator" placeholder="Batch Creator" ng-model="form.input.batch_creator">
+                        </div>
+                      </div>
+
+                      <div class="form-group col-xs-6 col-sm-3">
+                        <label for="inputCreationDate" class="col-sm-10">Creation Date</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputCreationDate" placeholder="Creation Date" ng-model="form.input.creation_date">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="lastNamerow">
+                    <div class="form-group col-xs-6 col-sm-3" >
+                      <label for="inputNotebook" class="col-sm-10">Notebook</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputNotebook" placeholder="Notebook (required)" ng-model="form.input.notebook" ng-required="true">
+                      </div>
+                    </div>
+
+                    <div class="form-group col-xs-6 col-sm-3">
+                      <label for="inputPage" class="col-sm-10">Page</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputPage" placeholder="Page" ng-model="form.input.experiment">
+                      </div>
+                    </div>
+                    
+                    <div class="form-group continued_from_rxncol-xs-6 col-sm-3">
+                      <label for="inputFromReac" class="col-sm-12">Continued from reaction</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputFromReac" placeholder="" ng-model="form.input.continued_from_rxn">
+                      </div>
+                    </div>
+                    
+                    <div class="form-group col-xs-6 col-sm-3">
+                      <label for="inputToReac" class="col-sm-12">Continued to reaction</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputToReac" placeholder="" ng-model="form.input.continued_to_rxn">
+                      </div>
+                    </div>
+                    </div>
+
+                  </form>                    
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="height: 500px; width: 100%; margin: 0;">
+                      <ang-accordion>
+                            <collapsible-item title="Reaction Scheme">
+                              <div id="containerReaction" style="min-width:800px;min-height:200px;width:100%;;border-style:none">
+                                
+                              </div>
+                                <div>
+                                    <iframe onload="" id="ketcherFrame" name="ketcherFrame" style="min-width:800px;min-height:510px;width:100%;border-style:none" src="js/ketcher/ketcher.html?ketcher_maximize" scrolling="no"></iframe>            
+
+                                </div>
+                            </collapsible-item>
+                            <collapsible-item title="Stoichiometry">
+                            </collapsible-item>
+                        </ang-accordion>
+                  </div>        
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div id ="west" ui-layout-container class=" css-back" size="200px"></div>
+        </div>
+      </div>
+    
+      <div id="sud" ui-layout-container size="50px" class=" css-back" ></div>   
+    </div>

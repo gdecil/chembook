@@ -1,0 +1,26 @@
+<form class="form-horizontal">
+  <legend>Prompt Dialog</legend>
+  <div class="form-group">
+    <label for="promptTitle" class="col-sm-2 control-label">Title</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="promptTitle" ng-model="title" placeholder="The title of the dialog">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="promptText" class="col-sm-2 control-label">Text</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="promptText" ng-model="text" placeholder="The text of the alert">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="promptDefaultValue" class="col-sm-2 control-label">Default Value</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="promptDefaultValue" ng-model="defaultValue" placeholder="Optional default value">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button class="btn btn-primary" ng-click="prompt(text, defaultValue, title)">Prompt</button>
+    </div>
+  </div>
+</form>

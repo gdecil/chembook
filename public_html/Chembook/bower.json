@@ -1,0 +1,15 @@
+{
+  "name": "Layout UI",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": null,
+    "bootstrap": null,
+    "angular-ui-tree": null,
+    "ang-accordion": null,
+    "angular-ui-layout": null,
+    "jquery": null,
+    "angular-route": null,
+    "angular-formly": "~4.0.8",
+    "angular-bootstrap": null
+  }
+}

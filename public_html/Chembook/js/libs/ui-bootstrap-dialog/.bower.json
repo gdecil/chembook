@@ -1,0 +1,48 @@
+{
+  "name": "ui-bootstrap-dialog",
+  "main": "dist/ui-bootstrap-dialog.min.js",
+  "version": "0.0.3",
+  "authors": [
+    "Null McNull <nospam@nowhere.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:McNull/ui-bootstrap-dialog.git"
+  },
+  "description": "Simple wrapper around the modal service. Provides alert, confirm and prompt dialogs.",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "alert",
+    "confirm",
+    "prompt",
+    "angular",
+    "ui",
+    "bootstrap"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "~0.12.0"
+  },
+  "devDependencies": {
+    "bootstrap-css": "~3.2.0"
+  },
+  "homepage": "https://github.com/McNull/ui-bootstrap-dialog",
+  "_release": "0.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.3",
+    "commit": "709c3734c77b6bd1dacb1d9dd5822c72b8b72998"
+  },
+  "_source": "git://github.com/McNull/ui-bootstrap-dialog.git",
+  "_target": "~0.0.2",
+  "_originalSource": "ui-bootstrap-dialog"
+}

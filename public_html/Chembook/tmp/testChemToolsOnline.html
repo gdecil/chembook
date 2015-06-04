@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width">
+
+  <title>Chem Online tools</title>
+  <script src='http://code.jquery.com/jquery-2.1.1.min.js'></script>
+  <script src="../js/libs/easyXDM/easyXDM.js"></script>
+
+</head>
+<body>
+
+  <div></div>
+    <script>
+        var dataX = '{"queryxxx": "benzene", "chemsyn": "1", "database": "hsdb", "Stemming": "1","and":"1", "second_search": "1", "gateway": "1"}';
+
+        var rpc = new easyXDM.Rpc({
+              remote: "http://toxgate.nlm.nih.gov/cgi-bin/sis/search2"
+          },
+          {
+              remote: {
+                  request: {}
+              }
+          });
+
+          rpc.request({
+              url: "http://localhost/resource.json",
+              method: "POST",
+              data: dataX
+          }, function(response){
+              alert(response.data);
+        });      
+                     
+    </script>
+</body>
+</html>
