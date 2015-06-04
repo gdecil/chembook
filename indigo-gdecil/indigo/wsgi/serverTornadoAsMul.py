@@ -162,6 +162,23 @@ class Chemlink(tornado.web.RequestHandler):
         self.dao = ChemLinkD()
 
     @gen.coroutine
+    def post(self, param1): 
+        print self.request.body
+        print type(self.request.body);
+        print self.request.body[0];
+        print param1
+        if param1 == "MatchBingoMolecule" :
+            a0 = self.request.body
+            a00= a0.replace('\n','\\n')
+            a1= tornado.escape.json_decode(a00)
+            future_result = yield self.executor.submit( self.dao.match_molecule, 
+                                                        mol = a1
+                                                        )                 
+            self.write(future_result) 
+ 
+        self.finish()
+
+    @gen.coroutine
     def get(self): 
         quest=self.get_arguments("quest")
         print quest
@@ -172,6 +189,13 @@ class Chemlink(tornado.web.RequestHandler):
                                                     batch = a1[0]
                                                     )                 
             self.write(future_result) 
+        elif quest[0] == "getCorpid" :
+            a1=self.get_arguments("batch")
+            print a1 
+            future_result = yield self.executor.submit( self.dao.get_corpidFromBatch, 
+                                                    batch = a1[0]
+                                                    )                 
+            self.write(future_result) 
         elif quest[0] == "getStrid" :
             a1=self.get_arguments("batch")
             print a1
@@ -179,10 +203,40 @@ class Chemlink(tornado.web.RequestHandler):
                                                     batch = a1[0]
                                                     )                 
             self.write(future_result) 
+        elif quest[0] == "getKSS" :
+            a1=self.get_arguments("corpid")
+            print a1
+            future_result = yield self.executor.submit( self.dao.get_kss, 
+                                                    corpid = a1[0]
+                                                    )                 
+            self.write(future_result) 
+        elif quest[0] == "getMar" :
+            a1=self.get_arguments("query")
+            print a1
+            future_result = yield self.executor.submit( self.dao.get_mar, 
+                                                    query = a1[0]
+                                                    )                 
+            self.write(future_result) 
+        elif quest[0] == "getMolecule" :
+            a1=self.get_arguments("strid")
+            print a1
+            future_result = yield self.executor.submit( self.dao.get_molecule, 
+                                                    strId = a1[0]
+                                                    )                 
+            self.write(future_result) 
+        elif quest[0] == "getProliferation" :
+            a1=self.get_arguments("corpid")
+            print a1
+            future_result = yield self.executor.submit( self.dao.get_proliferation, 
+                                                    corpid = a1[0]
+                                                    )                 
+            self.write(future_result) 
 
         self.finish()
 
-        
+    def options(self, *args, **kwargs):
+        self.finish()
+           
 class Render(tornado.web.RequestHandler): 
     SUPPORTED_METHODS = ("GET", "HEAD", "POST", "DELETE", "PATCH", "PUT", "OPTIONS")
     def set_default_headers(self):
@@ -290,9 +344,15 @@ class Mirror(tornado.web.RequestHandler):
         print quest
         if quest[0] == "getToxnet" :
             a1=self.get_arguments("cas")
-            print a1
+            #print a1
             future_result = yield self.executor.submit( self.dao.get_toxnet, 
                                                     cas = a1[0]
+                                                    )         
+        elif quest[0] == "getChemspiderId" :
+            a1=self.get_arguments("inchi")
+            #print a1
+            future_result = yield self.executor.submit( self.dao.get_chemspiderId, 
+                                                    inchi = a1[0]
                                                     )         
                     
         self.write(future_result) 
@@ -390,6 +450,18 @@ class Reaction(tornado.web.RequestHandler):
                                                          notebook = par1, 
                                                          page =par2)    
             self.write(str(future_result)) 
+        elif param1 == 'GetAttachment':
+            par1 = utility.getParam(dict, 'attacKey')
+            future_result = yield self.executor.submit( self.dao.get_attachment,
+                                                         attacKey = par1)    
+            self.write(future_result) 
+        elif param1 == 'GetAttachments':
+            par1 = utility.getParam(dict, 'notebook')
+            par2 = utility.getParam(dict, 'page')
+            future_result = yield self.executor.submit( self.dao.get_attachments,
+                                                         notebook = par1, 
+                                                         page =par2)    
+            self.write(future_result) 
         elif param1 == 'GetExperiment':
             par1 = utility.getParam(dict, 'notebook')
             par2 = utility.getParam(dict, 'page')
@@ -571,6 +643,7 @@ class Application(tornado.web.Application):
                     (r"/Convert/([A-Za-z]+)", Convert, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/Mirror", Mirror, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     (r"/Chemlink", Chemlink, dict(executor=ThreadPoolExecutor(max_workers=10))),
+                    (r"/Chemlink/([A-Za-z]+)", Chemlink, dict(executor=ThreadPoolExecutor(max_workers=10))),
                     ]
  
 #  ?P<param1>[^\/] (^[A-Za-z]+$)

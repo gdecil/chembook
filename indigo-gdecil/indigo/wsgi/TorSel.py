@@ -117,11 +117,100 @@ class ChemLinkD(object):
         except:
             raise
  
+    def get_kss(self, corpid):        
+        try:
+            
+            sql = """  SELECT   corp_id, 
+                                             cmp_id, 
+                                             target, 
+                                             original_target, 
+                                             ROUND (AVG (ic50_um), 5) activity_val, 
+                                             ROUND ( (1 / AVG (ic50_um)), 2) chart_val 
+                          FROM   (SELECT  s.corp_id,  
+                                        s.cmp_id,  
+                                        (SELECT         case when (select display_name FROM mar_enzyme_alias_vw WHERE prot_name = s.enzyme_type) is null then s.enzyme_type 
+                                                     else (select display_name FROM mar_enzyme_alias_vw WHERE prot_name = s.enzyme_type) 
+                                                end from dual 
+                                        ) target,  
+                                        s.enzyme original_target,  
+                                        s.ic50_um 
+                                       FROM        cousin.spa_ic50_vw s 
+                                       WHERE       s.corp_id = '""" + corpid +  """'
+                                    AND ic50_um IS NOT NULL AND PCT_DMSO_FST_DILUTION = '100' ) t 
+                    GROUP BY   corp_id, cmp_id, target, original_target 
+                    ORDER BY   target """;
+                    
+            my_query = query_db(sql)
+            if  len(my_query) == 0:  
+                js=""
+                return js
+                        
+            return json.dumps(my_query, default=json_util.default)    
+        except:
+            raise
+
+    def get_mar(self, query):        
+        try:
+            
+            sql = """select str_id as "str_id",submitter as "username", corp_id as "corp_id", batch as "batch", to_char(SUBMISSION_DATE,'DD Mon YYYY') "submission_date"
+                from basic_batch_vw where """ + query;
+                    
+            my_query = query_db(sql)
+            if  len(my_query) == 0:  
+                js=""
+                return js
+                        
+            return json.dumps(my_query, default=json_util.default)    
+        except:
+            raise
+
+    def get_proliferation(self, corpid):        
+        try:
+            
+            sql = """  SELECT   corp_id, 
+                          cmp_id, 
+                          target, 
+                          original_target, 
+                          ROUND (AVG (ic50_um), 5) activity_val, 
+                          ROUND ( (1 / AVG (ic50_um)), 2) chart_val 
+                 FROM   (SELECT    s.corp_id,  
+                                s.cmp_id,  
+                                cousin.decode_target (s.cells_type, s.SOURCE) original_target,
+                                s.cells_type || ' - ' || s.SOURCE target,
+                                s.ic50_um 
+                         FROM    cousin.proliferation_ic50_vw s 
+                         WHERE    s.corp_id = '""" + corpid +  """'  
+                            AND ic50_um IS NOT NULL 
+                             AND assay_type = 'ATP'
+                             AND time_of_treatment = 72
+                             AND treatment_description IS NULL
+                                     ) t 
+            GROUP BY   corp_id, cmp_id, target, original_target 
+            ORDER BY   target  """;
+                    
+            my_query = query_db(sql)
+            if  len(my_query) == 0:  
+                js=""
+                return js
+                        
+            return json.dumps(my_query, default=json_util.default)    
+        except:
+            raise
+
     def get_moleculeImage(self, strId):
         try:     
             sql = "SELECT compound as \"compound\" FROM mar_compound_mol_t r WHERE str_id = " + strId 
             my_query = query_db(sql)
             return renderInd(my_query[0]['compound'], "mol")
+    
+        except:
+            raise   
+
+    def get_molecule(self, strId):
+        try:     
+            sql = "SELECT compound as \"compound\" FROM mar_compound_mol_t r WHERE str_id = " + strId 
+            my_query = query_db(sql)
+            return my_query[0]['compound']
     
         except:
             raise   
@@ -135,6 +224,78 @@ class ChemLinkD(object):
     
         except:
             raise   
+
+    def get_corpidFromBatch(self, batch):
+        try:     
+            sql = "SELECT corp_id as \"corpid\" FROM basic_batch_vw r WHERE batch = '" + batch + "'"
+            my_query = query_db(sql)
+#            print my_query
+            return json.dumps(my_query) 
+    
+        except:
+            raise   
+
+    def match_molecule(self, mol):
+        try:
+            print mol
+            print type(mol)
+#            print rxn['compound']
+            if type(mol) is dict: 
+                compound = mol['compound'];
+                c = mol['cns'];
+                o = mol['searchType'];   
+            else:
+                dict1 = json.loads(mol)
+                compound = dict1['compound'];
+                c = dict1['cns'];
+                o = dict1['searchType'];   
+                
+            sql ="""SELECT  B.STR_ID,
+                            CSA1.CORP_ID,
+                            batch,
+                            DECODE ( (SELECT     source_type
+                                        FROM     mar_corp_submitter_t
+                                      WHERE     cmplot_id = cl1.cmplot_id),
+                                  12, (SELECT     p.lastname || ' ' || p.firstname
+                                            FROM     mar_people_t p
+                                          WHERE     p.emp_id = (SELECT     source_id
+                                                                        FROM     mar_corp_submitter_t
+                                                                      WHERE     cmplot_id = cl1.cmplot_id)),
+                                  (SELECT    c.company_name
+                                      FROM    mar_company_t c
+                                     WHERE    c.company_id = (SELECT     source_id
+                                                                        FROM     mar_corp_submitter_t
+                                                                      WHERE     cmplot_id = cl1.cmplot_id))
+                                 )
+                            username,
+                            to_char(CL1.SUBMISSION_DATE,'DD Mon YYYY') SUBMISSION_DATE
+                      FROM    mar_compound_bingo_t b, mar_corp_str_assoc_t csa1, mar_corp_lot_t cl1
+                    WHERE B.STR_ID=CSA1.STR_ID  
+                        and cl1.cmp_ID=CSA1.cmp_ID  
+                """
+            
+            if o == 'SSS':            
+                sql = sql + " and bingo.sub (compound, '" + compound + "') = 1 order by 1"
+            elif o =='text':
+                sql = "select " 
+            elif o =='fulltext':
+                sql = "select " 
+            else:
+                sql = sql 
+            
+            my_query = query_db(sql)
+            print my_query
+            x = []
+            for row in my_query:                
+                x.append(dict((k.lower(), v) for k, v in row.iteritems())) 
+
+            if  len(x) > 0:            
+                json_output = json.dumps(x)
+                return json_output
+            else:
+                return '{"ret": "0", "isLazy": true }'    
+        except: 
+            raise
 
 class TornadoSelect(object):
     def __init__(self):
@@ -216,6 +377,35 @@ class TornadoSelect(object):
                     
         return inchi
 
+    def get_attachment(self, attacKey):
+        try:     
+            sql="""select  ORIGINAL_FILE_NAME from CEN_ATTACHEMENTS 
+            where ATTACHEMENT_KEY = '""" + attacKey + """'"""
+                                                    
+            my_query = query_db(sql)
+            json_output = json.dumps(my_query)            
+            return json_output
+    
+        except:
+            raise
+
+    def get_attachments(self, notebook, page):
+        try:     
+            sql="""select  ATTACHEMENT_KEY, 
+            PAGE_KEY, 
+            DOCUMENT_NAME, 
+            DOCUMENT_DESCRIPTION, 
+            ORIGINAL_FILE_NAME 
+            from CEN_ATTACHEMENTS where page_key = 
+            (select page_key from cen_pages where notebook ='""" + notebook + """' and experiment  ='""" + page + """')"""
+                                                    
+            my_query = query_db(sql)
+            json_output = json.dumps(my_query)            
+            return json_output
+    
+        except:
+            raise
+
     def get_experiment(self, notebook, page, enumVal):
         try: 
             if enumVal=="undefined":
@@ -259,7 +449,7 @@ class TornadoSelect(object):
     def get_fullname(self):        
         try:
             sql = "select fullname from CEN_USERS where site_code = 'SITE1' order by username"          
-            my_query = query_db(sql)
+            my_query = query_db(sql) 
             json_output = json.dumps(my_query)
             js ="["
             for s in my_query:
@@ -422,7 +612,7 @@ class TornadoSelect(object):
             if enumVal == "undefined":            
                 sql = "select * from batch_lev3_vw where notebook ='" + notebook + \
                 "' and experiment  = '" + page + \
-                "' and batch_type in ('SOLVENT' , 'REAGENT', 'REACTANT') and SYNTH_ROUTE_REF = ''"  
+                "' and batch_type in ('SOLVENT' , 'REAGENT', 'REACTANT') and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)"  
             else:
                 sql = "select * from batch_vw where notebook ='" + notebook + \
                 "' and experiment  = '" + page + \
@@ -578,7 +768,7 @@ class TornadoSelect(object):
         try:
             if enumVal == "undefined":            
                 sql = "select * from batch_lev3_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
-                "' and batch_type in ('PRODUCT' ,'INTENDED' , 'ACTUAL') and SYNTH_ROUTE_REF = ''"  
+                "' and batch_type in ('PRODUCT' ,'INTENDED' , 'ACTUAL') and (SYNTH_ROUTE_REF = '' or SYNTH_ROUTE_REF is null)"  
             else:
                 sql = "select * from batch_vw where notebook ='" + notebook + "' and experiment  = '" + page + \
                 "' and batch_type in ('PRODUCT' ,'INTENDED' , 'ACTUAL') and SYNTH_ROUTE_REF =" + enumVal
@@ -603,6 +793,19 @@ class TornadoSelect(object):
             r=requests.get(url)
             value = ET.fromstring(r.text.replace("<br>", "")).find('TemporaryFile')
             return value.text
+    
+        except:
+            raise   
+
+    def get_chemspiderId(self, inchi):
+        try:     
+            url="http://www.chemspider.com/InChI.asmx/InChIToCSID?inchi=" + inchi
+#            print url       
+            r=requests.get(url)
+            #print r.text
+            root = ET.fromstring(r.text)
+            value = r.text.replace('<?xml version="1.0" encoding="utf-8"?>', '').replace('<string xmlns="http://www.chemspider.com/">', '').replace('</string>', '').replace("\n", "")
+            return value
     
         except:
             raise   
@@ -666,7 +869,7 @@ class TornadoSelect(object):
                  "      (SELECT experiment FROM cen_pages WHERE page_key = r.page_key) AS page," + \
                  "      (SELECT to_char(creation_date, 'DD Mon YYYY HH12:MI:SS') FROM cen_pages WHERE page_key = r.page_key) AS creation_date," + \
                  "      (SELECT subject FROM cen_pages WHERE page_key = r.page_key) AS subject" + \
-                 "      from  cen_pages r where r.page_key in (SELECT p.page_key FROM cen_pages p WHERE upper(p.notebook) LIKE upper('%%" + compound + "%%') or upper(p.username) LIKE upper('%%" + compound + "%%') union SELECT p.page_key FROM cen_pages p WHERE p.username in (select p.username FROM cen_users p WHERE upper(p.username) LIKE upper('%%" + compound + "%%') or upper(p.fullname) LIKE upper('%%" + compound + "%%')) order by 1,2,3)  order by 2,3,4"                    
+                 "      from  cen_pages r where r.page_key in (SELECT p.page_key FROM cen_pages p WHERE upper(p.notebook) LIKE upper('%%" + compound + "%%') or upper(p.username) LIKE upper('%%" + compound + "%%') union SELECT p.page_key FROM cen_pages p WHERE p.username in (select p.username FROM cen_users p WHERE upper(p.username) LIKE upper('%%" + compound + "%%') or upper(p.fullname) LIKE upper('%%" + compound + "%%')))  order by 2,3,4"                    
             else:
                 sql = sql + " from cen_reaction_schemes r where native_rxn_sketch  @ ('" + compound + "', '')::bingo.rexact"
             my_query = query_db(sql)
