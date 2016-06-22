@@ -11,6 +11,9 @@ else if (server.indexOf("http://127.0.0.1") >= 0 ){		//sviluppo da nms
 else if (server == "http://10.206.84.170"){		//sviluppo da nms
 	server = "http://10.206.84.170:8080"
 }
+else if (server == "http://10.206.89.120"){		//sviluppo da chemolinux
+	server = "http://10.206.89.120:8080"
+}
 else if (server == "http://localhost"){			//sviluppo da casa
 	server = "http://localhost:8080"
 }

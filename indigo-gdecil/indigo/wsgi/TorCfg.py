@@ -3,11 +3,12 @@ import cx_Oracle
 import threading, Queue
 global conn
 global db
+db = "ora"
 db = "postgres"
 db = "ora"
 if db == "ora":
     print "sono Oracle"
-    connstr='mar/nervi@10.206.81.35:2483/nmsdd'
+    connstr='mar/nervi@10.206.81.224:2483/nmsdd'
     print connstr
     #/etc/tnsnames.ora
     connstr='CEN_DEV_OWNER/CEN_DEV_OWNER@chembook'
